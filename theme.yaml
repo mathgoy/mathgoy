@@ -1,0 +1,80 @@
+Soft UI:
+#  card-mod-theme: Soft UI
+#  card-mod-card: |
+#    ha-card {
+#      margin: 20px;
+#      border-radius: 15px;
+#    }
+  card-mod-theme: Soft UI # Change to your theme name
+  card-mod-card: |
+    ha-card.soft-ui {
+      border-style: none
+      background-color: var(--primary-background-color);
+      box-shadow: var(--my-card-shadow);
+    }
+  # This is needed for the "pressed" buttons
+
+
+  app-header-background-color: var(--primary-background-color)
+  app-header-text-color: var(--primary-text-color)
+  app-header-selection-bar-color: var(--primary-color)
+  
+  accent-color: var(--primary-color)
+  divider-color: var(--secondary-text-color)
+  ha-card-background: var(--primary-background-color)
+  card-background-color: var(--primary-background-color)
+  lovelace-background: var(--primary-background-color)
+  paper-item-icon-color: var(--secondary-text-color)
+
+
+  modes:
+    dark:
+
+      primary-color: rgb(138, 180, 248)
+      primary-background-color: rgb(30, 30, 30)
+      secondary-background-color: rgb(32, 33, 36)
+      accent-color: var(--primary-color)
+#      ha-card-box-shadow: "-8px -8px 20px #2c2c2c, 8px 8px 20px #191919"
+      soft-ui-pressed: "inset -40px -40px 50px #2c2c2c, inset 40px 40px 50px #191919"
+      my-red: "230, 57, 70"
+      my-white: "253, 253, 253"
+      my-cyan: "168, 218, 220"
+      my-blue: "69, 123, 157"
+      my-purple: "162, 114, 175"
+      my-green: "68, 175, 105"
+      my-orange: "251, 161, 0"
+      my-grey: "220,220,220"
+      my-grey2: "75,75,75"
+      my-shadow: "220,220,220"
+      my-box-shadow: "rgba(227, 227, 227, 0.05) 0px 30px 60px -12px inset, rgba(255, 255, 255, 0.3) 0px 18px 36px -18px inset"
+      my-card-shadow: "rgba(30, 196, 229, 0.25) 0px 13px 27px -5px, rgba(212, 244, 250, 0.3) 0px 8px 16px -8px"
+      my-header: "rgba(60,60,60,0.85)"
+      my-footer: "rgba(60,60,60,0.85)"
+      lovelace-background: 'center / cover no-repeat url("/local/background/dark.jpg") fixed'
+
+
+
+    light:
+      primary-color: rgb(var(--my-blue))
+      light-primary-color: rgb(var(--my-blue))
+      primary-background-color: "#F3F5F7"
+      primary-text-color: "#222222"
+      soft-ui-pressed: 'inset -4px -4px 5px #ffffff, inset 4px 4px 5px #ebebeb'
+      my-red: "230, 57, 70"
+      my-white: "253, 253, 253"
+      my-cyan: "168, 218, 220"
+      my-blue: "69, 123, 157"
+      my-purple: "68, 56, 80"
+      my-green: "68, 175, 105"
+      my-orange: "251, 161, 0"
+      my-grey2: "220,220,220"
+      my-grey: "75,75,75"
+      my-shadow: "220,220,220"
+      my-box-shadow: "rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset"
+      my-card-shadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px"
+      my-header: "rgba(225,225,225,0.85)"
+      my-footer: "rgba(225,225,225,0.85)"
+      #browser_mod.popup
+      dialog-backdrop-filter: blur(1em) brightness(0.75)
+      popup-background-color: var(--primary-background-color)
+      popup-border-radius: 1em
