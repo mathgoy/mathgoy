@@ -307,9 +307,14 @@ sidebar:
       name: Pièces
       navigation_path: /dashboard-cuisine/voitures
       icon: mdi:floor-plan
+    - action: navigate
+      active: false
+      name: Gomflix
+      navigation_path: /dashboard-cuisine/gomflix
+      icon: mdi:netflix
   template: |
     <li>
-      {% if is_state('binary_sensor.lave_linge_wash_completed', 'on') %}{{'\U0001f9fa'}} Lave-Linge terminé {% endif %}
+      {% if is_state('input_boolean.lavelingefini', 'on') %}{{'\U0001f9fa'}} Lave-Linge terminé {% endif %}
     </li> 
     <li>
       {% if states('sensor.lave_linge_remaining_time') != '0:00:00' %} {{'\U0001f9fa'}} {{ states('sensor.lave_linge_remaining_time')}} restant {% endif %}
@@ -348,8 +353,7 @@ sidebar:
                   state_not: '0'
               card:
                 type: custom:mushroom-template-card
-                primary: '{{states(''sensor.eau_douche1'')}}'
-                secondary: L
+                primary: '{{states(''sensor.eau_douche1'')}}L'
                 tap_action:
                   action: none
                 icon: mdi:shower-head
@@ -372,8 +376,9 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: transparent;
-                    border: transparent;
+                    background-color: none;
+                    border: none;
+                    margin-bottom: -25px !important;
                       --primary-text-color: rgb(var(--my-grey));
             - type: conditional
               conditions:
@@ -381,8 +386,7 @@ sidebar:
                   state_not: '0'
               card:
                 type: custom:mushroom-template-card
-                primary: '{{states(''sensor.eau_douche2'')}}'
-                secondary: L
+                primary: '{{states(''sensor.eau_douche2'')}}L'
                 tap_action:
                   action: none
                 icon: mdi:shower-head
@@ -405,8 +409,9 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: transparent;
-                    border: transparent;
+                    background-color: none;
+                    border: none;
+                    margin-bottom: -25px !important;
                       --primary-text-color: rgb(var(--my-grey));
             - type: conditional
               conditions:
@@ -414,8 +419,7 @@ sidebar:
                   state_not: '0'
               card:
                 type: custom:mushroom-template-card
-                primary: '{{states(''sensor.eau_douche3'')}}'
-                secondary: L
+                primary: '{{states(''sensor.eau_douche3'')}}L'
                 tap_action:
                   action: none
                 icon: mdi:shower-head
@@ -438,9 +442,9 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: transparent;
-                    border: transparent;
-
+                    background-color: none;
+                    border: none;
+                    margin-bottom: -25px !important;
                       --primary-text-color: rgb(var(--my-grey));
             - type: conditional
               conditions:
@@ -448,8 +452,7 @@ sidebar:
                   state_not: '0'
               card:
                 type: custom:mushroom-template-card
-                primary: '{{states(''sensor.eau_douche4'')}}'
-                secondary: L
+                primary: '{{states(''sensor.eau_douche4'')}}L'
                 tap_action:
                   action: none
                 icon: mdi:shower-head
@@ -472,9 +475,9 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: transparent;
-                    border: transparent;
-
+                    background-color: none;
+                    border: none;
+                    margin-bottom: -25px !important;
                       --primary-text-color: rgb(var(--my-grey));
         - type: entities
           entities:
@@ -528,8 +531,10 @@ sidebar:
               card_mod:
                 style: |
                   ha-card {
-                  background-color: transparent;
-                  border: transparent;
+                  background-color: none;
+                  border: none;
+                  margin-top: -15px !important;
+                  margin-bottom: -20px !important;
                     --primary-text-color: rgb(var(--my-grey));
             - type: conditional
               conditions:
@@ -543,13 +548,15 @@ sidebar:
                   action: none
                 icon: mdi:sync
                 icon_color: orange
-                multiline_secondary: true
                 layout: vertical
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: transparent;
-                    border: transparent;
+                    background-color: none;
+                    border: none;
+                    margin-top: -15px !important;
+                    margin-bottom: -20px !important;
+                      --primary-text-color: rgb(var(--my-grey));
             - type: conditional
               conditions:
                 - entity: switch.groupesechesserviettes
@@ -575,8 +582,11 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: transparent;
-                    border: transparent;
+                    background-color: none;
+                    border: none;
+                    margin-top: -15px !important;
+                    margin-bottom: -20px !important;
+                      --primary-text-color: rgb(var(--my-grey));
                 tap_action:
                   action: none
         - type: entities
@@ -636,6 +646,8 @@ sidebar:
                 style: |
                   ha-card {
                   background-color: transparent;
+                  margin-top: -10px !important;
+                  margin-bottom: -20px !important;
                   border: transparent;
                     --primary-text-color: rgb(grey);
             - type: custom:mushroom-template-card
@@ -683,13 +695,15 @@ sidebar:
                 {% if is_state('binary_sensor.charging', 'on') %}
                  orange
                 {% endif %}
-              card_mod: null
               layout: vertical
-              style: |
-                ha-card {
-                background-color: transparent;
-                border: transparent;
-                  --primary-text-color: rgb(grey);
+              card_mod:
+                style: |
+                  ha-card {
+                  background-color: transparent;
+                  margin-top: -10px !important;
+                  margin-bottom: -20px !important;                 
+                  border: transparent;
+                    --primary-text-color: rgb(grey);
         - type: entities
           entities:
             - type: divider
@@ -867,12 +881,13 @@ views:
     theme: Soft UI
     type: custom:grid-layout
     layout:
-      grid-template-columns: 20px 550px 55px 500px 55px 550px 20px
-      grid-template-rows: 50px auto 100px
+      grid-template-columns: 20px 550px 55px 480px 55px 550px 20px
+      grid-template-rows: 50px auto 50px
       gap: 0px 0px;
       grid-auto-flow: row
       grid-template-areas: |
         ". . . . . . ." ". cg . cm . cd ."  ". . . . . . ."
+    icon: mdi:home
     badges: []
     cards:
       - type: grid
@@ -2052,7 +2067,7 @@ views:
                                   name: 'off'
                                   styles:
                                     icon:
-                                      - color: rgb(var(--my-grey))
+                                      - color: rgb(var(--my-grey),0.8)
                                   tap_action:
                                     action: call-service
                                     service: input_number.set_value
@@ -2082,7 +2097,7 @@ views:
                                   template: light
                                   styles:
                                     icon:
-                                      - color: rgb(var(--my-grey))
+                                      - color: rgb(var(--my-grey),0.8)
                                   tap_action:
                                     action: call-service
                                     service: input_number.set_value
@@ -2112,7 +2127,7 @@ views:
                                   template: light
                                   styles:
                                     icon:
-                                      - color: rgb(var(--my-grey))
+                                      - color: rgb(var(--my-grey),0.8)y-grey))
                                   tap_action:
                                     action: call-service
                                     service: input_number.set_value
@@ -2142,7 +2157,7 @@ views:
                                   template: light
                                   styles:
                                     icon:
-                                      - color: rgb(var(--my-grey))
+                                      - color: rgb(var(--my-grey),0.8)
                                   tap_action:
                                     action: call-service
                                     service: input_number.set_value
@@ -2396,8 +2411,6 @@ views:
           entities:
             - calendar.rte_tempo_calendrier
           theme: Soft UI
-        view_layout:
-          grid-area: cc
       - type: custom:popup-card
         entity: group.touteslumieres
         title: l u m i è r e s
@@ -3338,266 +3351,856 @@ views:
                 camera_image: camera.roborock_s7_map
                 aspect_ratio: '0.5'
                 title: c a r t e
+        view_layout:
+          grid-area: heure
   - title: cctv
     path: cctv
     icon: mdi:cctv
     type: custom:grid-layout
     layout:
-      grid-template-columns: 33% 33% 33%
-      grid-template-rows: 360px 360px 360px
-      gap: 0px 0px;
+      grid-template-columns: 80px 480px 55px 480px 55px 480px 20px
+      grid-template-rows: 10px 360px 360px 360px
       grid-auto-flow: row
       grid-template-areas: |
-        "c1 c2 c3"
-        "c4 c5 c6"
-        "c7 c8 c8"
+        " . . . . . . . "
+        " . c1 . c2 . c3 . "
+        " . c4 . c5 . c6 . "
+        " . c7 . c8 c8 c8 . "
     badges: []
     cards:
-      - type: custom:frigate-card
-        cameras:
-          - camera_entity: camera.08_derriere
-            live_provider: go2rtc
-        view:
-          default: live
-        live:
-          preload: true
-        dimensions:
-          aspect_ratio_mode: unconstrained
-          max_height: 340px
-        menu:
-          style: overlay
+      - type: custom:button-card
+        template: frame
+        padding-bottom: 1px
+        custom_fields:
           buttons:
-            frigate:
-              enabled: false
-            cameras:
-              enabled: false
-            substreams:
-              enabled: false
-            download:
-              enabled: false
-            media_player:
-              enabled: false
-          position: left
-        media_gallery:
-          controls:
-            thumbnails:
-              size: 120
-        view_layout:
-          grid-area: c8
-      - type: custom:frigate-card
-        cameras:
-          - camera_entity: camera.01_descente
-            live_provider: go2rtc
-        view:
-          default: live
-        live:
-          preload: true
-        dimensions:
-          aspect_ratio_mode: unconstrained
-          max_height: 340px
-        menu:
-          style: overlay
-          buttons:
-            frigate:
-              enabled: false
-            cameras:
-              enabled: false
-            substreams:
-              enabled: false
-            download:
-              enabled: false
-            media_player:
-              enabled: false
-          position: left
-        media_gallery:
-          controls:
-            thumbnails:
-              size: 120
+            card:
+              type: custom:frigate-card
+              cameras:
+                - camera_entity: camera.01_descente
+              dimensions: {}
+              live_provider: ha
+              live:
+                preload: true
+              view:
+                default: live
+              menu:
+                style: overlay
+                position: left
+                buttons:
+                  frigate:
+                    enabled: false
+                  cameras:
+                    enabled: false
+                  substreams:
+                    enabled: false
+                  download:
+                    enabled: false
+                  camera_ui:
+                    enabled: false
+                  timeline:
+                    enabled: false
+                  media_player:
+                    enabled: false
+              timeline:
+                show_recordings: false
+              media_gallery:
+                controls:
+                  thumbnails:
+                    size: 100
+                  filter:
+                    mode: none
+              performance:
+                features:
+                  animated_progress_indicator: false
+        card_mod:
+          class: soft-ui
+          style: |
+            ha-card {
+              --primary-text-color: rgb(var(--my-grey));   
+            }
         view_layout:
           grid-area: c1
-      - type: custom:frigate-card
-        cameras:
-          - camera_entity: camera.02_entree
-            live_provider: go2rtc
-        view:
-          default: live
-        live:
-          preload: true
-        dimensions:
-          aspect_ratio_mode: unconstrained
-          max_height: 340px
-        menu:
-          style: overlay
+      - type: custom:button-card
+        template: frame
+        padding-bottom: 1px
+        custom_fields:
           buttons:
-            frigate:
-              enabled: false
-            cameras:
-              enabled: false
-            substreams:
-              enabled: false
-            download:
-              enabled: false
-            media_player:
-              enabled: false
-          position: left
-        media_gallery:
-          controls:
-            thumbnails:
-              size: 120
+            card:
+              type: custom:frigate-card
+              cameras:
+                - camera_entity: camera.02_entree
+              dimensions: {}
+              live_provider: ha
+              live:
+                preload: true
+              view:
+                default: live
+              menu:
+                style: overlay
+                position: left
+                buttons:
+                  frigate:
+                    enabled: false
+                  cameras:
+                    enabled: false
+                  substreams:
+                    enabled: false
+                  download:
+                    enabled: false
+                  camera_ui:
+                    enabled: false
+                  timeline:
+                    enabled: false
+                  media_player:
+                    enabled: false
+              timeline:
+                show_recordings: false
+              media_gallery:
+                controls:
+                  thumbnails:
+                    size: 100
+                  filter:
+                    mode: none
+              performance:
+                features:
+                  animated_progress_indicator: false
+        card_mod:
+          class: soft-ui
+          style: |
+            ha-card {
+              --primary-text-color: rgb(var(--my-grey));   
+            }
         view_layout:
           grid-area: c2
-      - type: custom:frigate-card
-        cameras:
-          - camera_entity: camera.03_terrasse
-            live_provider: go2rtc
-        view:
-          default: live
-        live:
-          preload: true
-        dimensions:
-          aspect_ratio_mode: unconstrained
-          max_height: 340px
-        menu:
-          style: overlay
+      - type: custom:button-card
+        template: frame
+        padding-bottom: 1px
+        custom_fields:
           buttons:
-            frigate:
-              enabled: false
-            cameras:
-              enabled: false
-            substreams:
-              enabled: false
-            download:
-              enabled: false
-            media_player:
-              enabled: false
-          position: left
-        media_gallery:
-          controls:
-            thumbnails:
-              size: 120
+            card:
+              type: custom:frigate-card
+              cameras:
+                - camera_entity: camera.03_terrasse
+              dimensions: {}
+              live_provider: ha
+              live:
+                preload: true
+              view:
+                default: live
+              menu:
+                style: overlay
+                position: left
+                buttons:
+                  frigate:
+                    enabled: false
+                  cameras:
+                    enabled: false
+                  substreams:
+                    enabled: false
+                  download:
+                    enabled: false
+                  camera_ui:
+                    enabled: false
+                  timeline:
+                    enabled: false
+                  media_player:
+                    enabled: false
+              timeline:
+                show_recordings: false
+              media_gallery:
+                controls:
+                  thumbnails:
+                    size: 100
+                  filter:
+                    mode: none
+              performance:
+                features:
+                  animated_progress_indicator: false
+        card_mod:
+          class: soft-ui
+          style: |
+            ha-card {
+              --primary-text-color: rgb(var(--my-grey));   
+            }
         view_layout:
           grid-area: c3
-      - type: custom:frigate-card
-        cameras:
-          - camera_entity: camera.04_soussol
-            live_provider: go2rtc
-        view:
-          default: live
-        live:
-          preload: true
-        dimensions:
-          aspect_ratio_mode: unconstrained
-          max_height: 340px
-        menu:
-          style: overlay
+      - type: custom:button-card
+        template: frame
+        padding-bottom: 1px
+        custom_fields:
           buttons:
-            frigate:
-              enabled: false
-            cameras:
-              enabled: false
-            substreams:
-              enabled: false
-            download:
-              enabled: false
-            media_player:
-              enabled: false
-          position: left
-        media_gallery:
-          controls:
-            thumbnails:
-              size: 120
+            card:
+              type: custom:frigate-card
+              cameras:
+                - camera_entity: camera.04_soussol
+              dimensions: {}
+              live_provider: ha
+              live:
+                preload: true
+              view:
+                default: live
+              menu:
+                style: overlay
+                position: left
+                buttons:
+                  frigate:
+                    enabled: false
+                  cameras:
+                    enabled: false
+                  substreams:
+                    enabled: false
+                  download:
+                    enabled: false
+                  camera_ui:
+                    enabled: false
+                  timeline:
+                    enabled: false
+                  media_player:
+                    enabled: false
+              timeline:
+                show_recordings: false
+              media_gallery:
+                controls:
+                  thumbnails:
+                    size: 100
+                  filter:
+                    mode: none
+              performance:
+                features:
+                  animated_progress_indicator: false
+        card_mod:
+          class: soft-ui
+          style: |
+            ha-card {
+              --primary-text-color: rgb(var(--my-grey));  
+              margin-top: 10px !important;
+            }
         view_layout:
           grid-area: c4
-      - type: custom:frigate-card
-        cameras:
-          - camera_entity: camera.06_etage
-            live_provider: go2rtc
-        view:
-          default: live
-        live:
-          preload: true
-        dimensions:
-          aspect_ratio_mode: unconstrained
-          max_height: 340px
-        menu:
-          style: overlay
+      - type: custom:button-card
+        template: frame
+        padding-bottom: 1px
+        custom_fields:
           buttons:
-            frigate:
-              enabled: false
-            cameras:
-              enabled: false
-            substreams:
-              enabled: false
-            download:
-              enabled: false
-            media_player:
-              enabled: false
-          position: left
-        media_gallery:
-          controls:
-            thumbnails:
-              size: 120
+            card:
+              type: custom:frigate-card
+              cameras:
+                - camera_entity: camera.05_sejour
+              dimensions: {}
+              live_provider: ha
+              live:
+                preload: true
+              view:
+                default: live
+              menu:
+                style: overlay
+                position: left
+                buttons:
+                  frigate:
+                    enabled: false
+                  cameras:
+                    enabled: false
+                  substreams:
+                    enabled: false
+                  download:
+                    enabled: false
+                  camera_ui:
+                    enabled: false
+                  timeline:
+                    enabled: false
+                  media_player:
+                    enabled: false
+              timeline:
+                show_recordings: false
+              media_gallery:
+                controls:
+                  thumbnails:
+                    size: 100
+                  filter:
+                    mode: none
+              performance:
+                features:
+                  animated_progress_indicator: false
+        card_mod:
+          class: soft-ui
+          style: |
+            ha-card {
+              --primary-text-color: rgb(var(--my-grey));  
+              margin-top: 10px !important;
+            }
         view_layout:
           grid-area: c5
-      - type: custom:frigate-card
-        cameras:
-          - camera_entity: camera.05_sejour
-            live_provider: go2rtc
-        view:
-          default: live
-        live:
-          preload: true
-        dimensions:
-          aspect_ratio_mode: unconstrained
-          max_height: 340px
-        menu:
-          style: overlay
+      - type: custom:button-card
+        template: frame
+        padding-bottom: 1px
+        custom_fields:
           buttons:
-            frigate:
-              enabled: false
-            cameras:
-              enabled: false
-            substreams:
-              enabled: false
-            download:
-              enabled: false
-            media_player:
-              enabled: false
-          position: left
-        media_gallery:
-          controls:
-            thumbnails:
-              size: 120
+            card:
+              type: custom:frigate-card
+              cameras:
+                - camera_entity: camera.06_etage
+              dimensions: {}
+              live_provider: ha
+              live:
+                preload: true
+              view:
+                default: live
+              menu:
+                style: overlay
+                position: left
+                buttons:
+                  frigate:
+                    enabled: false
+                  cameras:
+                    enabled: false
+                  substreams:
+                    enabled: false
+                  download:
+                    enabled: false
+                  camera_ui:
+                    enabled: false
+                  timeline:
+                    enabled: false
+                  media_player:
+                    enabled: false
+              timeline:
+                show_recordings: false
+              media_gallery:
+                controls:
+                  thumbnails:
+                    size: 100
+                  filter:
+                    mode: none
+              performance:
+                features:
+                  animated_progress_indicator: false
+        card_mod:
+          class: soft-ui
+          style: |
+            ha-card {
+              --primary-text-color: rgb(var(--my-grey));  
+              margin-top: 10px !important;
+            }
         view_layout:
           grid-area: c6
-      - type: custom:frigate-card
-        cameras:
-          - camera_entity: camera.07_jardin
-            live_provider: go2rtc
-        view:
-          default: live
-        live:
-          preload: true
-        dimensions:
-          aspect_ratio_mode: unconstrained
-          max_height: 340px
-        menu:
-          style: overlay
+      - type: custom:button-card
+        template: frame
+        padding-bottom: 1px
+        custom_fields:
           buttons:
-            frigate:
-              enabled: false
-            cameras:
-              enabled: false
-            substreams:
-              enabled: false
-            download:
-              enabled: false
-            media_player:
-              enabled: false
-          position: left
-        media_gallery:
-          controls:
-            thumbnails:
-              size: 120
+            card:
+              type: custom:frigate-card
+              cameras:
+                - camera_entity: camera.07_jardin
+              dimensions: {}
+              live_provider: ha
+              live:
+                preload: true
+              view:
+                default: live
+              menu:
+                style: overlay
+                position: left
+                buttons:
+                  frigate:
+                    enabled: false
+                  cameras:
+                    enabled: false
+                  substreams:
+                    enabled: false
+                  download:
+                    enabled: false
+                  camera_ui:
+                    enabled: false
+                  timeline:
+                    enabled: false
+                  media_player:
+                    enabled: false
+              timeline:
+                show_recordings: false
+              media_gallery:
+                controls:
+                  thumbnails:
+                    size: 100
+                  filter:
+                    mode: none
+              performance:
+                features:
+                  animated_progress_indicator: false
+        card_mod:
+          class: soft-ui
+          style: |
+            ha-card {
+              --primary-text-color: rgb(var(--my-grey));  
+              margin-top: 15px !important;
+            }
         view_layout:
           grid-area: c7
+      - type: custom:button-card
+        template: frame
+        padding-bottom: 1px
+        custom_fields:
+          buttons:
+            card:
+              type: custom:frigate-card
+              cameras:
+                - camera_entity: camera.08_derriere
+              dimensions:
+                max_height: 340px
+              live_provider: ha
+              live:
+                preload: true
+              view:
+                default: live
+              menu:
+                style: overlay
+                position: left
+                buttons:
+                  frigate:
+                    enabled: false
+                  cameras:
+                    enabled: false
+                  substreams:
+                    enabled: false
+                  download:
+                    enabled: false
+                  camera_ui:
+                    enabled: false
+                  timeline:
+                    enabled: false
+                  media_player:
+                    enabled: false
+              timeline:
+                show_recordings: false
+              media_gallery:
+                controls:
+                  thumbnails:
+                    size: 100
+                  filter:
+                    mode: none
+              performance:
+                features:
+                  animated_progress_indicator: false
+        card_mod:
+          class: soft-ui
+          style: |
+            ha-card {
+              --primary-text-color: rgb(var(--my-grey));  
+              margin-top: 15px !important;
+            }
+        view_layout:
+          grid-area: c8
+  - title: gomflix
+    path: gomflix
+    icon: mdi:multimedia
+    theme: Soft UI
+    type: panel
+    badges: []
+    cards:
+      - type: iframe
+        url: http://10.10.0.2:8096/web/index.html#!/home.html
+        aspect_ratio: 100%
+  - title: consos
+    path: consos
+    icon: mdi:chart-areaspline
+    type: sidebar
+    badges: []
+    cards:
+      - type: custom:button-card
+        template: frame
+        padding-bottom: 1px
+        custom_fields:
+          buttons:
+            card:
+              type: custom:layout-card
+              layout_type: custom:grid-layout
+              layout:
+                grid-template-columns: 0.5fr 3fr 0.5fr
+                grid-template-rows: 0.8fr 1fr
+                grid-auto-flow: row
+                grid-template-areas: |
+
+                  "jokerg menu jokerd"
+                  "heure notifs grille"
+              cards:
+                - type: custom:digital-clock
+                  card_mod:
+                    style: |
+                      ha-card {
+                        background-color: transparent;
+                        border: transparent;
+                - square: false
+                  type: grid
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: home
+                      secondary: ''
+                      icon: mdi:home
+                      layout: vertical
+                      icon_color: green
+                      card_mod:
+                        class: soft-ui
+                        style: |
+                          ha-card {
+                            --primary-text-color: rgb(var(--my-grey));   
+                          }
+                    - type: custom:mushroom-template-card
+                      primary: cctv
+                      secondary: ''
+                      icon: mdi:cctv
+                      layout: vertical
+                      icon_color: purple
+                      card_mod:
+                        class: soft-ui
+                        style: |
+                          ha-card {
+                            --primary-text-color: rgb(var(--my-grey));   
+                          }
+                    - type: custom:mushroom-template-card
+                      primary: volets
+                      secondary: ''
+                      icon: mdi:window-shutter
+                      layout: vertical
+                      icon_color: blue
+                      card_mod:
+                        class: soft-ui
+                        style: |
+                          ha-card {
+                            --primary-text-color: rgb(var(--my-grey));   
+                          }
+                    - type: custom:mushroom-template-card
+                      primary: audio
+                      secondary: ''
+                      icon: mdi:music
+                      layout: vertical
+                      icon_color: orange
+                      card_mod:
+                        class: soft-ui
+                        style: |
+                          ha-card {
+                            --primary-text-color: rgb(var(--my-grey));   
+                          }              
+                    - type: custom:mushroom-template-card
+                      primary: consos
+                      secondary: ''
+                      icon: mdi:chart-areaspline
+                      layout: vertical
+                      icon_color: red
+                      card_mod:
+                        class: soft-ui
+                        style: |
+                          ha-card {
+                            --primary-text-color: rgb(var(--my-grey));   
+                          }             
+                  columns: 5
+                  view_layout:
+                    grid-area: menu
+                - type: markdown
+                  content: Notifs ici!
+                  view_layout:
+                    grid-area: notifs
+                - square: false
+                  type: grid
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: portail
+                      secondary: ''
+                      icon: mdi:gate
+                      layout: vertical
+                      icon_color: green
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background-color: transparent;
+                            border: transparent;
+                    - type: custom:mushroom-template-card
+                      primary: ouvrants
+                      secondary: ''
+                      icon: mdi:window-closed
+                      layout: vertical
+                      icon_color: green
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background-color: transparent;
+                            border: transparent;
+                    - type: custom:mushroom-template-card
+                      primary: Puissance
+                      secondary: ''
+                      icon: mdi:lightning-bolt
+                      layout: vertical
+                      icon_color: purple
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background-color: transparent;
+                            border: transparent;
+                    - type: custom:mushroom-template-card
+                      primary: eau
+                      secondary: ''
+                      icon: mdi:water
+                      layout: vertical
+                      icon_color: blue
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background-color: transparent;
+                            border: transparent;
+                  columns: 2
+                  view_layout:
+                    grid-area: grille
+                - square: false
+                  type: grid
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: portail
+                      secondary: ''
+                      icon: mdi:gate
+                      layout: vertical
+                      icon_color: green
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background-color: transparent;
+                            border: transparent;
+                    - type: custom:mushroom-template-card
+                      primary: ouvrants
+                      secondary: ''
+                      icon: mdi:window-closed
+                      layout: vertical
+                      icon_color: green
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background-color: transparent;
+                            border: transparent;
+                  columns: 2
+                  view_layout:
+                    grid-area: jokerd
+                - square: false
+                  type: grid
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: portail
+                      secondary: ''
+                      icon: mdi:gate
+                      layout: vertical
+                      icon_color: green
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background-color: transparent;
+                            border: transparent;
+                    - type: custom:mushroom-template-card
+                      primary: ouvrants
+                      secondary: ''
+                      icon: mdi:window-closed
+                      layout: vertical
+                      icon_color: green
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background-color: transparent;
+                            border: transparent;
+                  columns: 2
+                  view_layout:
+                    grid-area: jokerg
+        card_mod:
+          class: soft-ui
+          style: |
+            ha-card {
+              --primary-text-color: rgb(var(--my-grey));   
+            }
+      - type: custom:layout-card
+        layout_type: custom:grid-layout
+        layout:
+          grid-template-columns: 0.5fr 3fr 0.5fr
+          grid-template-rows: 0.8fr 1fr
+          grid-auto-flow: row
+          grid-template-areas: |
+
+            "jokerg menu jokerd"
+            "heure notifs grille"
+        cards:
+          - type: custom:digital-clock
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  border: transparent;
+          - square: false
+            type: grid
+            cards:
+              - type: custom:mushroom-template-card
+                primary: home
+                secondary: ''
+                icon: mdi:home
+                layout: vertical
+                icon_color: green
+                card_mod:
+                  class: soft-ui
+                  style: |
+                    ha-card {
+                      --primary-text-color: rgb(var(--my-grey));   
+                    }
+              - type: custom:mushroom-template-card
+                primary: cctv
+                secondary: ''
+                icon: mdi:cctv
+                layout: vertical
+                icon_color: purple
+                card_mod:
+                  class: soft-ui
+                  style: |
+                    ha-card {
+                      --primary-text-color: rgb(var(--my-grey));   
+                    }
+              - type: custom:mushroom-template-card
+                primary: volets
+                secondary: ''
+                icon: mdi:window-shutter
+                layout: vertical
+                icon_color: blue
+                card_mod:
+                  class: soft-ui
+                  style: |
+                    ha-card {
+                      --primary-text-color: rgb(var(--my-grey));   
+                    }
+              - type: custom:mushroom-template-card
+                primary: audio
+                secondary: ''
+                icon: mdi:music
+                layout: vertical
+                icon_color: orange
+                card_mod:
+                  class: soft-ui
+                  style: |
+                    ha-card {
+                      --primary-text-color: rgb(var(--my-grey));   
+                    }              
+              - type: custom:mushroom-template-card
+                primary: consos
+                secondary: ''
+                icon: mdi:chart-areaspline
+                layout: vertical
+                icon_color: red
+                card_mod:
+                  class: soft-ui
+                  style: |
+                    ha-card {
+                      --primary-text-color: rgb(var(--my-grey));   
+                    }             
+            columns: 5
+            view_layout:
+              grid-area: menu
+          - type: markdown
+            content: Notifs ici!
+            view_layout:
+              grid-area: notifs
+          - square: false
+            type: grid
+            cards:
+              - type: custom:mushroom-template-card
+                primary: portail
+                secondary: ''
+                icon: mdi:gate
+                layout: vertical
+                icon_color: green
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      border: transparent;
+              - type: custom:mushroom-template-card
+                primary: ouvrants
+                secondary: ''
+                icon: mdi:window-closed
+                layout: vertical
+                icon_color: green
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      border: transparent;
+              - type: custom:mushroom-template-card
+                primary: Puissance
+                secondary: ''
+                icon: mdi:lightning-bolt
+                layout: vertical
+                icon_color: purple
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      border: transparent;
+              - type: custom:mushroom-template-card
+                primary: eau
+                secondary: ''
+                icon: mdi:water
+                layout: vertical
+                icon_color: blue
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      border: transparent;
+            columns: 2
+            view_layout:
+              grid-area: grille
+          - square: false
+            type: grid
+            cards:
+              - type: custom:mushroom-template-card
+                primary: portail
+                secondary: ''
+                icon: mdi:gate
+                layout: vertical
+                icon_color: green
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      border: transparent;
+              - type: custom:mushroom-template-card
+                primary: ouvrants
+                secondary: ''
+                icon: mdi:window-closed
+                layout: vertical
+                icon_color: green
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      border: transparent;
+            columns: 2
+            view_layout:
+              grid-area: jokerd
+          - square: false
+            type: grid
+            cards:
+              - type: custom:mushroom-template-card
+                primary: portail
+                secondary: ''
+                icon: mdi:gate
+                layout: vertical
+                icon_color: green
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      border: transparent;
+              - type: custom:mushroom-template-card
+                primary: ouvrants
+                secondary: ''
+                icon: mdi:window-closed
+                layout: vertical
+                icon_color: green
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      border: transparent;
+            columns: 2
+            view_layout:
+              grid-area: jokerg
