@@ -1,0 +1,3603 @@
+background: var(--lovelace-background)
+kiosk_mode:
+  non_admin_settings:
+    kiosk: true
+button_card_templates:
+  titre:
+    styles:
+      card:
+        - height: 50px
+        - padding-top: 55px
+        - margin-top: 5px
+        - border: none
+        - background: none
+      img_cell:
+        - align-self: start
+        - text-align: start
+      name:
+        - justify-self: start
+        - padding-left: 10px
+        - text-transform: lowercase
+        - font-size: 25px
+        - letter-spacing: 0.7em
+  light:
+    size: 35%
+    show_state: true
+    tap_action:
+      haptic: heavy
+      action: toggle
+    styles:
+      icon:
+        - color: rgb(var(--my-grey),0.8)
+      card:
+        - width: 120px
+        - height: 120px
+        - margin: auto
+      grid:
+        - grid-template-areas: '"i" "n" "s"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      img_cell:
+        - align-self: start
+        - text-align: start
+        - justify-content: start
+        - padding-left: 15px
+      name:
+        - justify-self: start
+        - padding-left: 12px
+        - font-weight: bold
+        - text-transform: lowercase
+        - letter-spacing: 0.2em
+        - font-size: 17px
+        - text-transform: lowercase
+        - padding-bottom: 2px
+      state:
+        - justify-self: start
+        - padding-left: 12px
+        - font-weight: bold
+        - text-transform: lowercase
+        - font-size: 12px
+        - opacity: 0.6
+        - padding-bottom: 5px
+        - opacity: 0.6
+    state:
+      - value: 'on'
+        styles:
+          icon:
+            - color: rgb(var(--my-orange))
+          card:
+            - background-color: rgba(var(--my-orange),0.2)
+            - box-shadow: var(--my-box-shadow)
+    card_mod:
+      class: soft-ui
+      style: |
+        ha-card {
+          --primary-text-color: rgb(var(--my-grey));   
+        }
+  aspirateur:
+    size: 35%
+    show_state: true
+    tap_action:
+      haptic: heavy
+      action: more-info
+    styles:
+      icon:
+        - color: rgb(var(--my-grey),0.8)
+      card:
+        - width: 120px
+        - height: 120px
+        - margin: auto
+      grid:
+        - grid-template-areas: '"i" "n" "s"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      img_cell:
+        - align-self: start
+        - text-align: start
+        - justify-content: start
+        - padding-left: 15px
+      name:
+        - justify-self: start
+        - padding-left: 12px
+        - font-weight: bold
+        - text-transform: lowercase
+        - letter-spacing: 0.2em
+        - font-size: 17px
+        - padding-bottom: 2px
+      state:
+        - justify-self: start
+        - padding-left: 12px
+        - font-weight: bold
+        - text-transform: lowercase
+        - font-size: 12px
+        - opacity: 0.6
+        - padding-bottom: 5px
+        - opacity: 0.6
+    state:
+      - value: cleaning
+        styles:
+          icon:
+            - color: rgb(var(--my-orange))
+            - animation: rotating 2s ease infinite
+          card:
+            - background-color: rgba(var(--my-orange),0.2)
+            - box-shadow: var(--my-box-shadow)
+    card_mod:
+      class: soft-ui
+      style: |
+        ha-card {
+          --primary-text-color: rgb(var(--my-grey));   
+        }
+  portail:
+    size: 35%
+    show_state: true
+    tap_action:
+      haptic: heavy
+      action: toggle
+    styles:
+      icon:
+        - color: rgb(var(--my-green),0.8)
+      card:
+        - width: 120px
+        - height: 120px
+        - margin: auto
+      grid:
+        - grid-template-areas: '"i" "n" "s"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      img_cell:
+        - align-self: start
+        - text-align: start
+        - justify-content: start
+        - padding-left: 15px
+      name:
+        - justify-self: start
+        - padding-left: 12px
+        - font-weight: bold
+        - text-transform: lowercase
+        - letter-spacing: 0.2em
+        - font-size: 17px
+        - padding-bottom: 2px
+      state:
+        - justify-self: start
+        - padding-left: 12px
+        - font-weight: bold
+        - font-size: 12px
+        - opacity: 0.6
+        - padding-bottom: 5px
+        - opacity: 0.6
+    state:
+      - value: 'on'
+        icon: mdi:gate-open
+        styles:
+          icon:
+            - color: rgb(var(--my-red))
+            - animation: blink 2s ease infinite
+          card:
+            - background-color: rgba(var(--my-red),0.2)
+            - box-shadow: var(--my-box-shadow)
+    card_mod:
+      class: soft-ui
+      style: |
+        ha-card {
+          --primary-text-color: rgb(var(--my-grey));   
+        }
+  button_single:
+    show_state: true
+    styles:
+      icon:
+        - color: rgba(var(--my-blue),0.8)
+      card:
+        - width: 120px
+        - height: 120px
+        - margin: auto
+      grid:
+        - grid-template-areas: '"i" "n" "s"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      img_cell:
+        - align-self: start
+        - text-align: start
+        - justify-content: start
+        - padding-left: 15px
+      name:
+        - justify-self: start
+        - padding-left: 12px
+        - font-weight: bold
+        - text-transform: lowercase
+        - letter-spacing: 0.2em
+        - font-size: 17px
+        - padding-bottom: 2px
+      state:
+        - justify-self: start
+        - padding-left: 12px
+        - font-weight: bold
+        - font-size: 12px
+        - opacity: 0.6
+        - padding-bottom: 5px
+        - opacity: 0.6
+    card_mod:
+      class: soft-ui
+      style: |
+        ha-card {
+          --primary-text-color: rgb(var(--my-grey));   
+        }
+  header:
+    color_type: label-card
+    styles:
+      card:
+        - padding: 0
+        - background-color: var(--my-header)
+        - border: none
+        - opacity: 100%
+        - margin: 0 auto
+  footer:
+    color_type: label-card
+    styles:
+      card:
+        - padding: 0
+        - background-color: var(--my-footer)
+        - opacity: 100%
+        - margin: 0 auto
+      grid:
+        - grid-template-areas: '"buttons"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      custom_fields:
+        buttons:
+          - margin: 0
+          - padding: 0.5em
+          - position: relative
+          - left: 0
+  header_transparent:
+    template: header
+    styles:
+      card:
+        - background-color: rgba(255,255,255,0.5)
+  frame:
+    color_type: label-card
+    styles:
+      card:
+        - padding: 0
+        - background-color: transparent
+        - opacity: 100%
+        - margin: 0 auto
+      grid:
+        - grid-template-areas: '"buttons"'
+        - grid-template-columns: 1fr
+        - grid-template-rows: 1fr min-content min-content
+      custom_fields:
+        buttons:
+          - margin: 0
+          - padding: 0.5em
+          - position: relative
+          - left: 0
+sidebar:
+  digitalClock: true
+  date: true
+  dateFormat: dddd D MMMM
+  hideTopMenu: false
+  width:
+    desktop: 12
+    mobile: 0
+    tablet: 12
+  sidebarMenu:
+    - action: navigate
+      active: true
+      name: Home
+      navigation_path: /dashboard-cuisine/home
+      icon: mdi:dots-grid
+    - action: navigate
+      active: true
+      name: CCTV
+      navigation_path: /dashboard-cuisine/cctv
+      icon: mdi:cctv
+    - action: navigate
+      active: true
+      name: Consos
+      navigation_path: /dashboard-cuisine/consos
+      icon: mdi:chart-areaspline
+    - action: navigate
+      active: true
+      name: Voitures
+      navigation_path: /dashboard-cuisine/voitures
+      icon: mdi:car
+    - action: navigate
+      active: false
+      name: Pièces
+      navigation_path: /dashboard-cuisine/voitures
+      icon: mdi:floor-plan
+  template: |
+    <li>
+      {% if is_state('binary_sensor.lave_linge_wash_completed', 'on') %}{{'\U0001f9fa'}} Lave-Linge terminé {% endif %}
+    </li> 
+    <li>
+      {% if states('sensor.lave_linge_remaining_time') != '0:00:00' %} {{'\U0001f9fa'}} {{ states('sensor.lave_linge_remaining_time')}} restant {% endif %}
+    </li> 
+    <li>
+      {% if is_state('sensor.rte_tempo_prochaine_couleur', 'Rouge') %}{{'\u26A1'}} Demain, jour sobriété {% endif %}
+    </li>
+    <li>
+      {% if is_state('input_boolean.tibouroule', 'on') %}{{'\U0001F698'}} ETA Tibou : {{ states('sensor.eta_tibou_maison')}}min {% endif %}
+    </li> 
+    <li>
+      {% if is_state('binary_sensor.salleserveuroctoprint_printing', 'on') %}{{'\U0001f991'}} {{ states('sensor.salleserveuroctoprint_print_time_left')}} restant {% endif %}
+    </li> 
+    <li>
+      {% if is_state('vacuum.roborock_s7', 'cleaning') %}{{'\U0001F916'}} {{ (states('sensor.roborock_s7_current_clean_area')|float * 1.25)|round(0)}}% aspiré par Alfred {% endif %}
+    </li>
+  bottomCard:
+    type: custom:vertical-stack-in-card
+    cardStyle: |
+      ha-card {
+
+        border: none;
+        background: none;
+        overflow: hidden !important;
+        box-shadow: none !important;
+        ha-card-border-radius: 0px;
+
+      }
+    cardOptions:
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: conditional
+              conditions:
+                - entity: counter.douche1
+                  state_not: '0'
+              card:
+                type: custom:mushroom-template-card
+                primary: '{{states(''sensor.eau_douche1'')}}'
+                secondary: L
+                tap_action:
+                  action: none
+                icon: mdi:shower-head
+                icon_color: |-
+                  {% set state = states('sensor.eau_douche1') %}
+                  {% if  state | float > 0 and state | float <= 40%}
+                   green
+                  {% endif %}
+                  {% if  state | float > 40 and state | float <= 80%}
+                   orange
+                  {% endif %}
+                  {% if  state | float > 80%}
+                   red
+                  {% endif %}
+                  {% if  state | float == 0 %}
+                   grey
+                  {% endif %}
+                multiline_secondary: true
+                layout: vertical
+                card_mod:
+                  style: |
+                    ha-card {
+                    background-color: transparent;
+                    border: transparent;
+                      --primary-text-color: rgb(var(--my-grey));
+            - type: conditional
+              conditions:
+                - entity: counter.douche2
+                  state_not: '0'
+              card:
+                type: custom:mushroom-template-card
+                primary: '{{states(''sensor.eau_douche2'')}}'
+                secondary: L
+                tap_action:
+                  action: none
+                icon: mdi:shower-head
+                icon_color: |-
+                  {% set state = states('sensor.eau_douche2') %}
+                  {% if  state | float > 0 and state | float <= 40%}
+                   green
+                  {% endif %}
+                  {% if  state | float > 40 and state | float <= 80%}
+                   orange
+                  {% endif %}
+                  {% if  state | float > 80%}
+                   red
+                  {% endif %}
+                  {% if  state | float == 0 %}
+                   grey
+                  {% endif %}
+                multiline_secondary: true
+                layout: vertical
+                card_mod:
+                  style: |
+                    ha-card {
+                    background-color: transparent;
+                    border: transparent;
+                      --primary-text-color: rgb(var(--my-grey));
+            - type: conditional
+              conditions:
+                - entity: counter.douche3
+                  state_not: '0'
+              card:
+                type: custom:mushroom-template-card
+                primary: '{{states(''sensor.eau_douche3'')}}'
+                secondary: L
+                tap_action:
+                  action: none
+                icon: mdi:shower-head
+                icon_color: |-
+                  {% set state = states('sensor.eau_douche3') %}
+                  {% if  state | float > 0 and state | float <= 40%}
+                   green
+                  {% endif %}
+                  {% if  state | float > 40 and state | float <= 80%}
+                   orange
+                  {% endif %}
+                  {% if  state | float > 80%}
+                   red
+                  {% endif %}
+                  {% if  state | float == 0 %}
+                   grey
+                  {% endif %}
+                multiline_secondary: true
+                layout: vertical
+                card_mod:
+                  style: |
+                    ha-card {
+                    background-color: transparent;
+                    border: transparent;
+
+                      --primary-text-color: rgb(var(--my-grey));
+            - type: conditional
+              conditions:
+                - entity: counter.douche4
+                  state_not: '0'
+              card:
+                type: custom:mushroom-template-card
+                primary: '{{states(''sensor.eau_douche4'')}}'
+                secondary: L
+                tap_action:
+                  action: none
+                icon: mdi:shower-head
+                icon_color: |-
+                  {% set state = states('sensor.eau_douche4') %}
+                  {% if  state | float > 0 and state | float <= 40%}
+                   green
+                  {% endif %}
+                  {% if  state | float > 40 and state | float <= 80%}
+                   orange
+                  {% endif %}
+                  {% if  state | float > 80%}
+                   red
+                  {% endif %}
+                  {% if  state | float == 0 %}
+                   grey
+                  {% endif %}
+                multiline_secondary: true
+                layout: vertical
+                card_mod:
+                  style: |
+                    ha-card {
+                    background-color: transparent;
+                    border: transparent;
+
+                      --primary-text-color: rgb(var(--my-grey));
+        - type: entities
+          entities:
+            - type: divider
+          card_mod:
+            style: |
+              ha-card {
+                background-color: transparent;
+                border: transparent;
+        - type: horizontal-stack
+          cards:
+            - type: custom:mushroom-template-card
+              entity: calendar.rte_tempo_calendrier
+              tap_action:
+                action: more-info
+              primary: ''
+              secondary: ''
+              icon: |-
+                {% if is_state('sensor.rte_tempo_couleur_actuelle', 'Bleu') %}
+                mdi:leaf
+                {% endif %}
+                {% if is_state('sensor.rte_tempo_couleur_actuelle', 'Blanc') %}
+                mdi:lightning-bolt
+                {% endif %}
+                {% if is_state('sensor.rte_tempo_couleur_actuelle', 'Rouge') %}
+                mdi:alert
+                {% endif %}
+              icon_color: |-
+                {% if is_state('sensor.rte_tempo_couleur_actuelle', 'Bleu') %}
+                blue
+                {% endif %}
+                {% if is_state('sensor.rte_tempo_couleur_actuelle', 'Blanc') %}
+                grey
+                {% endif %}
+                {% if is_state('sensor.rte_tempo_couleur_actuelle', 'Rouge') %}
+                red
+                {% endif %}
+              badge_color: |-
+                {% if is_state('sensor.rte_tempo_prochaine_couleur', 'Bleu') %}
+                blue
+                {% endif %}
+                {% if is_state('sensor.rte_tempo_prochaine_couleur', 'Blanc') %}
+                grey
+                {% endif %}
+                {% if is_state('sensor.rte_tempo_prochaine_couleur', 'Rouge') %}
+                red
+                {% endif %}
+              badge_icon: mdi:lightning-bolt
+              multiline_secondary: true
+              layout: vertical
+              card_mod:
+                style: |
+                  ha-card {
+                  background-color: transparent;
+                  border: transparent;
+                    --primary-text-color: rgb(var(--my-grey));
+            - type: conditional
+              conditions:
+                - entity: switch.bouclage
+                  state: 'on'
+              card:
+                type: custom:mushroom-template-card
+                primary: ''
+                secondary: ''
+                tap_action:
+                  action: none
+                icon: mdi:sync
+                icon_color: orange
+                multiline_secondary: true
+                layout: vertical
+                card_mod:
+                  style: |
+                    ha-card {
+                    background-color: transparent;
+                    border: transparent;
+            - type: conditional
+              conditions:
+                - entity: switch.groupesechesserviettes
+                  state: 'on'
+              card:
+                type: custom:mushroom-template-card
+                primary: ''
+                secondary: ''
+                icon: |-
+                  {% if is_state('switch.groupesechesserviettes','on') %}  
+                  mdi:heating-coil
+                  {% endif %}
+                icon_color: orange
+                badge_icon: >-
+                  {% if ((is_state('switch.sdbetageradiateur','on')) and
+                  (is_state('switch.salledebainrdcchauffage_2','on'))) %}  
+
+                  mdi:numeric-2-box-multiple
+
+                  {% endif %}
+                badge_color: orange
+                layout: vertical
+                card_mod:
+                  style: |
+                    ha-card {
+                    background-color: transparent;
+                    border: transparent;
+                tap_action:
+                  action: none
+        - type: entities
+          entities:
+            - type: divider
+          card_mod:
+            style: |
+              ha-card {
+                background-color: transparent;
+                border: transparent;
+        - type: horizontal-stack
+          cards:
+            - type: custom:mushroom-template-card
+              primary: Mokka
+              icon: |-
+                {% set state = states('sensor.mokka_battery_level') %}
+                {% if  state | float >= 66 %}
+                mdi:battery-high
+                {% endif %}
+                {% if  state | float >= 33 and state | float < 66 %}
+                mdi:battery-medium
+                {% endif %}
+                {% if  state | float < 33%}
+                mdi:battery-low
+                {% endif %}
+              icon_color: |-
+                {% set state = states('sensor.mokka_battery_level') %}
+                {% if  state | float >= 66 %}
+                green
+                {% endif %}
+                {% if  state | float >= 33 and state | float < 66 %}
+                orange
+                {% endif %}
+                {% if  state | float < 33%}
+                red
+                {% endif %}
+              badge_icon: |-
+                {% if is_state('sensor.mokka_charging_status', 'InProgress') %}
+                mdi:ev-station
+                {% else %}
+                mdi:power-plug-off
+                {% endif %}
+              badge_color: |-
+                {% if is_state('sensor.mokka_charging_status', 'InProgress') %}
+                 orange
+                {% else %}
+                 grey
+                {% endif %}
+              secondary: |-
+                {% if is_state('sensor.mokka_charging_status', 'InProgress') %}
+                {{ states('sensor.mokka_battery_level')}}% (en charge)
+                {% else %}
+                {{ states('sensor.mokka_battery_level')}}% 
+                {% endif %}
+              layout: vertical
+              card_mod:
+                style: |
+                  ha-card {
+                  background-color: transparent;
+                  border: transparent;
+                    --primary-text-color: rgb(grey);
+            - type: custom:mushroom-template-card
+              primary: Tesla
+              secondary: |-
+                {% if is_state('binary_sensor.charging', 'off') %}
+                {{ states('sensor.battery')}}%
+                {% endif %}
+                {% if is_state('binary_sensor.charging', 'on') %}
+                {{ states('sensor.battery')}}% (en charge)
+                {% endif %}
+              icon: |-
+                {% set state = states('sensor.battery') %}
+                {% if  state | float >= 66 %}
+                 mdi:battery-high
+                {% endif %}
+                {% if  state | float >= 33 and state | float < 66 %}
+                mdi:battery-medium
+                {% endif %}
+                {% if  state | float < 33%}
+                mdi:battery-low
+                {% endif %}
+              icon_color: |-
+                {% set state = states('sensor.battery') %}
+                {% if  state | float >= 66 %}
+                green
+                {% endif %}
+                {% if  state | float >= 33 and state | float < 66 %}
+                orange
+                {% endif %}
+                {% if  state | float < 33%}
+                red
+                {% endif %}
+              badge_icon: |-
+                {% if is_state('binary_sensor.charging', 'off') %}
+                mdi:power-plug-off
+                {% endif %}
+                {% if is_state('binary_sensor.charging', 'on') %}
+                mdi:ev-station
+                {% endif %}
+              badge_color: |-
+                {% if is_state('binary_sensor.charging', 'off') %}
+                 grey
+                {% endif %}
+                {% if is_state('binary_sensor.charging', 'on') %}
+                 orange
+                {% endif %}
+              card_mod: null
+              layout: vertical
+              style: |
+                ha-card {
+                background-color: transparent;
+                border: transparent;
+                  --primary-text-color: rgb(grey);
+        - type: entities
+          entities:
+            - type: divider
+          card_mod:
+            style: |
+              ha-card {
+                background-color: transparent;
+                border: transparent;
+        - type: grid
+          columns: 3
+          square: false
+          cards:
+            - type: custom:mushroom-template-card
+              tap_action:
+                action: more-info
+              primary: ''
+              secondary: ''
+              card_mod:
+                style: |
+                  ha-card {
+                    background-color: transparent;
+                    border: transparent;
+
+                    height:50px !important;
+              icon: |-
+                {% if is_state('group.fenetresmaison', 'off') %}
+                mdi:window-closed-variant
+                {% endif %}
+                {% if is_state('group.fenetresmaison', 'on') %}
+                mdi:window-open-variant
+                {% endif %}
+              entity: group.fenetresmaison
+              icon_color: |-
+                {% if is_state('group.fenetresmaison', 'off') %}
+                 green
+                {% endif %}
+                {% if is_state('group.fenetresmaison', 'on') %}
+                 red
+                {% endif %}
+            - type: custom:mushroom-template-card
+              primary: ''
+              secondary: ''
+              icon: |-
+                {% if
+                is_state('binary_sensor.door_window_sensor_158d0001de8a5c',
+                'off') and  is_state('binary_sensor.verrousoussol', 'on') %}
+                mdi:garage-variant
+                {% endif %}
+
+
+                {% if
+                is_state('binary_sensor.door_window_sensor_158d0001de8a5c',
+                'off') and  is_state('binary_sensor.verrousoussol', 'off')
+                %}
+                mdi:garage-variant-lock
+                {% endif %}
+
+
+                {% if
+                is_state('binary_sensor.door_window_sensor_158d0001de8a5c',
+                'on')  %}
+                mdi:garage-open-variant
+                {% endif %}
+              icon_color: |-
+                {% if
+                is_state('binary_sensor.door_window_sensor_158d0001de8a5c',
+                'off') and  is_state('binary_sensor.verrousoussol', 'on') %}
+                orange
+                {% endif %}
+
+
+                {% if
+                is_state('binary_sensor.door_window_sensor_158d0001de8a5c',
+                'off') and  is_state('binary_sensor.verrousoussol', 'off')
+                %}
+                green
+                {% endif %}
+
+
+                {% if
+                is_state('binary_sensor.door_window_sensor_158d0001de8a5c',
+                'on')  %}
+                red
+                {% endif %}
+              badge_icon: |-
+                {% if is_state('binary_sensor.verrousoussol', 'off') %}
+                mdi:lock
+                {% endif %}
+                {% if is_state('binary_sensor.verrousoussol', 'on') %}
+                mdi:lock-alert
+                {% endif %}
+              badge_color: |-
+                {% if is_state('binary_sensor.verrousoussol', 'off') %}
+                green
+                {% endif %}
+                {% if is_state('binary_sensor.verrousoussol', 'on') %}
+                 red
+                {% endif %}
+              card_mod:
+                style: |
+                  ha-card {
+                    background-color: transparent;
+                    border: transparent;
+                    height:50px !important;
+            - type: custom:mushroom-template-card
+              tap_action:
+                action: none
+              primary: ''
+              secondary: ''
+              icon: |
+                {% if is_state('binary_sensor.ouvertureportail', 'off') %}
+                mdi:gate
+                {% endif %}
+
+                {% if is_state('binary_sensor.ouvertureportail', 'on')  %}
+                mdi:gate-open
+                {% endif %}
+              icon_color: |-
+                {% if is_state('binary_sensor.ouvertureportail', 'off') %}
+                green
+                {% endif %}
+
+                {% if is_state('binary_sensor.ouvertureportail', 'on')  %}
+                red
+                {% endif %}
+              card_mod:
+                style: |
+                  ha-card {
+                    background-color: transparent;
+                    border: transparent;
+                    height:50px !important;
+  style: |
+    :host {
+        --sidebar-background: #F3F5F7;
+        --sidebar-text-color: #333;
+        --face-border-color: #FFF;
+        --clock-hands-color: #000;
+        --clock-seconds-hand-color: #FF4B3E;
+        --clock-middle-background: #333;
+        --clock-middle-border: #000;
+        box-shadow: inset 0px 4px 16px rgba(17, 17, 26, 0.1);  
+    }
+
+    .sidebarMenu li {
+        position: relative;
+        padding: 10px 20px;
+        border-radius: 12px;
+        font-size: 20px !important;
+        line-height: 32px !important;
+        font-weight: 200;
+        white-space: normal;
+        display: block;
+        cursor: pointer;
+    }
+
+    .digitalClock {
+        text-align: center;
+        padding-bottom: 1px;
+        padding-top: 20px;
+        font-size: 220px;
+        line-height: 30px!important;
+        font-weight: 700;
+        letter-spacing: 5px;
+    }
+    .date {
+        text-align: center;
+        font-size: 20px;
+    }
+    .bottom {
+        display: grid!important;
+    }
+views:
+  - title: home
+    path: home
+    theme: Soft UI
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 20px 550px 55px 500px 55px 550px 20px
+      grid-template-rows: 50px auto 100px
+      gap: 0px 0px;
+      grid-auto-flow: row
+      grid-template-areas: |
+        ". . . . . . ." ". cg . cm . cd ."  ". . . . . . ."
+    badges: []
+    cards:
+      - type: grid
+        columns: 1
+        square: false
+        cards:
+          - type: grid
+            square: false
+            columns: 1
+            cards:
+              - type: custom:button-card
+                name: météo
+                template: titre
+              - type: custom:button-card
+                template: frame
+                padding-bottom: 1px
+                custom_fields:
+                  buttons:
+                    card:
+                      type: custom:layout-card
+                      layout_type: custom:grid-layout
+                      cards:
+                        - type: custom:mini-graph-card
+                          color_thresholds:
+                            - color: rgb(var(--my-blue)
+                              value: 15
+                            - color: rgb(var(--my-green)
+                              value: 22
+                            - color: rgb(var(--my-orange)
+                              value: 25
+                            - color: rgb(var(--my-red)
+                              value: 30
+                          color_thresholds_transition: smooth
+                          entities:
+                            - sensor.gw1100a_v2_2_5_outdoor_temperature
+                          group: false
+                          hour24: true
+                          hours_to_show: 24
+                          line_width: 4
+                          name: Extérieur
+                          points_per_hour: 4
+                          show:
+                            extrema: true
+                            fill: fade
+                            icon: false
+                            labels: false
+                            name: false
+                            state: true
+                          tap_action:
+                            action: none
+                          view_layout: null
+                          grid-area: temp
+                          card_mod:
+                            style: |
+                              ha-card {
+                              background-color: transparent;
+                              border: transparent;
+                        - type: custom:weather-card
+                          entity: weather.beynes
+                          number_of_forecasts: '5'
+                          hourly_forecast: false
+                          details: false
+                          forecast: true
+                          current: false
+                          view_layout:
+                            grid-area: meteo
+                          card_mod:
+                            style: |
+                              ha-card {
+                                background-color: transparent;
+                                border: transparent;
+                        - type: grid
+                          columns: 2
+                          square: false
+                          cards:
+                            - type: custom:mushroom-template-card
+                              primary: '{{states(''sensor.sm300d2_co2_value'')}}ppm'
+                              icon: mdi:molecule-co2
+                              icon_color: >
+                                {% set state =
+                                states('sensor.sm300d2_co2_value') %}
+
+                                {% if  state | float <= 800 %}
+                                 green
+                                {% endif %}
+
+                                {% if  state | float > 800 and state | float <=
+                                1000%}
+                                 orange
+                                {% endif %}
+
+                                {% if  state | float > 1000 %}
+                                 red
+                                {% endif %}
+                              multiline_secondary: true
+                              layout: vertical
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                  background-color: transparent;
+                                  border: transparent;
+                                    --primary-text-color: rgb(var(--my-grey)
+                            - type: custom:mushroom-template-card
+                              primary: >-
+                                {{states('sensor.sm300d2_formaldehyde_value')}}µg/m³
+                              icon: mdi:flask
+                              icon_color: >
+                                {% set state =
+                                states('sensor.sm300d2_formaldehyde_value') %}
+
+                                {% if  state | float <= 50 %}
+                                 green
+                                {% endif %}
+
+                                {% if  state | float > 50 and state | float <=
+                                55 %}
+                                 orange
+                                {% endif %}
+
+                                {% if  state | float > 55 %}
+                                 red
+                                {% endif %}
+                              multiline_secondary: true
+                              layout: vertical
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                  background-color: transparent;
+                                  border: transparent;
+                                    --primary-text-color: rgb(var(--my-grey)
+                            - type: custom:mushroom-template-card
+                              primary: '{{states(''sensor.sm300d2_pm10_value'')}}µg/m³'
+                              icon: mdi:chart-bubble
+                              icon_color: >
+                                {% set state =
+                                states('sensor.sm300d2_pm10_value') %}
+
+                                {% if  state | float <= 50 %}
+                                 green
+                                {% endif %}
+
+                                {% if  state | float > 50 and state | float <=
+                                55%}
+                                 orange
+                                {% endif %}
+
+                                {% if  state | float > 55 %}
+                                 red
+                                {% endif %}
+                              multiline_secondary: true
+                              layout: vertical
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                  background-color: transparent;
+                                  border: transparent;
+                                    --primary-text-color: rgb(var(--my-grey)
+                            - type: custom:mushroom-template-card
+                              primary: '{{states(''sensor.sm300d2_pm2_5_value'')}}µg/m³'
+                              icon: mdi:blur
+                              icon_color: >
+                                {% set state =
+                                states('sensor.sm300d2_pm2_5_value') %}
+
+                                {% if  state | float < 25%}
+                                 green
+                                {% endif %}
+
+                                {% if  state | float >= 25 and state | float <=
+                                27%}
+                                 orange
+                                {% endif %}
+
+                                {% if  state | float > 27 %}
+                                 red
+                                {% endif %}
+                              multiline_secondary: true
+                              layout: vertical
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                  background-color: transparent;
+                                  border: transparent;
+                                    --primary-text-color: rgb(var(--my-grey)
+                          view_layout:
+                            grid-area: aqi
+                      layout:
+                        grid-template-columns: 1fr 0.75fr
+                        grid-auto-flow: row
+                        grid-template-areas: |
+                          "temp aqi"
+                          "meteo meteo"
+                card_mod:
+                  class: soft-ui
+                  style: |
+                    ha-card {
+                      --primary-text-color: rgb(var(--my-grey));   
+                    }
+          - type: grid
+            square: false
+            columns: 1
+            cards:
+              - type: custom:button-card
+                name: températures
+                template: titre
+              - type: custom:button-card
+                template: frame
+                padding-bottom: 1px
+                custom_fields:
+                  buttons:
+                    card:
+                      square: false
+                      type: grid
+                      columns: 4
+                      cards:
+                        - type: custom:mushroom-template-card
+                          primary: >-
+                            {{float(states('sensor.chambrenatibou_capteurtemperature_temperature')|round(1))}}°C
+                          icon: mdi:bed-king
+                          icon_color: >
+                            {% set state =
+                            states('sensor.chambrenatibou_capteurtemperature_temperature')
+                            %}
+
+                            {% if  state | float <= 17 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float > 17 and state | float <= 25%}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float > 25 %}
+                             var(--my-red)
+                            {% endif %}
+                          multiline_secondary: true
+                          layout: vertical
+                          secondary: Natibou
+                          tap_action:
+                            action: more-info
+                          entity: sensor.chambrenatibou_capteurtemperature_temperature
+                          badge_icon: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturenatibou') %}
+
+                            {% if  state | float < 0 %}
+                             mdi:arrow-bottom-right-thick
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             mdi:arrow-right-bold
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             mdi:arrow-top-right-thick
+                            {% endif %}
+                          badge_color: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturenatibou') %}
+
+                            {% if  state | float < 0 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             var(--my-orange)
+                            {% endif %}
+                          card_mod:
+                            style: |
+                              ha-card {
+                                background-color: transparent;
+                                border: transparent;
+                        - type: custom:mushroom-template-card
+                          primary: '{{states(''sensor.faustine_temperature'')}}°C'
+                          icon: mdi:face-woman
+                          icon_color: >
+                            {% set state = states('sensor.faustine_temperature')
+                            %}
+
+                            {% if  state | float <= 17 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float > 17 and state | float <= 25%}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float > 25 %}
+                             var(--my-red)
+                            {% endif %}
+                          multiline_secondary: true
+                          layout: vertical
+                          secondary: Faustine
+                          tap_action:
+                            action: more-info
+                          entity: sensor.faustine_temperature
+                          badge_icon: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturefaustine') %}
+
+                            {% if  state | float < 0 %}
+                             mdi:arrow-bottom-right-thick
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             mdi:arrow-right-bold
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             mdi:arrow-top-right-thick
+                            {% endif %}
+                          badge_color: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturefaustine') %}
+
+                            {% if  state | float < 0 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             var(--my-orange)
+                            {% endif %}
+                          card_mod:
+                            style: |
+                              ha-card {
+                                background-color: transparent;
+                                border: transparent;
+                        - type: custom:mushroom-template-card
+                          primary: '{{states(''sensor.theodore_temperature'')}}°C'
+                          icon: mdi:face-man
+                          icon_color: >
+                            {% set state = states('sensor.theodore_temperature')
+                            %}
+
+                            {% if  state | float <= 17 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float > 17 and state | float <= 25%}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float > 25 %}
+                             var(--my-red)
+                            {% endif %}
+                          multiline_secondary: true
+                          layout: vertical
+                          secondary: Théodore
+                          tap_action:
+                            action: more-info
+                          entity: sensor.theodore_temperature
+                          badge_icon: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturetheodore') %}
+
+                            {% if  state | float < 0 %}
+                             mdi:arrow-bottom-right-thick
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             mdi:arrow-right-bold
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             mdi:arrow-top-right-thick
+                            {% endif %}
+                          badge_color: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturetheodore') %}
+
+                            {% if  state | float < 0 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             var(--my-orange)
+                            {% endif %}
+                          card_mod:
+                            style: |
+                              ha-card {
+                                background-color: transparent;
+                                border: transparent;
+                        - type: custom:mushroom-template-card
+                          primary: >-
+                            {{states('sensor.etage_capteursonoff_temperature')|round(1)}}°C
+                          icon: mdi:home-floor-1
+                          icon_color: >
+                            {% set state =
+                            states('sensor.etage_capteursonoff_temperature') %}
+
+                            {% if  state | float <= 17 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float > 17 and state | float <= 25%}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float > 25 %}
+                             var(--my-red)
+                            {% endif %}
+                          multiline_secondary: true
+                          layout: vertical
+                          secondary: Etage
+                          tap_action:
+                            action: more-info
+                          entity: sensor.etage_capteursonoff_temperature
+                          badge_icon: >-
+                            {% set state =
+                            states('sensor.derivativetemperatureetage') %}
+
+                            {% if  state | float < 0 %}
+                             mdi:arrow-bottom-right-thick
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             mdi:arrow-right-bold
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             mdi:arrow-top-right-thick
+                            {% endif %}
+                          badge_color: >-
+                            {% set state =
+                            states('sensor.derivativetemperatureetage') %}
+
+                            {% if  state | float < 0 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             var(--my-orange)
+                            {% endif %}
+                          card_mod:
+                            style: |
+                              ha-card {
+                                background-color: transparent;
+                                border: transparent;
+                        - type: custom:mushroom-template-card
+                          primary: '{{states(''sensor.sejour_temperature'')}}°C'
+                          icon: mdi:silverware
+                          icon_color: >
+                            {% set state = states('sensor.sejour_temperature')
+                            %}
+
+                            {% if  state | float <= 17 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float > 17 and state | float <= 25%}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float > 25 %}
+                             var(--my-red)
+                            {% endif %}
+                          multiline_secondary: true
+                          layout: vertical
+                          secondary: Séjour
+                          tap_action:
+                            action: more-info
+                          entity: sensor.sejour_temperature
+                          badge_icon: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturesejour') %}
+
+                            {% if  state | float < 0 %}
+                             mdi:arrow-bottom-right-thick
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             mdi:arrow-right-bold
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             mdi:arrow-top-right-thick
+                            {% endif %}
+                          badge_color: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturesejour') %}
+
+                            {% if  state | float < 0 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             var(--my-orange)
+                            {% endif %}
+                          card_mod:
+                            style: |
+                              ha-card {
+                                background-color: transparent;
+                                border: transparent;
+                        - type: custom:mushroom-template-card
+                          primary: >-
+                            {{states('sensor.gw1100a_v2_2_5_indoor_temperature')}}°C
+                          icon: mdi:stove
+                          icon_color: >
+                            {% set state =
+                            states('sensor.gw1100a_v2_2_5_indoor_temperature')
+                            %}
+
+                            {% if  state | float <= 17 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float > 17 and state | float <= 25%}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float > 25 %}
+                             var(--my-red)
+                            {% endif %}
+                          multiline_secondary: true
+                          layout: vertical
+                          secondary: Cuisine
+                          tap_action:
+                            action: more-info
+                          badge_icon: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturesejour') %}
+
+                            {% if  state | float < 0 %}
+                             mdi:arrow-bottom-right-thick
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             mdi:arrow-right-bold
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             mdi:arrow-top-right-thick
+                            {% endif %}
+                          badge_color: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturesejour') %}
+
+                            {% if  state | float < 0 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             var(--my-orange)
+                            {% endif %}
+                          card_mod:
+                            style: |
+                              ha-card {
+                                background-color: transparent;
+                                border: transparent;
+                        - type: custom:mushroom-template-card
+                          primary: '{{states(''sensor.bureautibou_temperature'')}}°C'
+                          icon: mdi:desk
+                          icon_color: >
+                            {% set state =
+                            states('sensor.bureautibou_temperature') %}
+
+                            {% if  state | float <= 17 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float > 17 and state | float <= 25%}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float > 25 %}
+                             var(--my-red)
+                            {% endif %}
+                          multiline_secondary: true
+                          layout: vertical
+                          secondary: Bureau
+                          tap_action:
+                            action: more-info
+                          entity: sensor.sejour_temperature
+                          badge_icon: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturebureau') %}
+
+                            {% if  state | float < 0 %}
+                             mdi:arrow-bottom-right-thick
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             mdi:arrow-right-bold
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             mdi:arrow-top-right-thick
+                            {% endif %}
+                          badge_color: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturebureau') %}
+
+                            {% if  state | float < 0 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             var(--my-orange)
+                            {% endif %}
+                          card_mod:
+                            style: |
+                              ha-card {
+                                background-color: transparent;
+                                border: transparent;
+                        - type: custom:mushroom-template-card
+                          primary: >-
+                            {{states('sensor.bureaunathieu_temperature_temperature')|round(1)}}°C
+                          icon: mdi:toy-brick
+                          icon_color: >
+                            {% set state =
+                            states('sensor.bureaunathieu_temperature_temperature')
+                            %}
+
+                            {% if  state | float <= 17 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float > 17 and state | float <= 25%}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float > 25 %}
+                             var(--my-red)
+                            {% endif %}
+                          multiline_secondary: true
+                          layout: vertical
+                          secondary: g0m Cave
+                          tap_action:
+                            action: more-info
+                          entity: sensor.bureaunathieu_temperature_temperature
+                          badge_icon: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturebureaunathieu')
+                            %}
+
+                            {% if  state | float < 0 %}
+                             mdi:arrow-bottom-right-thick
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             mdi:arrow-right-bold
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             mdi:arrow-top-right-thick
+                            {% endif %}
+                          badge_color: >-
+                            {% set state =
+                            states('sensor.derivativetemperaturebureaunathieu')
+                            %}
+
+                            {% if  state | float < 0 %}
+                             var(--my-blue)
+                            {% endif %}
+
+                            {% if  state | float >= 0 and state | float < 0.01
+                            %}
+                             var(--my-green)
+                            {% endif %}
+
+                            {% if  state | float >= 0.01 %}
+                             var(--my-orange)
+                            {% endif %}
+                          card_mod:
+                            style: |
+                              ha-card {
+                                background-color: transparent;
+                                border: transparent;
+                card_mod:
+                  class: soft-ui
+                  style: |
+                    ha-card {
+                      --primary-text-color: rgb(var(--my-grey));   
+                    }
+        view_layout:
+          grid-area: cm
+      - type: grid
+        columns: 1
+        square: false
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:button-card
+                name: énergie
+                template: titre
+              - type: custom:button-card
+                template: frame
+                padding-bottom: 1px
+                custom_fields:
+                  buttons:
+                    card:
+                      type: vertical-stack
+                      cards:
+                        - type: custom:button-card
+                          color_type: blank-card
+                        - type: energy-distribution
+                          link_dashboard: false
+                          card_mod:
+                            style: |
+                              ha-card {
+                              background-color: transparent;
+                              border: transparent;
+                        - square: false
+                          type: grid
+                          columns: 4
+                          cards:
+                            - type: custom:button-card
+                              color_type: blank-card
+                            - type: custom:mushroom-template-card
+                              primary: >-
+                                {{float(states('sensor.home_energy_meter_gen5_electric_consumed_w'))|round(0)}}
+                                W
+                              icon: mdi:home
+                              icon_color: >
+                                {% set state =
+                                states('sensor.home_energy_meter_gen5_electric_consumed_w')
+                                %}
+
+                                {% if  state | float <= 1000 %}
+                                 var(--my-green)
+                                {% endif %}
+
+                                {% if  state | float > 1000 and state | float <=
+                                3000%}
+                                 var(--my-orange)
+                                {% endif %}
+
+                                {% if  state | float > 3000 %}
+                                 var(--my-red)
+                                {% endif %}
+                              multiline_secondary: true
+                              layout: vertical
+                              secondary: ''
+                              tap_action:
+                                action: more-info
+                              entity: >-
+                                sensor.home_energy_meter_gen5_electric_consumed_w
+                              badge_icon: ''
+                              badge_color: ''
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    background-color: transparent;
+                                    border: transparent;
+                                    --primary-text-color: rgb(var(--my-grey)
+                            - type: custom:mushroom-template-card
+                              primary: >-
+                                {% set state =
+                                states('sensor.salleserveurswitchborneev_electric_consumed_w')
+                                %}
+
+                                {% if  state | float <= 10%}
+
+                                0 W
+
+                                {% else %}
+
+                                {{float(states('sensor.salleserveurswitchborneev_electric_consumed_w'))|round(0)}}
+                                W
+
+                                {% endif %}
+                              icon: mdi:ev-plug-type2
+                              icon_color: >-
+                                {% set state =
+                                states('sensor.salleserveurswitchborneev_electric_consumed_w')
+                                %}
+
+                                {% if  state | float <= 4%}
+                                 var(--my-grey2)
+                                {% endif %}
+
+                                {% if  state | float > 4 and state | float <=
+                                6800%}
+                                 var(--my-red)
+                                {% endif %}
+
+                                {% if  state | float > 6800%}
+                                 var(--my-green)
+                                {% endif %}
+                              multiline_secondary: true
+                              layout: vertical
+                              secondary: ''
+                              tap_action:
+                                action: more-info
+                              entity: >-
+                                sensor.salleserveurswitchborneev_electric_consumed_w
+                              badge_icon: ''
+                              badge_color: ''
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    background-color: transparent;
+                                    border: transparent;
+                                    --primary-text-color: rgb(var(--my-grey)
+                            - type: custom:button-card
+                              color_type: blank-card
+                card_mod:
+                  class: soft-ui
+                  style: |
+                    ha-card {
+                      --primary-text-color: rgb(var(--my-grey));   
+                    }
+          - type: grid
+            columns: 1
+            square: false
+            cards:
+              - type: custom:button-card
+                name: lampes
+                template: titre
+              - square: false
+                type: grid
+                cards:
+                  - type: custom:button-card
+                    template: light
+                    entity: switch.degagement_lampemurphy
+                    icon: mdi:wardrobe
+                    name: murphy
+                  - type: custom:button-card
+                    template: light
+                    entity: group.lumiereambiance
+                    icon: mdi:lamps
+                    name: ambiance
+                  - type: custom:button-card
+                    template: light
+                    entity: group.lumierejardin
+                    name: jardin
+                    icon: mdi:grass
+                  - type: custom:button-card
+                    template: light
+                    entity: group.touteslumieres
+                    icon: mdi:lightbulb-group
+                    name: autres
+                    tap_action:
+                      action: more-info
+                columns: 4
+          - type: grid
+            columns: 1
+            square: false
+            cards:
+              - type: custom:button-card
+                name: appareils
+                template: titre
+              - square: false
+                type: grid
+                cards:
+                  - type: custom:button-card
+                    name: 2h rdc
+                    template: light
+                    entity: input_boolean.max2h
+                    icon: mdi:timer-refresh
+                  - type: custom:button-card
+                    name: 2h étage
+                    template: light
+                    entity: input_boolean.max2hetage
+                    icon: mdi:timer-refresh
+                  - type: custom:button-card
+                    triggers_update: all
+                    template: aspirateur
+                    entity: vacuum.roborock_s7
+                    icon: mdi:robot-vacuum
+                    name: alfred
+                columns: 4
+        view_layout:
+          grid-area: cd
+      - type: grid
+        columns: 1
+        square: false
+        cards:
+          - type: grid
+            columns: 1
+            square: false
+            cards:
+              - type: custom:button-card
+                name: alarme
+                template: titre
+              - type: custom:mushroom-alarm-control-panel-card
+                entity: alarm_control_panel.maison
+                states:
+                  - armed_away
+                  - armed_night
+                  - armed_vacation
+                  - armed_home
+                  - armed_custom_bypass
+                name: m a i s o n
+                show_keypad: false
+                card_mod:
+                  class: soft-ui
+          - type: grid
+            columns: 1
+            square: false
+            cards:
+              - type: custom:button-card
+                name: portail
+                template: titre
+              - square: false
+                type: grid
+                cards:
+                  - entity: binary_sensor.ouvertureportail
+                    template: portail
+                    name: portail
+                    icon: mdi:gate
+                    tap_action:
+                      action: call-service
+                      service: switch.turn_on
+                      target:
+                        entity_id: switch.double_relay_switch_2x1_5kw_6
+                      data: {}
+                    show_state: true
+                    type: custom:button-card
+                  - entity: binary_sensor.ouvertureportail
+                    icon: mdi:walk
+                    name: piéton
+                    template: button_single
+                    tap_action:
+                      action: call-service
+                      service: switch.turn_on
+                      target:
+                        entity_id: switch.jardinportail_2
+                      data: {}
+                    show_state: true
+                    type: custom:button-card
+                  - entity: binary_sensor.ouvertureportail
+                    icon: mdi:car
+                    name: totale
+                    template: button_single
+                    tap_action:
+                      action: call-service
+                      service: switch.turn_on
+                      target:
+                        entity_id: switch.jardinportail
+                      data: {}
+                    show_state: true
+                    type: custom:button-card
+                columns: 4
+          - type: grid
+            columns: 1
+            square: false
+            cards:
+              - type: custom:button-card
+                name: volets
+                template: titre
+                styles:
+                  card:
+                    - margin-bottom: '-20px'
+              - type: custom:tabbed-card
+                styles:
+                  '--mdc-theme-primary': rgb(var(--my-blue))
+                  '--mdc-tab-text-label-color-default': rgb(var(--my-grey))
+                tabs:
+                  - attributes:
+                      stacked: true
+                      label: maison
+                      icon: mdi:home
+                    card:
+                      square: false
+                      type: grid
+                      columns: 1
+                      cards:
+                        - type: custom:button-card
+                          color_type: blank-card
+                        - square: false
+                          type: grid
+                          columns: 4
+                          cards:
+                            - type: custom:button-card
+                              template: button_single
+                              icon: mdi:arrow-up
+                              name: maison
+                              state_display: ouvrir
+                              entity: cover.voletsmaison
+                              tap_action:
+                                action: call-service
+                                service: cover.open_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.voletsmaison
+                            - type: custom:button-card
+                              entity: cover.voletsmaison
+                              template: button_single
+                              icon: mdi:stop
+                              state_display: |
+                                [[[
+                                  var position = entity.attributes.current_position;
+                                  return (position ? position : '0') + '%';
+                                ]]]
+                              name: maison
+                              tap_action:
+                                action: call-service
+                                service: cover.stop_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.voletsmaison
+                            - type: custom:button-card
+                              template: button_single
+                              icon: mdi:arrow-down
+                              name: maison
+                              state_display: fermer
+                              tap_action:
+                                action: call-service
+                                service: cover.close_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.voletsmaison
+                  - attributes:
+                      stacked: true
+                      label: rdc
+                      icon: mdi:home-floor-0
+                    card:
+                      square: false
+                      type: grid
+                      columns: 1
+                      cards:
+                        - type: custom:button-card
+                          color_type: blank-card
+                        - square: true
+                          type: grid
+                          columns: 4
+                          cards:
+                            - type: custom:button-card
+                              template: button_single
+                              icon: mdi:arrow-up
+                              name: rdc
+                              state_display: ouvrir
+                              entity: cover.voletsrdc
+                              tap_action:
+                                action: call-service
+                                service: cover.open_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.voletsrdc
+                            - type: custom:button-card
+                              entity: cover.voletsrdc
+                              template: button_single
+                              icon: mdi:stop
+                              name: rdc
+                              state_display: |
+                                [[[
+                                  var position = entity.attributes.current_position;
+                                  return (position ? position : '0') + '%';
+                                ]]]
+                              tap_action:
+                                action: call-service
+                                service: cover.stop_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.voletsrdc
+                            - type: custom:button-card
+                              template: button_single
+                              icon: mdi:arrow-down
+                              name: rdc
+                              state_display: fermer
+                              tap_action:
+                                action: call-service
+                                service: cover.close_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.voletsrdc
+                  - attributes:
+                      stacked: true
+                      label: etage
+                      icon: mdi:home-floor-1
+                    card:
+                      square: false
+                      type: grid
+                      columns: 1
+                      cards:
+                        - type: custom:button-card
+                          color_type: blank-card
+                        - square: true
+                          type: grid
+                          columns: 4
+                          cards:
+                            - type: custom:button-card
+                              template: button_single
+                              icon: mdi:arrow-up
+                              name: étage
+                              state_display: ouvrir
+                              entity: cover.voletsetage
+                              tap_action:
+                                action: call-service
+                                service: cover.open_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.voletsetage
+                            - type: custom:button-card
+                              entity: cover.voletsetage
+                              template: button_single
+                              icon: mdi:stop
+                              name: étage
+                              state_display: |
+                                [[[
+                                  var position = entity.attributes.current_position;
+                                  return (position ? position : '0') + '%';
+                                ]]]
+                              tap_action:
+                                action: call-service
+                                service: cover.stop_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.voletsetage
+                            - type: custom:button-card
+                              template: button_single
+                              icon: mdi:arrow-down
+                              name: étage
+                              state_display: fermer
+                              tap_action:
+                                action: call-service
+                                service: cover.close_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.voletsetage
+                  - attributes:
+                      stacked: true
+                      label: auto
+                      icon: mdi:window-shutter-auto
+                    card:
+                      type: grid
+                      square: false
+                      columns: 1
+                      cards:
+                        - type: custom:button-card
+                          color_type: blank-card
+                        - type: grid
+                          square: false
+                          columns: 1
+                          cards:
+                            - type: grid
+                              square: false
+                              columns: 4
+                              cards:
+                                - entity: input_boolean.voletsautooff
+                                  template: button_single
+                                  icon: mdi:window-shutter-alert
+                                  name: 'off'
+                                  styles:
+                                    icon:
+                                      - color: rgb(var(--my-grey))
+                                  tap_action:
+                                    action: call-service
+                                    service: input_number.set_value
+                                    target:
+                                      entity_id: input_number.slidervoletsauto
+                                    data:
+                                      value: 0
+                                  state:
+                                    - value: 'on'
+                                      styles:
+                                        icon:
+                                          - color: rgb(var(--my-blue)
+                                        card:
+                                          - background-color: rgba(var(--my-blue),0.2)
+                                          - box-shadow: var(--my-box-shadow)
+                                  card_mod:
+                                    class: soft-ui
+                                    style: |
+                                      ha-card {
+                                        --primary-text-color: rgb(var(--my-grey));   
+                                      }
+                                  show_state: true
+                                  type: custom:button-card
+                                - entity: input_boolean.voletsautoombre
+                                  icon: mdi:umbrella-beach
+                                  name: ombre
+                                  template: light
+                                  styles:
+                                    icon:
+                                      - color: rgb(var(--my-grey))
+                                  tap_action:
+                                    action: call-service
+                                    service: input_number.set_value
+                                    target:
+                                      entity_id: input_number.slidervoletsauto
+                                    data:
+                                      value: 25
+                                  state:
+                                    - value: 'on'
+                                      styles:
+                                        icon:
+                                          - color: rgb(var(--my-blue)
+                                        card:
+                                          - background-color: rgba(var(--my-blue),0.2)
+                                          - box-shadow: var(--my-box-shadow)
+                                  card_mod:
+                                    class: soft-ui
+                                    style: |
+                                      ha-card {
+                                        --primary-text-color: rgb(var(--my-grey));   
+                                      }
+                                  show_state: true
+                                  type: custom:button-card
+                                - entity: input_boolean.voletsautomoyen
+                                  icon: mdi:sun-angle
+                                  name: moyen
+                                  template: light
+                                  styles:
+                                    icon:
+                                      - color: rgb(var(--my-grey))
+                                  tap_action:
+                                    action: call-service
+                                    service: input_number.set_value
+                                    target:
+                                      entity_id: input_number.slidervoletsauto
+                                    data:
+                                      value: 50
+                                  state:
+                                    - value: 'on'
+                                      styles:
+                                        icon:
+                                          - color: rgb(var(--my-blue)
+                                        card:
+                                          - background-color: rgba(var(--my-blue),0.2)
+                                          - box-shadow: var(--my-box-shadow)
+                                  card_mod:
+                                    class: soft-ui
+                                    style: |
+                                      ha-card {
+                                        --primary-text-color: rgb(var(--my-grey));   
+                                      }
+                                  show_state: true
+                                  type: custom:button-card
+                                - entity: input_boolean.voletsautolumiere
+                                  icon: mdi:sun-wireless
+                                  name: lumière
+                                  template: light
+                                  styles:
+                                    icon:
+                                      - color: rgb(var(--my-grey))
+                                  tap_action:
+                                    action: call-service
+                                    service: input_number.set_value
+                                    target:
+                                      entity_id: input_number.slidervoletsauto
+                                    data:
+                                      value: 100
+                                  state:
+                                    - value: 'on'
+                                      styles:
+                                        icon:
+                                          - color: rgb(var(--my-blue)
+                                        card:
+                                          - background-color: rgba(var(--my-blue),0.2)
+                                          - box-shadow: var(--my-box-shadow)
+                                  card_mod:
+                                    class: soft-ui
+                                    style: |
+                                      ha-card {
+                                        --primary-text-color: rgb(var(--my-grey));   
+                                      }
+                                  show_state: true
+                                  type: custom:button-card
+                  - attributes:
+                      stacked: true
+                      label: velux
+                      icon: mdi:window-open
+                    card:
+                      square: false
+                      type: grid
+                      columns: 1
+                      cards:
+                        - type: custom:button-card
+                          color_type: blank-card
+                        - square: true
+                          type: grid
+                          columns: 4
+                          cards:
+                            - type: custom:button-card
+                              template: button_single
+                              icon: mdi:arrow-up
+                              name: velux
+                              state_display: ouvrir
+                              entity: cover.sejourvelux_roof_window
+                              tap_action:
+                                action: call-service
+                                service: cover.open_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.sejourvelux_roof_window
+                            - type: custom:button-card
+                              entity: cover.sejourvelux_roof_window
+                              template: button_single
+                              icon: mdi:stop
+                              name: velux
+                              state_display: |
+                                [[[
+                                  var position = entity.attributes.current_position;
+                                  return (position ? position : '0') + '%';
+                                ]]]
+                              tap_action:
+                                action: call-service
+                                service: cover.stop_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.sejourvelux_roof_window
+                            - type: custom:button-card
+                              template: button_single
+                              icon: mdi:arrow-down
+                              name: velux
+                              state_display: fermer
+                              tap_action:
+                                action: call-service
+                                service: cover.close_cover
+                                data: {}
+                                target:
+                                  entity_id: cover.sejourvelux_roof_window
+          - type: grid
+            columns: 1
+            square: false
+            cards:
+              - type: custom:button-card
+                name: activités
+                template: titre
+              - square: false
+                type: grid
+                cards:
+                  - entity: select.harmony_hub_3_activities
+                    template: light
+                    name: film
+                    icon: mdi:movie
+                    state_display: Désactivé
+                    tap_action:
+                      action: call-service
+                      service: select.select_option
+                      target:
+                        entity_id: select.harmony_hub_3_activities
+                      data:
+                        option: Regarder un film
+                    hold_action:
+                      action: call-service
+                      service: select.select_option
+                      service_data:
+                        option: power_off
+                      target:
+                        entity_id: select.harmony_hub_3_activities
+                    styles:
+                      icon:
+                        - color: rgba(var(--my-grey),0.8)
+                    state:
+                      - value: Regarder un film
+                        state_display: Activé
+                        styles:
+                          icon:
+                            - color: rgb(var(--my-orange))
+                          card:
+                            - background-color: rgba(var(--my-orange),0.2)
+                            - box-shadow: var(--my-box-shadow)
+                    card_mod:
+                      class: soft-ui
+                      style: |
+                        ha-card {
+                          --primary-text-color: rgb(var(--my-grey));   
+                        }
+                    show_state: true
+                    type: custom:button-card
+                  - entity: select.harmony_hub_3_activities
+                    template: light
+                    name: PS5
+                    icon: mdi:sony-playstation
+                    state_display: Désactivé
+                    tap_action:
+                      action: call-service
+                      service: select.select_option
+                      target:
+                        entity_id: select.harmony_hub_3_activities
+                      data:
+                        option: Jouer a la PS5
+                    hold_action:
+                      action: call-service
+                      service: select.select_option
+                      service_data:
+                        option: power_off
+                      target:
+                        entity_id: select.harmony_hub_3_activities
+                    styles:
+                      icon:
+                        - color: rgba(var(--my-grey),0.8)
+                    state:
+                      - value: Jouer a la PS5
+                        state_display: Activé
+                        styles:
+                          icon:
+                            - color: rgb(var(--my-orange))
+                          card:
+                            - background-color: rgba(var(--my-orange),0.2)
+                            - box-shadow: var(--my-box-shadow)
+                    card_mod:
+                      class: soft-ui
+                      style: |
+                        ha-card {
+                          --primary-text-color: rgb(var(--my-grey));   
+                        }
+                    show_state: true
+                    type: custom:button-card
+                  - entity: select.harmony_hub_3_activities
+                    template: light
+                    name: switch
+                    icon: mdi:nintendo-switch
+                    state_display: Désactivé
+                    tap_action:
+                      action: call-service
+                      service: select.select_option
+                      target:
+                        entity_id: select.harmony_hub_3_activities
+                      data:
+                        option: Jouer a la Switch
+                    hold_action:
+                      action: call-service
+                      service: select.select_option
+                      service_data:
+                        option: power_off
+                      target:
+                        entity_id: select.harmony_hub_3_activities
+                    styles:
+                      icon:
+                        - color: rgba(var(--my-grey),0.8)
+                    state:
+                      - value: Jouer a la Switch
+                        state_display: Activé
+                        styles:
+                          icon:
+                            - color: rgb(var(--my-orange))
+                          card:
+                            - background-color: rgba(var(--my-orange),0.2)
+                            - box-shadow: var(--my-box-shadow)
+                    show_state: true
+                    type: custom:button-card
+                  - entity: select.harmony_hub_3_activities
+                    template: light
+                    name: chill
+                    icon: mdi:music
+                    state_display: Désactivé
+                    tap_action:
+                      action: call-service
+                      service: select.select_option
+                      target:
+                        entity_id: select.harmony_hub_3_activities
+                      data:
+                        option: Chill
+                    hold_action:
+                      action: call-service
+                      service: select.select_option
+                      service_data:
+                        option: power_off
+                      target:
+                        entity_id: select.harmony_hub_3_activities
+                    styles:
+                      icon:
+                        - color: rgba(var(--my-grey),0.8)
+                    state:
+                      - value: Chill
+                        state_display: Activé
+                        styles:
+                          icon:
+                            - color: rgb(var(--my-orange))
+                          card:
+                            - background-color: rgba(var(--my-orange),0.2)
+                            - box-shadow: var(--my-box-shadow)
+                    card_mod:
+                      class: soft-ui
+                      style: |
+                        ha-card {
+                          --primary-text-color: rgb(var(--my-grey));   
+                        }
+                    show_state: true
+                    type: custom:button-card
+                columns: 4
+        view_layout:
+          grid-area: cg
+      - type: custom:popup-card
+        entity: calendar.rte_tempo_calendrier
+        dismissable: false
+        size: normal
+        right_button: ok
+        timeout: 60000
+        title: t e m p o
+        card:
+          initial_view: listWeek
+          type: calendar
+          entities:
+            - calendar.rte_tempo_calendrier
+          theme: Soft UI
+        view_layout:
+          grid-area: cc
+      - type: custom:popup-card
+        entity: group.touteslumieres
+        title: l u m i è r e s
+        dismissable: false
+        size: normal
+        right_button: ok
+        card:
+          square: true
+          type: grid
+          cards:
+            - type: custom:button-card
+              icon: mdi:ceiling-fan-light
+              entity: light.natibou_ventilateur
+              name: natibou
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:button-card
+              entity: light.wled_faustine
+              icon: mdi:crown
+              name: Poupée
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:button-card
+              entity: light.wled_theodore
+              icon: mdi:deathly-hallows
+              name: Teddy
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:button-card
+              color_type: blank-card
+            - type: custom:button-card
+              entity: switch.double_relay_switch_2x1_5kw
+              icon: mdi:sofa
+              name: salon
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:button-card
+              entity: light.bureautibou_ampoule
+              icon: mdi:desk
+              name: bureau
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:button-card
+              entity: switch.cuisine_bandeau
+              icon: mdi:stove
+              name: cuisine
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:button-card
+              entity: group.lumieresoussol
+              icon: mdi:tools
+              name: sous-sol
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:button-card
+              entity: input_boolean.rgbbureau
+              icon: mdi:death-star-variant
+              name: g0m cave
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:button-card
+              entity: switch.salledejeulumiere
+              icon: mdi:multimedia
+              name: rec room
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:button-card
+              entity: light.spots_kallax
+              icon: mdi:library-shelves
+              name: kallax
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:button-card
+              entity: switch.salledejeurgb
+              icon: mdi:led-strip-variant
+              name: RGB
+              size: 35%
+              show_state: true
+              tap_action:
+                haptic: heavy
+                action: toggle
+              styles:
+                icon:
+                  - color: rgb(75,75,75,0.8)
+                card:
+                  - width: 120px
+                  - height: 120px
+                  - margin: auto
+                  - border-style: none
+                  - background-color: null
+                  - box-shadow: >-
+                      rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                      0.3) 0px 8px 16px -8px
+                grid:
+                  - grid-template-areas: '"i" "n" "s"'
+                  - grid-template-columns: 1fr
+                  - grid-template-rows: 1fr min-content min-content
+                img_cell:
+                  - align-self: start
+                  - text-align: start
+                  - justify-content: start
+                  - padding-left: 15px
+                name:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - text-transform: lowercase
+                  - letter-spacing: 0.2em
+                  - font-size: 17px
+                  - padding-bottom: 2px
+                  - color: rgb(75,75,75,0.8)
+                state:
+                  - justify-self: start
+                  - padding-left: 12px
+                  - font-weight: bold
+                  - font-size: 12px
+                  - opacity: 0.6
+                  - padding-bottom: 5px
+                  - opacity: 0.6
+              state:
+                - value: 'on'
+                  styles:
+                    icon:
+                      - color: rgb(251, 161, 0)
+                    card:
+                      - background-color: rgba(251, 161, 0,0.2)
+                      - box-shadow: >-
+                          rgba(50, 50, 93, 0.05) 0px 30px 60px -12px inset,
+                          rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+          columns: 4
+        theme: Soft UI
+      - type: custom:popup-card
+        entity: group.fenetresmaison
+        dismissable: false
+        title: o u v r a n t s
+        right_button: ok
+        timeout: 10000
+        card:
+          type: vertical-stack
+          cards:
+            - type: conditional
+              conditions:
+                - entity: group.fenetresmaison
+                  state: 'on'
+              card:
+                type: conditional
+                conditions:
+                  - entity: group.fenetresmaison
+                    state: 'on'
+                card:
+                  type: grid
+                  columns: 1
+                  square: false
+                  cards:
+                    - type: custom:auto-entities
+                      card:
+                        type: glance
+                        show_state: false
+                      filter:
+                        include:
+                          - entity_id: binary_sensor.door_window_sensor_*
+                            state: 'on'
+                      sort:
+                        method: name
+                      card_mod:
+                        style: |
+                          ha-card {
+                          background-color: transparent;
+                          border: transparent;
+            - type: conditional
+              conditions:
+                - entity: group.fenetresmaison
+                  state_not: 'on'
+              card:
+                type: custom:mushroom-title-card
+                title: Tout est fermé
+                alignment: center
+              card_mod:
+                style: |
+                  ha-card {
+                  background-color: transparent;
+                  border: transparent;
+      - type: custom:popup-card
+        entity: vacuum.roborock_s7
+        title: a l f r e d
+        dismissable: false
+        size: normal
+        right_button: ok
+        timeout: 30000
+        card:
+          type: horizontal-stack
+          cards:
+            - type: grid
+              columns: 1
+              square: false
+              cards:
+                - type: custom:vacuum-card
+                  entity: vacuum.roborock_s7
+                  show_toolbar: false
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:button-card
+                      icon: mdi:robot-vacuum
+                      entity: input_boolean.cleaningaspire
+                      name: aspire
+                      size: 35%
+                      show_state: true
+                      tap_action:
+                        haptic: heavy
+                        action: call-service
+                        service: script.turn_on
+                        data: {}
+                        target:
+                          entity_id: script.alfredaspire
+                      styles:
+                        icon:
+                          - color: rgb(75,75,75,0.8)
+                        card:
+                          - width: 120px
+                          - height: 120px
+                          - margin: auto
+                          - border-style: none
+                          - background-color: null
+                          - box-shadow: >-
+                              rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0,
+                              0, 0, 0.3) 0px 8px 16px -8px
+                        grid:
+                          - grid-template-areas: '"i" "n" "s"'
+                          - grid-template-columns: 1fr
+                          - grid-template-rows: 1fr min-content min-content
+                        img_cell:
+                          - align-self: start
+                          - text-align: start
+                          - justify-content: start
+                          - padding-left: 15px
+                        name:
+                          - justify-self: start
+                          - padding-left: 12px
+                          - font-weight: bold
+                          - text-transform: lowercase
+                          - letter-spacing: 0.2em
+                          - font-size: 17px
+                          - padding-bottom: 2px
+                          - color: rgb(75,75,75,0.8)
+                        state:
+                          - justify-self: start
+                          - padding-left: 12px
+                          - font-weight: bold
+                          - font-size: 12px
+                          - opacity: 0.6
+                          - padding-bottom: 5px
+                          - opacity: 0.6
+                      state:
+                        - value: 'on'
+                          tap_action:
+                            haptic: heavy
+                            action: call-service
+                            service: vacuum.return_to_base
+                            data: {}
+                            target:
+                              entity_id: vacuum.roborock_s7
+                          styles:
+                            icon:
+                              - color: rgb(251, 161, 0)
+                              - animation: rotating 2s ease infinite
+                            card:
+                              - background-color: rgba(251, 161, 0,0.2)
+                              - box-shadow: >-
+                                  rgba(50, 50, 93, 0.05) 0px 30px 60px -12px
+                                  inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px
+                                  inset
+                      card_mod:
+                        class: soft-ui
+                        style: |
+                          ha-card {
+                            --primary-text-color: rgb(var(--my-grey));   
+                          }
+                    - type: custom:button-card
+                      icon: mdi:robot-vacuum
+                      entity: input_boolean.cleaningmop
+                      name: custom
+                      size: 35%
+                      show_state: true
+                      tap_action:
+                        haptic: heavy
+                        action: call-service
+                        service: script.turn_on
+                        data: {}
+                        target:
+                          entity_id: script.alfredmop
+                      styles:
+                        icon:
+                          - color: rgb(75,75,75,0.8)
+                        card:
+                          - width: 120px
+                          - height: 120px
+                          - margin: auto
+                          - border-style: none
+                          - background-color: null
+                          - box-shadow: >-
+                              rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0,
+                              0, 0, 0.3) 0px 8px 16px -8px
+                        grid:
+                          - grid-template-areas: '"i" "n" "s"'
+                          - grid-template-columns: 1fr
+                          - grid-template-rows: 1fr min-content min-content
+                        img_cell:
+                          - align-self: start
+                          - text-align: start
+                          - justify-content: start
+                          - padding-left: 15px
+                        name:
+                          - justify-self: start
+                          - padding-left: 12px
+                          - font-weight: bold
+                          - text-transform: lowercase
+                          - letter-spacing: 0.2em
+                          - font-size: 17px
+                          - padding-bottom: 2px
+                          - color: rgb(75,75,75,0.8)
+                        state:
+                          - justify-self: start
+                          - padding-left: 12px
+                          - font-weight: bold
+                          - font-size: 12px
+                          - opacity: 0.6
+                          - padding-bottom: 5px
+                          - opacity: 0.6
+                      state:
+                        - value: 'on'
+                          tap_action:
+                            haptic: heavy
+                            action: call-service
+                            service: vacuum.return_to_base
+                            data: {}
+                            target:
+                              entity_id: vacuum.roborock_s7
+                          styles:
+                            icon:
+                              - color: rgb(251, 161, 0)
+                              - animation: rotating 2s ease infinite
+                            card:
+                              - background-color: rgba(251, 161, 0,0.2)
+                              - box-shadow: >-
+                                  rgba(50, 50, 93, 0.05) 0px 30px 60px -12px
+                                  inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px
+                                  inset
+                      card_mod:
+                        class: soft-ui
+                        style: |
+                          ha-card {
+                            --primary-text-color: rgb(var(--my-grey));   
+                          }
+            - type: conditional
+              conditions:
+                - entity: vacuum.roborock_s7
+                  state_not: docked
+              card:
+                camera_view: auto
+                type: picture-glance
+                entities: []
+                camera_image: camera.roborock_s7_map
+                aspect_ratio: '0.5'
+                title: c a r t e
+  - title: cctv
+    path: cctv
+    icon: mdi:cctv
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 33% 33% 33%
+      grid-template-rows: 360px 360px 360px
+      gap: 0px 0px;
+      grid-auto-flow: row
+      grid-template-areas: |
+        "c1 c2 c3"
+        "c4 c5 c6"
+        "c7 c8 c8"
+    badges: []
+    cards:
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.08_derriere
+            live_provider: go2rtc
+        view:
+          default: live
+        live:
+          preload: true
+        dimensions:
+          aspect_ratio_mode: unconstrained
+          max_height: 340px
+        menu:
+          style: overlay
+          buttons:
+            frigate:
+              enabled: false
+            cameras:
+              enabled: false
+            substreams:
+              enabled: false
+            download:
+              enabled: false
+            media_player:
+              enabled: false
+          position: left
+        media_gallery:
+          controls:
+            thumbnails:
+              size: 120
+        view_layout:
+          grid-area: c8
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.01_descente
+            live_provider: go2rtc
+        view:
+          default: live
+        live:
+          preload: true
+        dimensions:
+          aspect_ratio_mode: unconstrained
+          max_height: 340px
+        menu:
+          style: overlay
+          buttons:
+            frigate:
+              enabled: false
+            cameras:
+              enabled: false
+            substreams:
+              enabled: false
+            download:
+              enabled: false
+            media_player:
+              enabled: false
+          position: left
+        media_gallery:
+          controls:
+            thumbnails:
+              size: 120
+        view_layout:
+          grid-area: c1
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.02_entree
+            live_provider: go2rtc
+        view:
+          default: live
+        live:
+          preload: true
+        dimensions:
+          aspect_ratio_mode: unconstrained
+          max_height: 340px
+        menu:
+          style: overlay
+          buttons:
+            frigate:
+              enabled: false
+            cameras:
+              enabled: false
+            substreams:
+              enabled: false
+            download:
+              enabled: false
+            media_player:
+              enabled: false
+          position: left
+        media_gallery:
+          controls:
+            thumbnails:
+              size: 120
+        view_layout:
+          grid-area: c2
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.03_terrasse
+            live_provider: go2rtc
+        view:
+          default: live
+        live:
+          preload: true
+        dimensions:
+          aspect_ratio_mode: unconstrained
+          max_height: 340px
+        menu:
+          style: overlay
+          buttons:
+            frigate:
+              enabled: false
+            cameras:
+              enabled: false
+            substreams:
+              enabled: false
+            download:
+              enabled: false
+            media_player:
+              enabled: false
+          position: left
+        media_gallery:
+          controls:
+            thumbnails:
+              size: 120
+        view_layout:
+          grid-area: c3
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.04_soussol
+            live_provider: go2rtc
+        view:
+          default: live
+        live:
+          preload: true
+        dimensions:
+          aspect_ratio_mode: unconstrained
+          max_height: 340px
+        menu:
+          style: overlay
+          buttons:
+            frigate:
+              enabled: false
+            cameras:
+              enabled: false
+            substreams:
+              enabled: false
+            download:
+              enabled: false
+            media_player:
+              enabled: false
+          position: left
+        media_gallery:
+          controls:
+            thumbnails:
+              size: 120
+        view_layout:
+          grid-area: c4
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.06_etage
+            live_provider: go2rtc
+        view:
+          default: live
+        live:
+          preload: true
+        dimensions:
+          aspect_ratio_mode: unconstrained
+          max_height: 340px
+        menu:
+          style: overlay
+          buttons:
+            frigate:
+              enabled: false
+            cameras:
+              enabled: false
+            substreams:
+              enabled: false
+            download:
+              enabled: false
+            media_player:
+              enabled: false
+          position: left
+        media_gallery:
+          controls:
+            thumbnails:
+              size: 120
+        view_layout:
+          grid-area: c5
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.05_sejour
+            live_provider: go2rtc
+        view:
+          default: live
+        live:
+          preload: true
+        dimensions:
+          aspect_ratio_mode: unconstrained
+          max_height: 340px
+        menu:
+          style: overlay
+          buttons:
+            frigate:
+              enabled: false
+            cameras:
+              enabled: false
+            substreams:
+              enabled: false
+            download:
+              enabled: false
+            media_player:
+              enabled: false
+          position: left
+        media_gallery:
+          controls:
+            thumbnails:
+              size: 120
+        view_layout:
+          grid-area: c6
+      - type: custom:frigate-card
+        cameras:
+          - camera_entity: camera.07_jardin
+            live_provider: go2rtc
+        view:
+          default: live
+        live:
+          preload: true
+        dimensions:
+          aspect_ratio_mode: unconstrained
+          max_height: 340px
+        menu:
+          style: overlay
+          buttons:
+            frigate:
+              enabled: false
+            cameras:
+              enabled: false
+            substreams:
+              enabled: false
+            download:
+              enabled: false
+            media_player:
+              enabled: false
+          position: left
+        media_gallery:
+          controls:
+            thumbnails:
+              size: 120
+        view_layout:
+          grid-area: c7
