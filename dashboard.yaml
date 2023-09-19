@@ -1,3 +1,6 @@
+ressources:
+  - url: /hacsfiles/flex-horseshoe-card/flex-horseshoe-card.js
+    type: module
 background: var(--lovelace-background)
 kiosk_mode:
   non_admin_settings:
@@ -18,8 +21,14 @@ button_card_templates:
         - justify-self: start
         - padding-left: 10px
         - text-transform: lowercase
+        - null
         - font-size: 25px
         - letter-spacing: 0.7em
+    card_mod:
+      style: |
+        ha-card {
+          --primary-text-color: rgb(var(--my-grey));   
+        }
   light:
     size: 35%
     show_state: true
@@ -56,6 +65,7 @@ button_card_templates:
         - padding-left: 12px
         - font-weight: bold
         - text-transform: lowercase
+        - letter-spacing: 0.2em
         - font-size: 12px
         - opacity: 0.6
         - padding-bottom: 5px
@@ -70,6 +80,42 @@ button_card_templates:
             - box-shadow: var(--my-box-shadow)
     card_mod:
       class: soft-ui
+      style: |
+        ha-card {
+          --primary-text-color: rgb(var(--my-grey));   
+        }
+  sensor:
+    size: 40%
+    show_state: true
+    tap_action:
+      haptic: heavy
+      action: toggle
+    styles:
+      card:
+        - width: 80px
+        - height: 80px
+        - border-radius: 40px
+        - box-shadow: rgba(var(--my-orange), 0.3) 0px -50px 36px -28px inset;
+        - border: none
+      icon:
+        - color: rgba(var(--my-orange), 1)
+      grid:
+        - grid-template-areas: '"n" "i" "s"'
+        - grid-template-rows: min-content 40px min-content
+      name:
+        - width: 80px
+        - height: 20px
+        - font-size: 14px
+        - font-weight: light
+        - letter-spacing: 0.1em
+      img_cell: null
+      state:
+        - font-size: 14px
+        - justify-self: bottom
+        - text-align: center
+        - letter-spacing: 0.2em
+        - font-weight: bold
+    card_mod:
       style: |
         ha-card {
           --primary-text-color: rgb(var(--my-grey));   
@@ -111,6 +157,7 @@ button_card_templates:
         - text-transform: lowercase
         - font-size: 12px
         - opacity: 0.6
+        - letter-spacing: 0.2em
         - padding-bottom: 5px
         - opacity: 0.6
     state:
@@ -164,6 +211,7 @@ button_card_templates:
         - font-weight: bold
         - font-size: 12px
         - opacity: 0.6
+        - letter-spacing: 0.2em
         - padding-bottom: 5px
         - opacity: 0.6
     state:
@@ -214,6 +262,7 @@ button_card_templates:
         - font-weight: bold
         - font-size: 12px
         - opacity: 0.6
+        - letter-spacing: 0.2em
         - padding-bottom: 5px
         - opacity: 0.6
     card_mod:
@@ -222,38 +271,6 @@ button_card_templates:
         ha-card {
           --primary-text-color: rgb(var(--my-grey));   
         }
-  header:
-    color_type: label-card
-    styles:
-      card:
-        - padding: 0
-        - background-color: var(--my-header)
-        - border: none
-        - opacity: 100%
-        - margin: 0 auto
-  footer:
-    color_type: label-card
-    styles:
-      card:
-        - padding: 0
-        - background-color: var(--my-footer)
-        - opacity: 100%
-        - margin: 0 auto
-      grid:
-        - grid-template-areas: '"buttons"'
-        - grid-template-columns: 1fr
-        - grid-template-rows: 1fr min-content min-content
-      custom_fields:
-        buttons:
-          - margin: 0
-          - padding: 0.5em
-          - position: relative
-          - left: 0
-  header_transparent:
-    template: header
-    styles:
-      card:
-        - background-color: rgba(255,255,255,0.5)
   frame:
     color_type: label-card
     styles:
@@ -299,22 +316,17 @@ sidebar:
       icon: mdi:chart-areaspline
     - action: navigate
       active: true
-      name: Voitures
-      navigation_path: /dashboard-cuisine/voitures
-      icon: mdi:car
+      name: extra
+      navigation_path: /dashboard-cuisine/extra
+      icon: mdi:star-plus
     - action: navigate
       active: false
-      name: Pièces
-      navigation_path: /dashboard-cuisine/voitures
-      icon: mdi:floor-plan
-    - action: navigate
-      active: false
-      name: Gomflix
-      navigation_path: /dashboard-cuisine/gomflix
-      icon: mdi:netflix
+      name: Recettes
+      navigation_path: /dashboard-cuisine/recettes
+      icon: mdi:chef-hat
   template: |
     <li>
-      {% if is_state('input_boolean.lavelingefini', 'on') %}{{'\U0001f9fa'}} Lave-Linge terminé {% endif %}
+      {% if is_state('input_boolean.lavelingefini', 'on') %}{{'\U0001f9fa'}} Lave-Linge terminé {% endif %} 
     </li> 
     <li>
       {% if states('sensor.lave_linge_remaining_time') != '0:00:00' %} {{'\U0001f9fa'}} {{ states('sensor.lave_linge_remaining_time')}} restant {% endif %}
@@ -323,14 +335,38 @@ sidebar:
       {% if is_state('sensor.rte_tempo_prochaine_couleur', 'Rouge') %}{{'\u26A1'}} Demain, jour sobriété {% endif %}
     </li>
     <li>
-      {% if is_state('input_boolean.tibouroule', 'on') %}{{'\U0001F698'}} ETA Tibou : {{ states('sensor.eta_tibou_maison')}}min {% endif %}
+      {% if (states('person.tibou') != 'home') and (states('input_boolean.tibourevient') == 'on') %} {{'\U0001F698'}} ETA Tibou : {{ states('sensor.eta_tibou_maison')}}min {% endif %}
     </li> 
     <li>
-      {% if is_state('binary_sensor.salleserveuroctoprint_printing', 'on') %}{{'\U0001f991'}} {{ states('sensor.salleserveuroctoprint_print_time_left')}} restant {% endif %}
+      {% if (states('person.mathieu_goy') != 'home') and (states('input_boolean.mathieurevient') == 'on') %} {{'\U0001F698'}} ETA Nathieu : {{ states('sensor.eta_nathieu_maison')}}min {% endif %}
+    </li> 
+    <li>
+      {% if is_state('binary_sensor.salleserveuroctoprint_printing', 'on') %}{{'\U0001f991'}} {{ states('sensor.salleserveuroctoprint_print_time_left')|int|timestamp_custom('%H:%M:%S')}} restant {% endif %}
     </li> 
     <li>
       {% if is_state('vacuum.roborock_s7', 'cleaning') %}{{'\U0001F916'}} {{ (states('sensor.roborock_s7_current_clean_area')|float * 1.25)|round(0)}}% aspiré par Alfred {% endif %}
     </li>
+    <li>
+      {% if is_state('binary_sensor.charging', 'on') %}{{'\U0001f50c'}} {{'\U0001F698'}} {{ states('sensor.time_charge_complete')}} restant {% endif %}
+    </li>
+    <li>
+      {% if states('sensor.mokka_battery_level') < '31' %} {{'\U0001faab'}} {{'\U0001F698'}} Mokka à {{ states('sensor.mokka_battery_level')|round(0)}}% {% endif %}
+    </li>
+    <li>
+      {% if states('sensor.battery') < '31' %} {{'\U0001faab'}} Tesla à {{ states('sensor.battery')|round(0)}}% {% endif %}
+    </li>
+    <li>
+      {% if (now().strftime('%A') == 'Monday') and (now().hour > 17) %} {{'🟤'}} poubelle marron {% endif %}
+    </li>
+    <li>
+      {% if (now().strftime('%A') == 'Sunday') and (now().hour > 17) %} {{'🟢'}} poubelle verte {% endif %}
+    </li>  
+    <li>
+      {% if (now().strftime('%A') == 'Wednesday') and (now().hour > 17) %} {{'🟢'}} poubelle verte {% endif %}
+    </li> 
+    <li>
+      {% if (now().strftime('%A') == 'Tuesday') and (now().hour > 17) %} {{'🟡'}} poubelle jaune {% endif %}
+    </li> 
   bottomCard:
     type: custom:vertical-stack-in-card
     cardStyle: |
@@ -376,9 +412,10 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: none;
-                    border: none;
+                    background-color: transparent;
+                    border: transparent;
                     margin-bottom: -25px !important;
+
                       --primary-text-color: rgb(var(--my-grey));
             - type: conditional
               conditions:
@@ -409,9 +446,10 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: none;
-                    border: none;
+                    background-color: transparent;
+                    border: transparent;
                     margin-bottom: -25px !important;
+
                       --primary-text-color: rgb(var(--my-grey));
             - type: conditional
               conditions:
@@ -442,10 +480,13 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: none;
-                    border: none;
+                    background-color: transparent;
+                    border: transparent;
                     margin-bottom: -25px !important;
+
                       --primary-text-color: rgb(var(--my-grey));
+        - type: horizontal-stack
+          cards:
             - type: conditional
               conditions:
                 - entity: counter.douche4
@@ -475,9 +516,10 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: none;
-                    border: none;
+                    background-color: transparent;
+                    border: transparent;
                     margin-bottom: -25px !important;
+
                       --primary-text-color: rgb(var(--my-grey));
         - type: entities
           entities:
@@ -531,8 +573,8 @@ sidebar:
               card_mod:
                 style: |
                   ha-card {
-                  background-color: none;
-                  border: none;
+                  background-color: transparent;
+                  border: transparent;
                   margin-top: -15px !important;
                   margin-bottom: -20px !important;
                     --primary-text-color: rgb(var(--my-grey));
@@ -552,8 +594,8 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: none;
-                    border: none;
+                    background-color: transparent;
+                    border: transparent;
                     margin-top: -15px !important;
                     margin-bottom: -20px !important;
                       --primary-text-color: rgb(var(--my-grey));
@@ -582,8 +624,8 @@ sidebar:
                 card_mod:
                   style: |
                     ha-card {
-                    background-color: none;
-                    border: none;
+                    background-color: transparent;
+                    border: transparent;
                     margin-top: -15px !important;
                     margin-bottom: -20px !important;
                       --primary-text-color: rgb(var(--my-grey));
@@ -636,11 +678,8 @@ sidebar:
                  grey
                 {% endif %}
               secondary: |-
-                {% if is_state('sensor.mokka_charging_status', 'InProgress') %}
-                {{ states('sensor.mokka_battery_level')}}% (en charge)
-                {% else %}
-                {{ states('sensor.mokka_battery_level')}}% 
-                {% endif %}
+
+                {{ states('sensor.mokka_battery_level')|round(0)}}%
               layout: vertical
               card_mod:
                 style: |
@@ -657,7 +696,7 @@ sidebar:
                 {{ states('sensor.battery')}}%
                 {% endif %}
                 {% if is_state('binary_sensor.charging', 'on') %}
-                {{ states('sensor.battery')}}% (en charge)
+                {{ states('sensor.battery')}}%
                 {% endif %}
               icon: |-
                 {% set state = states('sensor.battery') %}
@@ -837,14 +876,14 @@ sidebar:
                     height:50px !important;
   style: |
     :host {
-        --sidebar-background: #F3F5F7;
-        --sidebar-text-color: #333;
+        --sidebar-background: var(--primary-background-color);
+        --sidebar-text-color: rgb(var(--my-grey),1);
         --face-border-color: #FFF;
         --clock-hands-color: #000;
         --clock-seconds-hand-color: #FF4B3E;
         --clock-middle-background: #333;
         --clock-middle-border: #000;
-        box-shadow: inset 0px 4px 16px rgba(17, 17, 26, 0.1);  
+        box-shadow: var(--sidebar-shadow);  
     }
 
     .sidebarMenu li {
@@ -852,14 +891,17 @@ sidebar:
         padding: 10px 20px;
         border-radius: 12px;
         font-size: 20px !important;
+        text-transform: lowercase !important;
+        letter-spacing: 0.2em !important;
         line-height: 32px !important;
-        font-weight: 200;
+        font-weight: 500;
         white-space: normal;
         display: block;
         cursor: pointer;
     }
 
     .digitalClock {
+        color: rgb(var(--my-grey),1);
         text-align: center;
         padding-bottom: 1px;
         padding-top: 20px;
@@ -869,8 +911,9 @@ sidebar:
         letter-spacing: 5px;
     }
     .date {
+        color: rgb(var(--my-grey),1);
         text-align: center;
-        font-size: 20px;
+        font-size: 17px;
     }
     .bottom {
         display: grid!important;
@@ -881,7 +924,7 @@ views:
     theme: Soft UI
     type: custom:grid-layout
     layout:
-      grid-template-columns: 20px 550px 55px 480px 55px 550px 20px
+      grid-template-columns: 20px 550px 35px 480px 35px 550px 20px
       grid-template-rows: 50px auto 50px
       gap: 0px 0px;
       grid-auto-flow: row
@@ -913,9 +956,11 @@ views:
                         - type: custom:mini-graph-card
                           color_thresholds:
                             - color: rgb(var(--my-blue)
-                              value: 15
+                              value: 0
+                            - color: rgb(var(--my-blue)
+                              value: 10
                             - color: rgb(var(--my-green)
-                              value: 22
+                              value: 19
                             - color: rgb(var(--my-orange)
                               value: 25
                             - color: rgb(var(--my-red)
@@ -1412,12 +1457,10 @@ views:
                                 background-color: transparent;
                                 border: transparent;
                         - type: custom:mushroom-template-card
-                          primary: >-
-                            {{states('sensor.gw1100a_v2_2_5_indoor_temperature')}}°C
+                          primary: '{{states(''sensor.cuisine_temperature'')}}°C'
                           icon: mdi:stove
                           icon_color: >
-                            {% set state =
-                            states('sensor.gw1100a_v2_2_5_indoor_temperature')
+                            {% set state = states('sensor.cuisine_temperature')
                             %}
 
                             {% if  state | float <= 17 %}
@@ -1622,111 +1665,199 @@ views:
                 custom_fields:
                   buttons:
                     card:
-                      type: vertical-stack
+                      type: grid
+                      columns: 2
+                      square: false
                       cards:
-                        - type: custom:button-card
-                          color_type: blank-card
-                        - type: energy-distribution
-                          link_dashboard: false
+                        - type: custom:flex-horseshoe-card
+                          entities:
+                            - entity: sensor.energy_total_daily
+                              decimals: 0
+                              name: électricité
+                              unit: kWh
+                              tap_action:
+                                action: navigate
+                                navigation_path: /dashboard-cuisine/consos
+                            - entity: >-
+                                sensor.home_energy_meter_gen5_electric_consumed_w
+                              decimals: 0
+                              unit: W
+                              icon: mdi:home
+                              tap_action:
+                                action: navigate
+                                navigation_path: /dashboard-cuisine/consos
+                            - entity: >-
+                                sensor.salleserveurswitchborneev_electric_consumed_w
+                              attribute: pressure
+                              decimals: 0
+                              unit: W
+                              icon: mdi:ev-plug-type2
+                              tap_action:
+                                action: navigate
+                                navigation_path: /dashboard-cuisine/consos
+                          show:
+                            horseshoe_style: lineargradient
+                          layout:
+                            hlines:
+                              - id: 0
+                                xpos: 50
+                                ypos: 42
+                                length: 40
+                                styles:
+                                  - stroke: var(--primary-text-color);
+                                  - stroke-width: 5;
+                                  - stroke-linecap: round;
+                                  - opacity: 0.7;
+                            states:
+                              - id: 0
+                                entity_index: 0
+                                xpos: 50
+                                ypos: 34
+                                styles:
+                                  - font-size: 3em;
+                              - id: 1
+                                entity_index: 1
+                                xpos: 40
+                                ypos: 57
+                                styles:
+                                  - text-anchor: start;
+                                  - font-size: 1.5em;
+                              - id: 2
+                                entity_index: 2
+                                xpos: 40
+                                ypos: 72
+                                styles:
+                                  - text-anchor: start;
+                                  - font-size: 1.5em;
+                            icons:
+                              - id: 0
+                                entity_index: 1
+                                xpos: 37
+                                ypos: 57
+                                align: end
+                                size: 1.3
+                              - id: 1
+                                entity_index: 2
+                                xpos: 37
+                                ypos: 72
+                                align: end
+                                size: 1.3
+                            names:
+                              - id: 0
+                                entity_index: 0
+                                xpos: 50
+                                ypos: 90
+                                styles:
+                                  - font-size: 1.2em;
+                                  - opacity: 0.7;
+                                  - letter-spacing: 0.4em;
+                                  - text-transform: lowercase
+                          horseshoe_scale:
+                            min: 0
+                            max: 80
+                            color: rgba(var(--my-grey2),0.7)
+                          color_stops:
+                            '1': rgba(var(--my-green),0.7)
+                            '2': rgba(var(--my-orange),0.7)
                           card_mod:
                             style: |
                               ha-card {
-                              background-color: transparent;
-                              border: transparent;
-                        - square: false
-                          type: grid
-                          columns: 4
-                          cards:
-                            - type: custom:button-card
-                              color_type: blank-card
-                            - type: custom:mushroom-template-card
-                              primary: >-
-                                {{float(states('sensor.home_energy_meter_gen5_electric_consumed_w'))|round(0)}}
-                                W
-                              icon: mdi:home
-                              icon_color: >
-                                {% set state =
-                                states('sensor.home_energy_meter_gen5_electric_consumed_w')
-                                %}
-
-                                {% if  state | float <= 1000 %}
-                                 var(--my-green)
-                                {% endif %}
-
-                                {% if  state | float > 1000 and state | float <=
-                                3000%}
-                                 var(--my-orange)
-                                {% endif %}
-
-                                {% if  state | float > 3000 %}
-                                 var(--my-red)
-                                {% endif %}
-                              multiline_secondary: true
-                              layout: vertical
-                              secondary: ''
+                                background-color: transparent;
+                                border: transparent;
+                                --primary-text-color: rgb(var(--my-grey)
+                        - type: custom:flex-horseshoe-card
+                          entities:
+                            - entity: sensor.compteur_eau_litres
+                              decimals: 0
+                              name: eau
+                              unit: L
                               tap_action:
-                                action: more-info
-                              entity: >-
-                                sensor.home_energy_meter_gen5_electric_consumed_w
-                              badge_icon: ''
-                              badge_color: ''
-                              card_mod:
-                                style: |
-                                  ha-card {
-                                    background-color: transparent;
-                                    border: transparent;
-                                    --primary-text-color: rgb(var(--my-grey)
-                            - type: custom:mushroom-template-card
-                              primary: >-
-                                {% set state =
-                                states('sensor.salleserveurswitchborneev_electric_consumed_w')
-                                %}
-
-                                {% if  state | float <= 10%}
-
-                                0 W
-
-                                {% else %}
-
-                                {{float(states('sensor.salleserveurswitchborneev_electric_consumed_w'))|round(0)}}
-                                W
-
-                                {% endif %}
-                              icon: mdi:ev-plug-type2
-                              icon_color: >-
-                                {% set state =
-                                states('sensor.salleserveurswitchborneev_electric_consumed_w')
-                                %}
-
-                                {% if  state | float <= 4%}
-                                 var(--my-grey2)
-                                {% endif %}
-
-                                {% if  state | float > 4 and state | float <=
-                                6800%}
-                                 var(--my-red)
-                                {% endif %}
-
-                                {% if  state | float > 6800%}
-                                 var(--my-green)
-                                {% endif %}
-                              multiline_secondary: true
-                              layout: vertical
-                              secondary: ''
+                                action: navigate
+                                navigation_path: /dashboard-cuisine/consos
+                            - entity: sensor.water_pulse_meter
+                              decimals: 1
+                              unit: L/min
+                              icon: mdi:water-pump
                               tap_action:
-                                action: more-info
-                              entity: >-
-                                sensor.salleserveurswitchborneev_electric_consumed_w
-                              badge_icon: ''
-                              badge_color: ''
-                              card_mod:
-                                style: |
-                                  ha-card {
-                                    background-color: transparent;
-                                    border: transparent;
-                                    --primary-text-color: rgb(var(--my-grey)
-                            - type: custom:button-card
-                              color_type: blank-card
+                                action: navigate
+                                navigation_path: /dashboard-cuisine/consos
+                            - entity: sensor.etat_reservoir
+                              decimals: 0
+                              unit: null
+                              icon: mdi:car-coolant-level
+                              tap_action:
+                                action: navigate
+                                navigation_path: /dashboard-cuisine/consos
+                          show:
+                            horseshoe_style: lineargradient
+                          layout:
+                            hlines:
+                              - id: 0
+                                xpos: 50
+                                ypos: 42
+                                length: 40
+                                styles:
+                                  - stroke: var(--primary-text-color);
+                                  - stroke-width: 5;
+                                  - stroke-linecap: round;
+                                  - opacity: 0.7;
+                            states:
+                              - id: 0
+                                entity_index: 0
+                                xpos: 50
+                                ypos: 34
+                                styles:
+                                  - font-size: 3em;
+                              - id: 1
+                                entity_index: 1
+                                xpos: 40
+                                ypos: 57
+                                styles:
+                                  - text-anchor: start;
+                                  - font-size: 1.5em;
+                              - id: 2
+                                entity_index: 2
+                                xpos: 40
+                                ypos: 72
+                                styles:
+                                  - text-anchor: start;
+                                  - font-size: 1.5em;
+                            icons:
+                              - id: 0
+                                entity_index: 1
+                                xpos: 37
+                                ypos: 57
+                                align: end
+                                size: 1.3
+                              - id: 1
+                                entity_index: 2
+                                xpos: 37
+                                ypos: 72
+                                align: end
+                                size: 1.3
+                            names:
+                              - id: 0
+                                entity_index: 0
+                                xpos: 50
+                                ypos: 90
+                                styles:
+                                  - font-size: 1.2em;
+                                  - opacity: 0.7;
+                                  - letter-spacing: 0.4em;
+                                  - text-transform: lowercase
+                          horseshoe_scale:
+                            min: 0
+                            max: 400
+                            color: rgba(var(--my-grey2),0.7)
+                          color_stops:
+                            '16': rgba(var(--my-blue),0.7)
+                            '25': rgba(var(--my-red),0.7)
+                          card_mod:
+                            style: |
+                              ha-card {
+                                background-color: transparent;
+                                border: transparent;
+                                --primary-text-color: rgb(var(--my-grey)
                 card_mod:
                   class: soft-ui
                   style: |
@@ -1765,6 +1896,35 @@ views:
                     name: autres
                     tap_action:
                       action: more-info
+                    styles:
+                      grid:
+                        - position: relative
+                      custom_fields:
+                        notification:
+                          - background-color: |
+                              [[[
+                                if (states['sensor.nbrelumieresallumees'].state > 0)
+                                  return 'rgb(var(--my-orange))';
+                                return "transparent";
+                              ]]]
+                          - border-radius: 50%
+                          - position: absolute
+                          - left: 50%
+                          - top: 10%
+                          - height: 20px
+                          - width: 20px
+                          - font-size: 11px
+                          - font-weight: bold
+                          - line-height: 20px
+                          - color: rgb(var(--my-grey))
+                    custom_fields:
+                      notification: |
+
+                        [[[
+                          if (states['sensor.nbrelumieresallumees'].state > 0)
+                            return Math.floor(states['sensor.nbrelumieresallumees'].state) ;
+                          return "";
+                        ]]]
                 columns: 4
           - type: grid
             columns: 1
@@ -1791,7 +1951,119 @@ views:
                     template: aspirateur
                     entity: vacuum.roborock_s7
                     icon: mdi:robot-vacuum
-                    name: alfred
+                    name: droides
+                  - type: custom:button-card
+                    triggers_update: all
+                    template: light
+                    size: 28%
+                    entity: switch.salleserveurswitchborneev
+                    icon: phu:charging-station
+                    name: borne ev
+                    styles:
+                      icon:
+                        - padding-left: 5px
+                      grid:
+                        - position: relative
+                      custom_fields:
+                        notification:
+                          - background-color: ''
+                          - border-radius: 50%
+                          - position: absolute
+                          - left: 50%
+                          - top: 10%
+                          - height: 30px
+                          - width: 30px
+                          - font-size: 11px
+                          - font-weight: bold
+                          - line-height: 20px
+                          - color: rgb(var(--my-grey))
+                    custom_fields:
+                      notification: |
+
+                        [[[
+                          if (states['sensor.salleserveurswitchborneev_electric_consumed_w'].state > 5000)
+                          return `<ha-icon
+                            icon="mdi:lightning-bolt"
+                            style="width: 24px; height: 24px; color: rgb(var(--my-orange));">
+                            </ha-icon>`
+                        ]]]
+                  - type: custom:button-card
+                    triggers_update: all
+                    template: light
+                    entity: input_boolean.arrosageauto
+                    icon: mdi:sprinkler
+                    name: arrosage
+                    styles:
+                      grid:
+                        - position: relative
+                      custom_fields:
+                        notification:
+                          - background-color: ''
+                          - border-radius: 50%
+                          - position: absolute
+                          - left: 50%
+                          - top: 10%
+                          - height: 30px
+                          - width: 30px
+                          - font-size: 11px
+                          - font-weight: bold
+                          - line-height: 20px
+                          - color: rgb(var(--my-grey))
+                    custom_fields:
+                      notification: |
+
+                        [[[
+                          if (states['switch.jardin_pompearrosage'].state =='on' && entity.state == 'off')
+                          return `<ha-icon
+                            icon="mdi:water-pump"
+                            style="width: 25px; height: 25px; color: rgb(var(--my-red));">
+                            </ha-icon>`
+                          if (states['switch.jardin_pompearrosage'].state =='on' && entity.state == 'on')
+                          return `<ha-icon
+                            icon="mdi:water-pump"
+                            style="width: 25px; height: 25px; color: rgb(var(--my-orange));">
+                            </ha-icon>`
+                        ]]]
+                  - type: custom:button-card
+                    triggers_update: all
+                    template: light
+                    entity: switch.octopi_2
+                    icon: phu:3dprinter-printing
+                    name: octopi
+                    styles:
+                      icon:
+                        - padding-left: 5px
+                      grid:
+                        - position: relative
+                      custom_fields:
+                        notification:
+                          - background-color: ''
+                          - border-radius: 50%
+                          - position: absolute
+                          - left: 50%
+                          - top: 10%
+                          - height: 30px
+                          - width: 30px
+                          - font-size: 11px
+                          - font-weight: bold
+                          - line-height: 20px
+                          - color: rgb(var(--my-grey))
+                    custom_fields:
+                      notification: |
+
+                        [[[
+                          if (states['sensor.salleserveuroctoprint_print_status'].state == 'Printing')
+                          return `<ha-icon
+                            icon="mdi:printer-3d-nozzle"
+                            style="width: 24px; height: 24px; color: rgb(var(--my-orange));">
+                            </ha-icon>`
+                        ]]]
+                  - type: custom:button-card
+                    triggers_update: all
+                    template: light
+                    entity: input_boolean.collectepluie
+                    icon: mdi:car-coolant-level
+                    name: collecte
                 columns: 4
         view_layout:
           grid-area: cd
@@ -1807,17 +2079,75 @@ views:
                 name: alarme
                 template: titre
               - type: custom:mushroom-alarm-control-panel-card
+                card_mod:
+                  style:
+                    mushroom-state-info$: |
+                      .container {
+                       text-transform: lowercase;
+                       letter-spacing: 0.4em;
+                       --secondary-text-color: rgba(var(--my-grey),0.8);
+                       --card-secondary-font-size: 20px;
+                       --card-primary-font-size: 20px;
+                      flex-direction: row !important;
+                      align-items: baseline;
+                      gap: 10px;
+
+                      }
+                    mushroom-button:nth-child(1):
+                      $: |
+                        .button {
+                          box-shadow: var(--my-card-shadow);
+                          --bg-color: var(--primary-background-color);
+                          --control-icon-size: 30px;
+                          width: 120px !important;
+                          height: 50px !important;                          
+                          }
+                        ha-icon {
+                          --card-mod-icon-color: rgba(var(--my-blue),1);
+                        }
+                    mushroom-button:nth-child(2):
+                      $: |
+                        .button {
+                          box-shadow: var(--my-card-shadow);
+                          --bg-color: var(--primary-background-color);
+                          --control-icon-size: 30px;
+                          width: 120px !important;
+                          height: 50px !important;                          
+                          margin-left: -45px !important;
+                          }
+                        ha-icon {
+                          --card-mod-icon-color: rgba(var(--my-blue),1);
+                        }
+                    mushroom-button:nth-child(3):
+                      $: |
+                        .button {
+                          box-shadow: var(--my-card-shadow);
+                          --bg-color: var(--primary-background-color);
+                          --control-icon-size: 30px;
+                          width: 120px !important;
+                          height: 50px !important;
+                          margin-left: -90px !important;
+                          }
+                        ha-icon {
+                          --card-mod-icon-color: rgba(var(--my-blue),1);
+                        }
+                    .: |
+                      ha-card {
+                        background-color: transparent;
+                        border: transparent;
+                        padding-left: 0px !important;
+                      }
+
+                      ha-state-icon {
+                        color: rgb(var(my-blue));
+                      }
                 entity: alarm_control_panel.maison
                 states:
-                  - armed_away
                   - armed_night
-                  - armed_vacation
                   - armed_home
                   - armed_custom_bypass
-                name: m a i s o n
+                primary_info: none
                 show_keypad: false
-                card_mod:
-                  class: soft-ui
           - type: grid
             columns: 1
             square: false
@@ -2062,7 +2392,7 @@ views:
                               columns: 4
                               cards:
                                 - entity: input_boolean.voletsautooff
-                                  template: button_single
+                                  template: light
                                   icon: mdi:window-shutter-alert
                                   name: 'off'
                                   styles:
@@ -2083,12 +2413,6 @@ views:
                                         card:
                                           - background-color: rgba(var(--my-blue),0.2)
                                           - box-shadow: var(--my-box-shadow)
-                                  card_mod:
-                                    class: soft-ui
-                                    style: |
-                                      ha-card {
-                                        --primary-text-color: rgb(var(--my-grey));   
-                                      }
                                   show_state: true
                                   type: custom:button-card
                                 - entity: input_boolean.voletsautoombre
@@ -2113,12 +2437,6 @@ views:
                                         card:
                                           - background-color: rgba(var(--my-blue),0.2)
                                           - box-shadow: var(--my-box-shadow)
-                                  card_mod:
-                                    class: soft-ui
-                                    style: |
-                                      ha-card {
-                                        --primary-text-color: rgb(var(--my-grey));   
-                                      }
                                   show_state: true
                                   type: custom:button-card
                                 - entity: input_boolean.voletsautomoyen
@@ -2127,7 +2445,7 @@ views:
                                   template: light
                                   styles:
                                     icon:
-                                      - color: rgb(var(--my-grey),0.8)y-grey))
+                                      - color: rgb(var(--my-grey),0.8)
                                   tap_action:
                                     action: call-service
                                     service: input_number.set_value
@@ -2143,12 +2461,6 @@ views:
                                         card:
                                           - background-color: rgba(var(--my-blue),0.2)
                                           - box-shadow: var(--my-box-shadow)
-                                  card_mod:
-                                    class: soft-ui
-                                    style: |
-                                      ha-card {
-                                        --primary-text-color: rgb(var(--my-grey));   
-                                      }
                                   show_state: true
                                   type: custom:button-card
                                 - entity: input_boolean.voletsautolumiere
@@ -2173,12 +2485,6 @@ views:
                                         card:
                                           - background-color: rgba(var(--my-blue),0.2)
                                           - box-shadow: var(--my-box-shadow)
-                                  card_mod:
-                                    class: soft-ui
-                                    style: |
-                                      ha-card {
-                                        --primary-text-color: rgb(var(--my-grey));   
-                                      }
                                   show_state: true
                                   type: custom:button-card
                   - attributes:
@@ -2276,12 +2582,6 @@ views:
                           card:
                             - background-color: rgba(var(--my-orange),0.2)
                             - box-shadow: var(--my-box-shadow)
-                    card_mod:
-                      class: soft-ui
-                      style: |
-                        ha-card {
-                          --primary-text-color: rgb(var(--my-grey));   
-                        }
                     show_state: true
                     type: custom:button-card
                   - entity: select.harmony_hub_3_activities
@@ -2315,12 +2615,6 @@ views:
                           card:
                             - background-color: rgba(var(--my-orange),0.2)
                             - box-shadow: var(--my-box-shadow)
-                    card_mod:
-                      class: soft-ui
-                      style: |
-                        ha-card {
-                          --primary-text-color: rgb(var(--my-grey));   
-                        }
                     show_state: true
                     type: custom:button-card
                   - entity: select.harmony_hub_3_activities
@@ -2387,12 +2681,6 @@ views:
                           card:
                             - background-color: rgba(var(--my-orange),0.2)
                             - box-shadow: var(--my-box-shadow)
-                    card_mod:
-                      class: soft-ui
-                      style: |
-                        ha-card {
-                          --primary-text-color: rgb(var(--my-grey));   
-                        }
                     show_state: true
                     type: custom:button-card
                 columns: 4
@@ -2746,7 +3034,10 @@ views:
               show_state: true
               tap_action:
                 haptic: heavy
-                action: toggle
+                action: call-service
+                service: light.toggle
+                target:
+                  entity_id: light.lumiere_sejour
               styles:
                 icon:
                   - color: rgb(75,75,75,0.8)
@@ -3171,195 +3462,461 @@ views:
                   border: transparent;
       - type: custom:popup-card
         entity: vacuum.roborock_s7
-        title: a l f r e d
         dismissable: false
         size: normal
         right_button: ok
         timeout: 30000
         card:
-          type: horizontal-stack
+          type: vertical-stack
           cards:
-            - type: grid
-              columns: 1
-              square: false
+            - type: custom:button-card
+              template: titre
+              name: droides
+            - type: horizontal-stack
+              layout_type: custom:grid-layout
               cards:
-                - type: custom:vacuum-card
-                  entity: vacuum.roborock_s7
-                  show_toolbar: false
-                - type: horizontal-stack
+                - type: vertical-stack
                   cards:
-                    - type: custom:button-card
-                      icon: mdi:robot-vacuum
-                      entity: input_boolean.cleaningaspire
-                      name: aspire
-                      size: 35%
-                      show_state: true
-                      tap_action:
-                        haptic: heavy
-                        action: call-service
-                        service: script.turn_on
-                        data: {}
-                        target:
-                          entity_id: script.alfredaspire
-                      styles:
-                        icon:
-                          - color: rgb(75,75,75,0.8)
-                        card:
-                          - width: 120px
-                          - height: 120px
-                          - margin: auto
-                          - border-style: none
-                          - background-color: null
-                          - box-shadow: >-
-                              rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0,
-                              0, 0, 0.3) 0px 8px 16px -8px
-                        grid:
-                          - grid-template-areas: '"i" "n" "s"'
-                          - grid-template-columns: 1fr
-                          - grid-template-rows: 1fr min-content min-content
-                        img_cell:
-                          - align-self: start
-                          - text-align: start
-                          - justify-content: start
-                          - padding-left: 15px
-                        name:
-                          - justify-self: start
-                          - padding-left: 12px
-                          - font-weight: bold
-                          - text-transform: lowercase
-                          - letter-spacing: 0.2em
-                          - font-size: 17px
-                          - padding-bottom: 2px
-                          - color: rgb(75,75,75,0.8)
-                        state:
-                          - justify-self: start
-                          - padding-left: 12px
-                          - font-weight: bold
-                          - font-size: 12px
-                          - opacity: 0.6
-                          - padding-bottom: 5px
-                          - opacity: 0.6
-                      state:
-                        - value: 'on'
+                    - type: custom:vacuum-card
+                      entity: vacuum.roborock_s7
+                      show_toolbar: false
+                    - type: horizontal-stack
+                      cards:
+                        - type: custom:button-card
+                          icon: phu:roborock
+                          entity: input_boolean.cleaningaspire
+                          name: aspire
+                          size: 35%
+                          show_state: true
                           tap_action:
                             haptic: heavy
                             action: call-service
-                            service: vacuum.return_to_base
+                            service: script.turn_on
                             data: {}
                             target:
-                              entity_id: vacuum.roborock_s7
+                              entity_id: script.alfredaspire
                           styles:
                             icon:
-                              - color: rgb(251, 161, 0)
-                              - animation: rotating 2s ease infinite
+                              - color: rgb(75,75,75,0.8)
                             card:
-                              - background-color: rgba(251, 161, 0,0.2)
+                              - width: 120px
+                              - height: 120px
+                              - margin: auto
+                              - border-style: none
+                              - background-color: null
                               - box-shadow: >-
-                                  rgba(50, 50, 93, 0.05) 0px 30px 60px -12px
-                                  inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px
-                                  inset
-                      card_mod:
-                        class: soft-ui
-                        style: |
-                          ha-card {
-                            --primary-text-color: rgb(var(--my-grey));   
-                          }
-                    - type: custom:button-card
-                      icon: mdi:robot-vacuum
-                      entity: input_boolean.cleaningmop
-                      name: custom
-                      size: 35%
-                      show_state: true
-                      tap_action:
-                        haptic: heavy
-                        action: call-service
-                        service: script.turn_on
-                        data: {}
-                        target:
-                          entity_id: script.alfredmop
-                      styles:
-                        icon:
-                          - color: rgb(75,75,75,0.8)
-                        card:
-                          - width: 120px
-                          - height: 120px
-                          - margin: auto
-                          - border-style: none
-                          - background-color: null
-                          - box-shadow: >-
-                              rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0,
-                              0, 0, 0.3) 0px 8px 16px -8px
-                        grid:
-                          - grid-template-areas: '"i" "n" "s"'
-                          - grid-template-columns: 1fr
-                          - grid-template-rows: 1fr min-content min-content
-                        img_cell:
-                          - align-self: start
-                          - text-align: start
-                          - justify-content: start
-                          - padding-left: 15px
-                        name:
-                          - justify-self: start
-                          - padding-left: 12px
-                          - font-weight: bold
-                          - text-transform: lowercase
-                          - letter-spacing: 0.2em
-                          - font-size: 17px
-                          - padding-bottom: 2px
-                          - color: rgb(75,75,75,0.8)
-                        state:
-                          - justify-self: start
-                          - padding-left: 12px
-                          - font-weight: bold
-                          - font-size: 12px
-                          - opacity: 0.6
-                          - padding-bottom: 5px
-                          - opacity: 0.6
-                      state:
-                        - value: 'on'
+                                  rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+                                  rgba(0, 0, 0, 0.3) 0px 8px 16px -8px
+                            grid:
+                              - grid-template-areas: '"i" "n" "s"'
+                              - grid-template-columns: 1fr
+                              - grid-template-rows: 1fr min-content min-content
+                            img_cell:
+                              - align-self: start
+                              - text-align: start
+                              - justify-content: start
+                              - padding-left: 15px
+                            name:
+                              - justify-self: start
+                              - padding-left: 12px
+                              - font-weight: bold
+                              - text-transform: lowercase
+                              - letter-spacing: 0.2em
+                              - font-size: 17px
+                              - padding-bottom: 2px
+                              - color: rgb(75,75,75,0.8)
+                            state:
+                              - justify-self: start
+                              - padding-left: 12px
+                              - font-weight: bold
+                              - font-size: 12px
+                              - opacity: 0.6
+                              - padding-bottom: 5px
+                              - opacity: 0.6
+                          state:
+                            - value: 'on'
+                              tap_action:
+                                haptic: heavy
+                                action: call-service
+                                service: vacuum.return_to_base
+                                data: {}
+                                target:
+                                  entity_id: vacuum.roborock_s7
+                              styles:
+                                icon:
+                                  - color: rgb(251, 161, 0)
+                                  - animation: rotating 2s ease infinite
+                                card:
+                                  - background-color: rgba(251, 161, 0,0.2)
+                                  - box-shadow: >-
+                                      rgba(50, 50, 93, 0.05) 0px 30px 60px -12px
+                                      inset, rgba(0, 0, 0, 0.3) 0px 18px 36px
+                                      -18px inset
+                          card_mod:
+                            class: soft-ui
+                            style: |
+                              ha-card {
+                                --primary-text-color: rgb(var(--my-grey));   
+                              }
+                        - type: custom:button-card
+                          icon: phu:roborock
+                          entity: input_boolean.cleaningmop
+                          name: custom
+                          size: 35%
+                          show_state: true
                           tap_action:
                             haptic: heavy
                             action: call-service
-                            service: vacuum.return_to_base
+                            service: script.turn_on
                             data: {}
                             target:
-                              entity_id: vacuum.roborock_s7
+                              entity_id: script.alfredmop
                           styles:
                             icon:
-                              - color: rgb(251, 161, 0)
-                              - animation: rotating 2s ease infinite
+                              - color: rgb(75,75,75,0.8)
                             card:
-                              - background-color: rgba(251, 161, 0,0.2)
+                              - width: 120px
+                              - height: 120px
+                              - margin: auto
+                              - border-style: none
+                              - background-color: null
                               - box-shadow: >-
-                                  rgba(50, 50, 93, 0.05) 0px 30px 60px -12px
-                                  inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px
-                                  inset
-                      card_mod:
-                        class: soft-ui
-                        style: |
-                          ha-card {
-                            --primary-text-color: rgb(var(--my-grey));   
-                          }
-            - type: conditional
-              conditions:
-                - entity: vacuum.roborock_s7
-                  state_not: docked
-              card:
-                camera_view: auto
-                type: picture-glance
-                entities: []
-                camera_image: camera.roborock_s7_map
-                aspect_ratio: '0.5'
-                title: c a r t e
+                                  rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+                                  rgba(0, 0, 0, 0.3) 0px 8px 16px -8px
+                            grid:
+                              - grid-template-areas: '"i" "n" "s"'
+                              - grid-template-columns: 1fr
+                              - grid-template-rows: 1fr min-content min-content
+                            img_cell:
+                              - align-self: start
+                              - text-align: start
+                              - justify-content: start
+                              - padding-left: 15px
+                            name:
+                              - justify-self: start
+                              - padding-left: 12px
+                              - font-weight: bold
+                              - text-transform: lowercase
+                              - letter-spacing: 0.2em
+                              - font-size: 17px
+                              - padding-bottom: 2px
+                              - color: rgb(75,75,75,0.8)
+                            state:
+                              - justify-self: start
+                              - padding-left: 12px
+                              - font-weight: bold
+                              - font-size: 12px
+                              - opacity: 0.6
+                              - padding-bottom: 5px
+                              - opacity: 0.6
+                          state:
+                            - value: 'on'
+                              tap_action:
+                                haptic: heavy
+                                action: call-service
+                                service: vacuum.return_to_base
+                                data: {}
+                                target:
+                                  entity_id: vacuum.roborock_s7
+                              styles:
+                                icon:
+                                  - color: rgb(251, 161, 0)
+                                  - animation: rotating 2s ease infinite
+                                card:
+                                  - background-color: rgba(251, 161, 0,0.2)
+                                  - box-shadow: >-
+                                      rgba(50, 50, 93, 0.05) 0px 30px 60px -12px
+                                      inset, rgba(0, 0, 0, 0.3) 0px 18px 36px
+                                      -18px inset
+                          card_mod:
+                            class: soft-ui
+                            style: |
+                              ha-card {
+                                --primary-text-color: rgb(var(--my-grey));   
+                              }
+                  view_layout:
+                    grid-area: alfred
+                - type: conditional
+                  conditions:
+                    - entity: vacuum.roborock_s7
+                      state_not: docked
+                  card:
+                    show_state: true
+                    show_name: true
+                    camera_view: live
+                    type: picture-entity
+                    entity: vacuum.nestor
+                    camera_image: camera.roborock_s7_map
+                  card_mod:
+                    class: soft-ui
+                    style: |
+                      ha-card {
+                        --primary-text-color: rgb(var(--my-grey));   
+                      }
+                - type: vertical-stack
+                  cards:
+                    - type: custom:vacuum-card
+                      entity: vacuum.nestor
+                      show_toolbar: false
+                    - type: horizontal-stack
+                      cards:
+                        - type: custom:button-card
+                          icon: mdi:robot-vacuum-variant
+                          entity: vacuum.nestor
+                          name: aspire
+                          size: 35%
+                          show_state: true
+                          tap_action:
+                            haptic: heavy
+                            action: call-service
+                            service: vacuum.start
+                            data: {}
+                            target:
+                              entity_id: vacuum.nestor
+                          styles:
+                            icon:
+                              - color: rgb(75,75,75,0.8)
+                            card:
+                              - width: 120px
+                              - height: 120px
+                              - margin: auto
+                              - border-style: none
+                              - background-color: null
+                              - box-shadow: >-
+                                  rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+                                  rgba(0, 0, 0, 0.3) 0px 8px 16px -8px
+                            grid:
+                              - grid-template-areas: '"i" "n" "s"'
+                              - grid-template-columns: 1fr
+                              - grid-template-rows: 1fr min-content min-content
+                            img_cell:
+                              - align-self: start
+                              - text-align: start
+                              - justify-content: start
+                              - padding-left: 15px
+                            name:
+                              - justify-self: start
+                              - padding-left: 12px
+                              - font-weight: bold
+                              - text-transform: lowercase
+                              - letter-spacing: 0.2em
+                              - font-size: 17px
+                              - padding-bottom: 2px
+                              - color: rgb(75,75,75,0.8)
+                            state:
+                              - justify-self: start
+                              - padding-left: 12px
+                              - font-weight: bold
+                              - font-size: 12px
+                              - opacity: 0.6
+                              - padding-bottom: 5px
+                              - opacity: 0.6
+                          state:
+                            - value: cleaning
+                              tap_action:
+                                haptic: heavy
+                                action: call-service
+                                service: vacuum.return_to_base
+                                data: {}
+                                target:
+                                  entity_id: vacuum.roborock_s7
+                              styles:
+                                icon:
+                                  - color: rgb(251, 161, 0)
+                                  - animation: rotating 2s ease infinite
+                                card:
+                                  - background-color: rgba(251, 161, 0,0.2)
+                                  - box-shadow: >-
+                                      rgba(50, 50, 93, 0.05) 0px 30px 60px -12px
+                                      inset, rgba(0, 0, 0, 0.3) 0px 18px 36px
+                                      -18px inset
+                          card_mod:
+                            class: soft-ui
+                            style: |
+                              ha-card {
+                                --primary-text-color: rgb(var(--my-grey));   
+                              }
+                - type: conditional
+                  conditions:
+                    - entity: vacuum.nestor
+                      state_not: docked
+                  card:
+                    show_state: true
+                    show_name: true
+                    camera_view: live
+                    type: picture-entity
+                    entity: vacuum.nestor
+                    camera_image: camera.nestor_cleaning_map
+                  card_mod:
+                    class: soft-ui
+                    style: |
+                      ha-card {
+                        --primary-text-color: rgb(var(--my-grey));   
+                      }
+              layout:
+                grid-template-columns: 250px 300px 250px 300px
+                grid-template-rows: 400px 200px
+                grid-auto-flow: row
+                grid-template-areas: |
+                  "alfred  map nestor map2"
+                  ". map . map2"
         view_layout:
           grid-area: heure
+      - type: custom:popup-card
+        title: t e m p é r a t u r e s
+        dismissable: true
+        card:
+          type: grid
+          columns: 4
+          square: false
+          cards:
+            - type: custom:mini-graph-card
+              name: n a t i b o u
+              color_thresholds:
+                - color: rgb(var(--my-blue)
+                  value: 15
+                - color: rgb(var(--my-green)
+                  value: 19
+                - color: rgb(var(--my-orange)
+                  value: 27
+                - color: rgb(var(--my-red)
+                  value: 30
+              color_thresholds_transition: smooth
+              animate: true
+              entities:
+                - sensor.chambrenatibou_capteurtemperature_temperature
+              group: false
+              hour24: true
+              line_width: 4
+              points_per_hour: 4
+              show:
+                extrema: true
+                fill: fade
+                icon: false
+                labels: false
+                name: true
+                state: true
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:mini-graph-card
+              name: f a u s t i n e
+              color_thresholds:
+                - color: rgb(var(--my-blue)
+                  value: 15
+                - color: rgb(var(--my-green)
+                  value: 19
+                - color: rgb(var(--my-orange)
+                  value: 27
+                - color: rgb(var(--my-red)
+                  value: 30
+              color_thresholds_transition: smooth
+              animate: true
+              entities:
+                - sensor.faustine_temperature
+              group: false
+              hour24: true
+              line_width: 4
+              points_per_hour: 4
+              show:
+                extrema: true
+                fill: fade
+                icon: false
+                labels: false
+                name: true
+                state: true
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:mini-graph-card
+              name: t h é o d o r e
+              color_thresholds:
+                - color: rgb(var(--my-blue)
+                  value: 15
+                - color: rgb(var(--my-green)
+                  value: 19
+                - color: rgb(var(--my-orange)
+                  value: 27
+                - color: rgb(var(--my-red)
+                  value: 30
+              color_thresholds_transition: smooth
+              animate: true
+              entities:
+                - sensor.theodore_temperature
+              group: false
+              hour24: true
+              line_width: 4
+              points_per_hour: 4
+              show:
+                extrema: true
+                fill: fade
+                icon: false
+                labels: false
+                name: true
+                state: true
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+            - type: custom:mini-graph-card
+              name: é t a g e
+              color_thresholds:
+                - color: rgb(var(--my-blue)
+                  value: 15
+                - color: rgb(var(--my-green)
+                  value: 19
+                - color: rgb(var(--my-orange)
+                  value: 27
+                - color: rgb(var(--my-red)
+                  value: 30
+              color_thresholds_transition: smooth
+              animate: true
+              entities:
+                - sensor.etage_capteursonoff_temperature
+              group: false
+              hour24: true
+              line_width: 4
+              points_per_hour: 4
+              show:
+                extrema: true
+                fill: fade
+                icon: false
+                labels: false
+                name: true
+                state: true
+              card_mod:
+                class: soft-ui
+                style: |
+                  ha-card {
+                    --primary-text-color: rgb(var(--my-grey));   
+                  }
+        entity: sensor.faustine_temperature
+        size: fullscreen
+  - title: recettes
+    path: recettes
+    icon: mdi:chef-hat
+    theme: Soft UI
+    type: panel
+    badges: []
+    cards:
+      - type: iframe
+        url: https://recettes.goygle.fr
+        aspect_ratio: 100%
   - title: cctv
     path: cctv
     icon: mdi:cctv
     type: custom:grid-layout
     layout:
-      grid-template-columns: 80px 480px 55px 480px 55px 480px 20px
-      grid-template-rows: 10px 360px 360px 360px
+      grid-template-columns: 35px 500px 55px 500px 55px 500px 20px
+      grid-template-rows: 10px auto auto auto
       grid-auto-flow: row
       grid-template-areas: |
         " . . . . . . . "
@@ -3374,148 +3931,14 @@ views:
         custom_fields:
           buttons:
             card:
-              type: custom:frigate-card
-              cameras:
-                - camera_entity: camera.01_descente
-              dimensions: {}
-              live_provider: ha
-              live:
-                preload: true
-              view:
-                default: live
-              menu:
-                style: overlay
-                position: left
-                buttons:
-                  frigate:
-                    enabled: false
-                  cameras:
-                    enabled: false
-                  substreams:
-                    enabled: false
-                  download:
-                    enabled: false
-                  camera_ui:
-                    enabled: false
-                  timeline:
-                    enabled: false
-                  media_player:
-                    enabled: false
-              timeline:
-                show_recordings: false
-              media_gallery:
-                controls:
-                  thumbnails:
-                    size: 100
-                  filter:
-                    mode: none
-              performance:
-                features:
-                  animated_progress_indicator: false
-        card_mod:
-          class: soft-ui
-          style: |
-            ha-card {
-              --primary-text-color: rgb(var(--my-grey));   
-            }
-        view_layout:
-          grid-area: c1
-      - type: custom:button-card
-        template: frame
-        padding-bottom: 1px
-        custom_fields:
-          buttons:
-            card:
-              type: custom:frigate-card
-              cameras:
-                - camera_entity: camera.02_entree
-              dimensions: {}
-              live_provider: ha
-              live:
-                preload: true
-              view:
-                default: live
-              menu:
-                style: overlay
-                position: left
-                buttons:
-                  frigate:
-                    enabled: false
-                  cameras:
-                    enabled: false
-                  substreams:
-                    enabled: false
-                  download:
-                    enabled: false
-                  camera_ui:
-                    enabled: false
-                  timeline:
-                    enabled: false
-                  media_player:
-                    enabled: false
-              timeline:
-                show_recordings: false
-              media_gallery:
-                controls:
-                  thumbnails:
-                    size: 100
-                  filter:
-                    mode: none
-              performance:
-                features:
-                  animated_progress_indicator: false
-        card_mod:
-          class: soft-ui
-          style: |
-            ha-card {
-              --primary-text-color: rgb(var(--my-grey));   
-            }
-        view_layout:
-          grid-area: c2
-      - type: custom:button-card
-        template: frame
-        padding-bottom: 1px
-        custom_fields:
-          buttons:
-            card:
-              type: custom:frigate-card
-              cameras:
-                - camera_entity: camera.03_terrasse
-              dimensions: {}
-              live_provider: ha
-              live:
-                preload: true
-              view:
-                default: live
-              menu:
-                style: overlay
-                position: left
-                buttons:
-                  frigate:
-                    enabled: false
-                  cameras:
-                    enabled: false
-                  substreams:
-                    enabled: false
-                  download:
-                    enabled: false
-                  camera_ui:
-                    enabled: false
-                  timeline:
-                    enabled: false
-                  media_player:
-                    enabled: false
-              timeline:
-                show_recordings: false
-              media_gallery:
-                controls:
-                  thumbnails:
-                    size: 100
-                  filter:
-                    mode: none
-              performance:
-                features:
-                  animated_progress_indicator: false
+              show_state: false
+              show_name: false
+              camera_view: live
+              type: picture-entity
+              entity: camera.03_terrasse
+              camera_image: camera.03_terrasse
+              theme: Soft UI
+              aspect_ratio: '1.8'
         card_mod:
           class: soft-ui
           style: |
@@ -3530,44 +3953,14 @@ views:
         custom_fields:
           buttons:
             card:
-              type: custom:frigate-card
-              cameras:
-                - camera_entity: camera.04_soussol
-              dimensions: {}
-              live_provider: ha
-              live:
-                preload: true
-              view:
-                default: live
-              menu:
-                style: overlay
-                position: left
-                buttons:
-                  frigate:
-                    enabled: false
-                  cameras:
-                    enabled: false
-                  substreams:
-                    enabled: false
-                  download:
-                    enabled: false
-                  camera_ui:
-                    enabled: false
-                  timeline:
-                    enabled: false
-                  media_player:
-                    enabled: false
-              timeline:
-                show_recordings: false
-              media_gallery:
-                controls:
-                  thumbnails:
-                    size: 100
-                  filter:
-                    mode: none
-              performance:
-                features:
-                  animated_progress_indicator: false
+              show_state: false
+              show_name: false
+              camera_view: live
+              type: picture-entity
+              entity: camera.04_soussol
+              camera_image: camera.04_soussol
+              theme: Soft UI
+              aspect_ratio: '1.8'
         card_mod:
           class: soft-ui
           style: |
@@ -3583,44 +3976,14 @@ views:
         custom_fields:
           buttons:
             card:
-              type: custom:frigate-card
-              cameras:
-                - camera_entity: camera.05_sejour
-              dimensions: {}
-              live_provider: ha
-              live:
-                preload: true
-              view:
-                default: live
-              menu:
-                style: overlay
-                position: left
-                buttons:
-                  frigate:
-                    enabled: false
-                  cameras:
-                    enabled: false
-                  substreams:
-                    enabled: false
-                  download:
-                    enabled: false
-                  camera_ui:
-                    enabled: false
-                  timeline:
-                    enabled: false
-                  media_player:
-                    enabled: false
-              timeline:
-                show_recordings: false
-              media_gallery:
-                controls:
-                  thumbnails:
-                    size: 100
-                  filter:
-                    mode: none
-              performance:
-                features:
-                  animated_progress_indicator: false
+              show_state: false
+              show_name: false
+              camera_view: live
+              type: picture-entity
+              entity: camera.05_sejour
+              camera_image: camera.05_sejour
+              theme: Soft UI
+              aspect_ratio: '1.8'
         card_mod:
           class: soft-ui
           style: |
@@ -3636,44 +3999,14 @@ views:
         custom_fields:
           buttons:
             card:
-              type: custom:frigate-card
-              cameras:
-                - camera_entity: camera.06_etage
-              dimensions: {}
-              live_provider: ha
-              live:
-                preload: true
-              view:
-                default: live
-              menu:
-                style: overlay
-                position: left
-                buttons:
-                  frigate:
-                    enabled: false
-                  cameras:
-                    enabled: false
-                  substreams:
-                    enabled: false
-                  download:
-                    enabled: false
-                  camera_ui:
-                    enabled: false
-                  timeline:
-                    enabled: false
-                  media_player:
-                    enabled: false
-              timeline:
-                show_recordings: false
-              media_gallery:
-                controls:
-                  thumbnails:
-                    size: 100
-                  filter:
-                    mode: none
-              performance:
-                features:
-                  animated_progress_indicator: false
+              show_state: false
+              show_name: false
+              camera_view: live
+              type: picture-entity
+              entity: camera.06_etage
+              camera_image: camera.06_etage
+              theme: Soft UI
+              aspect_ratio: '1.8'
         card_mod:
           class: soft-ui
           style: |
@@ -3689,44 +4022,14 @@ views:
         custom_fields:
           buttons:
             card:
-              type: custom:frigate-card
-              cameras:
-                - camera_entity: camera.07_jardin
-              dimensions: {}
-              live_provider: ha
-              live:
-                preload: true
-              view:
-                default: live
-              menu:
-                style: overlay
-                position: left
-                buttons:
-                  frigate:
-                    enabled: false
-                  cameras:
-                    enabled: false
-                  substreams:
-                    enabled: false
-                  download:
-                    enabled: false
-                  camera_ui:
-                    enabled: false
-                  timeline:
-                    enabled: false
-                  media_player:
-                    enabled: false
-              timeline:
-                show_recordings: false
-              media_gallery:
-                controls:
-                  thumbnails:
-                    size: 100
-                  filter:
-                    mode: none
-              performance:
-                features:
-                  animated_progress_indicator: false
+              show_state: false
+              show_name: false
+              camera_view: live
+              type: picture-entity
+              entity: camera.07_jardin
+              camera_image: camera.07_jardin
+              theme: Soft UI
+              aspect_ratio: '1.8'
         card_mod:
           class: soft-ui
           style: |
@@ -3742,45 +4045,36 @@ views:
         custom_fields:
           buttons:
             card:
-              type: custom:frigate-card
-              cameras:
-                - camera_entity: camera.08_derriere
-              dimensions:
-                max_height: 340px
-              live_provider: ha
-              live:
-                preload: true
-              view:
-                default: live
-              menu:
-                style: overlay
-                position: left
-                buttons:
-                  frigate:
-                    enabled: false
-                  cameras:
-                    enabled: false
-                  substreams:
-                    enabled: false
-                  download:
-                    enabled: false
-                  camera_ui:
-                    enabled: false
-                  timeline:
-                    enabled: false
-                  media_player:
-                    enabled: false
-              timeline:
-                show_recordings: false
-              media_gallery:
-                controls:
-                  thumbnails:
-                    size: 100
-                  filter:
-                    mode: none
-              performance:
-                features:
-                  animated_progress_indicator: false
+              show_state: false
+              show_name: false
+              camera_view: live
+              type: picture-entity
+              entity: camera.01_descente
+              camera_image: camera.01_descente
+              theme: Soft UI
+              aspect_ratio: '1.8'
+        card_mod:
+          class: soft-ui
+          style: |
+            ha-card {
+              --primary-text-color: rgb(var(--my-grey));   
+            }
+        view_layout:
+          grid-area: c1
+      - type: custom:button-card
+        template: frame
+        padding-bottom: 1px
+        custom_fields:
+          buttons:
+            card:
+              show_state: false
+              show_name: false
+              camera_view: live
+              type: picture-entity
+              entity: camera.08_derriere
+              camera_image: camera.08_derriere
+              theme: Soft UI
+              aspect_ratio: '2.7'
         card_mod:
           class: soft-ui
           style: |
@@ -3790,417 +4084,1402 @@ views:
             }
         view_layout:
           grid-area: c8
-  - title: gomflix
-    path: gomflix
-    icon: mdi:multimedia
-    theme: Soft UI
-    type: panel
-    badges: []
-    cards:
-      - type: iframe
-        url: http://10.10.0.2:8096/web/index.html#!/home.html
-        aspect_ratio: 100%
-  - title: consos
-    path: consos
-    icon: mdi:chart-areaspline
-    type: sidebar
-    badges: []
-    cards:
       - type: custom:button-card
         template: frame
         padding-bottom: 1px
         custom_fields:
           buttons:
             card:
-              type: custom:layout-card
-              layout_type: custom:grid-layout
-              layout:
-                grid-template-columns: 0.5fr 3fr 0.5fr
-                grid-template-rows: 0.8fr 1fr
-                grid-auto-flow: row
-                grid-template-areas: |
-
-                  "jokerg menu jokerd"
-                  "heure notifs grille"
-              cards:
-                - type: custom:digital-clock
-                  card_mod:
-                    style: |
-                      ha-card {
-                        background-color: transparent;
-                        border: transparent;
-                - square: false
-                  type: grid
-                  cards:
-                    - type: custom:mushroom-template-card
-                      primary: home
-                      secondary: ''
-                      icon: mdi:home
-                      layout: vertical
-                      icon_color: green
-                      card_mod:
-                        class: soft-ui
-                        style: |
-                          ha-card {
-                            --primary-text-color: rgb(var(--my-grey));   
-                          }
-                    - type: custom:mushroom-template-card
-                      primary: cctv
-                      secondary: ''
-                      icon: mdi:cctv
-                      layout: vertical
-                      icon_color: purple
-                      card_mod:
-                        class: soft-ui
-                        style: |
-                          ha-card {
-                            --primary-text-color: rgb(var(--my-grey));   
-                          }
-                    - type: custom:mushroom-template-card
-                      primary: volets
-                      secondary: ''
-                      icon: mdi:window-shutter
-                      layout: vertical
-                      icon_color: blue
-                      card_mod:
-                        class: soft-ui
-                        style: |
-                          ha-card {
-                            --primary-text-color: rgb(var(--my-grey));   
-                          }
-                    - type: custom:mushroom-template-card
-                      primary: audio
-                      secondary: ''
-                      icon: mdi:music
-                      layout: vertical
-                      icon_color: orange
-                      card_mod:
-                        class: soft-ui
-                        style: |
-                          ha-card {
-                            --primary-text-color: rgb(var(--my-grey));   
-                          }              
-                    - type: custom:mushroom-template-card
-                      primary: consos
-                      secondary: ''
-                      icon: mdi:chart-areaspline
-                      layout: vertical
-                      icon_color: red
-                      card_mod:
-                        class: soft-ui
-                        style: |
-                          ha-card {
-                            --primary-text-color: rgb(var(--my-grey));   
-                          }             
-                  columns: 5
-                  view_layout:
-                    grid-area: menu
-                - type: markdown
-                  content: Notifs ici!
-                  view_layout:
-                    grid-area: notifs
-                - square: false
-                  type: grid
-                  cards:
-                    - type: custom:mushroom-template-card
-                      primary: portail
-                      secondary: ''
-                      icon: mdi:gate
-                      layout: vertical
-                      icon_color: green
-                      card_mod:
-                        style: |
-                          ha-card {
-                            background-color: transparent;
-                            border: transparent;
-                    - type: custom:mushroom-template-card
-                      primary: ouvrants
-                      secondary: ''
-                      icon: mdi:window-closed
-                      layout: vertical
-                      icon_color: green
-                      card_mod:
-                        style: |
-                          ha-card {
-                            background-color: transparent;
-                            border: transparent;
-                    - type: custom:mushroom-template-card
-                      primary: Puissance
-                      secondary: ''
-                      icon: mdi:lightning-bolt
-                      layout: vertical
-                      icon_color: purple
-                      card_mod:
-                        style: |
-                          ha-card {
-                            background-color: transparent;
-                            border: transparent;
-                    - type: custom:mushroom-template-card
-                      primary: eau
-                      secondary: ''
-                      icon: mdi:water
-                      layout: vertical
-                      icon_color: blue
-                      card_mod:
-                        style: |
-                          ha-card {
-                            background-color: transparent;
-                            border: transparent;
-                  columns: 2
-                  view_layout:
-                    grid-area: grille
-                - square: false
-                  type: grid
-                  cards:
-                    - type: custom:mushroom-template-card
-                      primary: portail
-                      secondary: ''
-                      icon: mdi:gate
-                      layout: vertical
-                      icon_color: green
-                      card_mod:
-                        style: |
-                          ha-card {
-                            background-color: transparent;
-                            border: transparent;
-                    - type: custom:mushroom-template-card
-                      primary: ouvrants
-                      secondary: ''
-                      icon: mdi:window-closed
-                      layout: vertical
-                      icon_color: green
-                      card_mod:
-                        style: |
-                          ha-card {
-                            background-color: transparent;
-                            border: transparent;
-                  columns: 2
-                  view_layout:
-                    grid-area: jokerd
-                - square: false
-                  type: grid
-                  cards:
-                    - type: custom:mushroom-template-card
-                      primary: portail
-                      secondary: ''
-                      icon: mdi:gate
-                      layout: vertical
-                      icon_color: green
-                      card_mod:
-                        style: |
-                          ha-card {
-                            background-color: transparent;
-                            border: transparent;
-                    - type: custom:mushroom-template-card
-                      primary: ouvrants
-                      secondary: ''
-                      icon: mdi:window-closed
-                      layout: vertical
-                      icon_color: green
-                      card_mod:
-                        style: |
-                          ha-card {
-                            background-color: transparent;
-                            border: transparent;
-                  columns: 2
-                  view_layout:
-                    grid-area: jokerg
+              show_state: false
+              show_name: false
+              camera_view: live
+              type: picture-entity
+              entity: camera.02_entree
+              camera_image: camera.02_entree
+              theme: Soft UI
+              aspect_ratio: '1.8'
         card_mod:
           class: soft-ui
           style: |
             ha-card {
               --primary-text-color: rgb(var(--my-grey));   
             }
-      - type: custom:layout-card
-        layout_type: custom:grid-layout
-        layout:
-          grid-template-columns: 0.5fr 3fr 0.5fr
-          grid-template-rows: 0.8fr 1fr
-          grid-auto-flow: row
-          grid-template-areas: |
-
-            "jokerg menu jokerd"
-            "heure notifs grille"
+        view_layout:
+          grid-area: c2
+  - title: consos
+    path: consos
+    icon: mdi:chart-areaspline
+    type: custom:grid-layout
+    theme: Soft UI
+    layout:
+      grid-template-columns: 10px 600px 10px 450px 10px 600px 20px
+      grid-template-rows: 20px auto
+      grid-auto-flow: row
+      grid-template-areas: |
+        " . . . . . . . "
+        " . c2 . c1 . c3 ."
+    badges: []
+    cards:
+      - type: vertical-stack
         cards:
-          - type: custom:digital-clock
+          - type: custom:button-card
+            template: frame
+            padding-bottom: 1px
+            custom_fields:
+              buttons:
+                card:
+                  type: energy-usage-graph
+                  card_mod:
+                    style: |
+                      ha-card {
+                        background-color: transparent;
+                        border: transparent;
+                  energy-grid-consumption-color-0: rgba(var(--my-blue),0.4)
+                  energy-grid-consumption-color-1: rgba(var(--my-blue),0.7)
+                  energy-grid-consumption-color-2: rgba(var(--my-grey),0.2)
+                  energy-grid-consumption-color-3: rgba(var(--my-grey),0.4)
+                  energy-grid-consumption-color-4: rgba(var(--my-red),0.4)
+                  energy-grid-consumption-color-5: rgba(var(--my-red),0.7)
+            card_mod:
+              class: soft-ui
+              style: |
+                ha-card {
+                  --primary-text-color: rgb(var(--my-grey));   
+                }
+          - type: custom:button-card
+            template: frame
+            padding-bottom: 1px
+            custom_fields:
+              buttons:
+                card:
+                  type: energy-gas-graph
+                  card_mod:
+                    style: |
+                      ha-card {
+                        background-color: transparent;
+                        border: transparent;
+            card_mod:
+              class: soft-ui
+              style: |
+                ha-card {
+                  --primary-text-color: rgb(var(--my-grey));   
+                }
+          - type: custom:button-card
+            template: frame
+            padding-bottom: 1px
+            custom_fields:
+              buttons:
+                card:
+                  type: energy-water-graph
+                  card_mod:
+                    style: |
+                      ha-card {
+                        background-color: transparent;
+                        border: transparent;
+            card_mod:
+              class: soft-ui
+              style: |
+                ha-card {
+                  --primary-text-color: rgb(var(--my-grey));   
+                }
+        view_layout:
+          grid-area: c2
+      - type: vertical-stack
+        cards:
+          - type: energy-date-selection
+            card_mod:
+              class: soft-ui
+              style: |
+                ha-card {
+                  --primary-text-color: rgb(var(--my-grey));   
+                }
+          - type: custom:button-card
+            template: frame
+            padding-bottom: 1px
+            custom_fields:
+              buttons:
+                card:
+                  type: energy-distribution
+                  card_mod:
+                    style: |
+                      ha-card {
+                        background-color: transparent;
+                        border: transparent;    
+            card_mod:
+              class: soft-ui
+              style: |
+                ha-card {
+                  --primary-text-color: rgb(var(--my-grey));   
+                }
+        view_layout:
+          grid-area: c1
+      - type: vertical-stack
+        cards:
+          - type: custom:button-card
+            template: frame
+            padding-bottom: 1px
+            custom_fields:
+              buttons:
+                card:
+                  type: grid
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: custom:flex-horseshoe-card
+                      entities:
+                        - entity: sensor.energy_total_daily
+                          decimals: 0
+                          name: électricité
+                          unit: kWh
+                          tap_action:
+                            action: navigate
+                            navigation_path: /dashboard-cuisine/consos
+                        - entity: sensor.home_energy_meter_gen5_electric_consumed_w
+                          decimals: 0
+                          unit: W
+                          icon: mdi:home
+                          tap_action:
+                            action: navigate
+                            navigation_path: /dashboard-cuisine/consos
+                        - entity: sensor.salleserveurswitchborneev_electric_consumed_w
+                          attribute: pressure
+                          decimals: 0
+                          unit: W
+                          icon: mdi:ev-plug-type2
+                          tap_action:
+                            action: navigate
+                            navigation_path: /dashboard-cuisine/consos
+                      show:
+                        horseshoe_style: lineargradient
+                      layout:
+                        hlines:
+                          - id: 0
+                            xpos: 50
+                            ypos: 42
+                            length: 40
+                            styles:
+                              - stroke: var(--primary-text-color);
+                              - stroke-width: 5;
+                              - stroke-linecap: round;
+                              - opacity: 0.7;
+                        states:
+                          - id: 0
+                            entity_index: 0
+                            xpos: 50
+                            ypos: 34
+                            styles:
+                              - font-size: 3em;
+                          - id: 1
+                            entity_index: 1
+                            xpos: 40
+                            ypos: 57
+                            styles:
+                              - text-anchor: start;
+                              - font-size: 1.5em;
+                          - id: 2
+                            entity_index: 2
+                            xpos: 40
+                            ypos: 72
+                            styles:
+                              - text-anchor: start;
+                              - font-size: 1.5em;
+                        icons:
+                          - id: 0
+                            entity_index: 1
+                            xpos: 37
+                            ypos: 57
+                            align: end
+                            size: 1.3
+                          - id: 1
+                            entity_index: 2
+                            xpos: 37
+                            ypos: 72
+                            align: end
+                            size: 1.3
+                        names:
+                          - id: 0
+                            entity_index: 0
+                            xpos: 50
+                            ypos: 90
+                            styles:
+                              - font-size: 1.2em;
+                              - opacity: 0.7;
+                              - letter-spacing: 0.4em;
+                              - text-transform: lowercase
+                      horseshoe_scale:
+                        min: 0
+                        max: 80
+                        color: rgba(var(--my-grey2),0.7)
+                      color_stops:
+                        '1': rgba(var(--my-green),0.7)
+                        '2': rgba(var(--my-orange),0.7)
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background-color: transparent;
+                            border: transparent;
+                            --primary-text-color: rgb(var(--my-grey)
+                    - type: custom:flex-horseshoe-card
+                      entities:
+                        - entity: sensor.compteur_eau_litres
+                          decimals: 0
+                          name: eau
+                          unit: L
+                          tap_action:
+                            action: navigate
+                            navigation_path: /dashboard-cuisine/consos
+                        - entity: sensor.water_pulse_meter
+                          decimals: 1
+                          unit: L/min
+                          icon: mdi:water-pump
+                          tap_action:
+                            action: navigate
+                            navigation_path: /dashboard-cuisine/consos
+                        - entity: sensor.etat_reservoir
+                          decimals: 0
+                          unit: null
+                          icon: mdi:car-coolant-level
+                          tap_action:
+                            action: navigate
+                            navigation_path: /dashboard-cuisine/consos
+                      show:
+                        horseshoe_style: lineargradient
+                      layout:
+                        hlines:
+                          - id: 0
+                            xpos: 50
+                            ypos: 42
+                            length: 40
+                            styles:
+                              - stroke: var(--primary-text-color);
+                              - stroke-width: 5;
+                              - stroke-linecap: round;
+                              - opacity: 0.7;
+                        states:
+                          - id: 0
+                            entity_index: 0
+                            xpos: 50
+                            ypos: 34
+                            styles:
+                              - font-size: 3em;
+                          - id: 1
+                            entity_index: 1
+                            xpos: 40
+                            ypos: 57
+                            styles:
+                              - text-anchor: start;
+                              - font-size: 1.5em;
+                          - id: 2
+                            entity_index: 2
+                            xpos: 40
+                            ypos: 72
+                            styles:
+                              - text-anchor: start;
+                              - font-size: 1.5em;
+                        icons:
+                          - id: 0
+                            entity_index: 1
+                            xpos: 37
+                            ypos: 57
+                            align: end
+                            size: 1.3
+                          - id: 1
+                            entity_index: 2
+                            xpos: 37
+                            ypos: 72
+                            align: end
+                            size: 1.3
+                        names:
+                          - id: 0
+                            entity_index: 0
+                            xpos: 50
+                            ypos: 90
+                            styles:
+                              - font-size: 1.2em;
+                              - opacity: 0.7;
+                              - letter-spacing: 0.4em;
+                              - text-transform: lowercase
+                      horseshoe_scale:
+                        min: 0
+                        max: 400
+                        color: rgba(var(--my-grey2),0.7)
+                      color_stops:
+                        '16': rgba(var(--my-blue),0.7)
+                        '25': rgba(var(--my-red),0.7)
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background-color: transparent;
+                            border: transparent;
+                            --primary-text-color: rgb(var(--my-grey)
+            card_mod:
+              class: soft-ui
+              style: |
+                ha-card {
+                  --primary-text-color: rgb(var(--my-grey));   
+                }
+          - type: custom:button-card
+            template: frame
+            padding-bottom: 1px
+            custom_fields:
+              buttons:
+                card:
+                  type: energy-sources-table
+                  card_mod:
+                    style: |
+                      ha-card {
+                        background-color: transparent;
+                        border: transparent;
+            card_mod:
+              class: soft-ui
+              style: |
+                ha-card {
+                  --primary-text-color: rgb(var(--my-grey));   
+                }
+        view_layout:
+          grid-area: c3
+  - title: extra
+    path: extra
+    type: custom:grid-layout
+    theme: Soft UI
+    icon: mdi:devices
+    layout:
+      grid-template-columns: 20px 255px 50px 255px 50px 550px 50px 400px 20px
+      grid-template-rows: 10px 420px 30px 650px 20px 10px
+      gap: 0px 0px;
+      grid-auto-flow: row
+      grid-template-areas: |
+        ". . . . . . . . ." 
+        ". tesla . mokka . imprimante . batt ."
+        ". . . . . imprimante . batt ."
+        ". map map map . imprimante . batt ."
+        ". map map map . autre . batt ."
+        ". . . . . . . . ." 
+    badges: []
+    cards:
+      - square: false
+        type: grid
+        columns: 1
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:button-card
+                name: mokka
+                template: titre
+              - type: custom:button-card
+                template: frame
+                padding-bottom: 1px
+                custom_fields:
+                  buttons:
+                    card:
+                      type: picture-elements
+                      variables:
+                        - battery_level: states['sensor.mokka_battery_round'].state
+                      elements:
+                        - type: state-label
+                          entity: sensor.mokka_battery_round
+                          style:
+                            top: 5%
+                            left: 12%
+                            font-size: 15px
+                            color: rgba(var(--my-grey))
+                            letter-spacing: 0.2em
+                        - type: state-label
+                          entity: sensor.mokka_mileage_round
+                          style:
+                            top: 5%
+                            left: 82%
+                            font-size: 15px
+                            color: rgba(var(--my-grey))
+                            letter-spacing: 0.2em
+                      image: /local/images/mokka3.png
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background: transparent;
+                            border: transparent;
+                          }
+                card_mod:
+                  class: soft-ui
+                  style: |
+                    ha-card {
+                      --primary-text-color: rgb(var(--my-grey));   
+                    }
+              - type: custom:button-card
+                template: light
+                entity: switch.mokka_clim
+                icon: mdi:air-conditioner
+                name: clim
+        view_layout:
+          grid-area: mokka
+      - type: vertical-stack
+        cards:
+          - type: custom:button-card
+            template: frame
+            padding-bottom: 1px
+            custom_fields:
+              buttons:
+                card:
+                  type: map
+                  entities:
+                    - entity: person.tibou
+                    - entity: person.mathieu_goy
+                    - entity: device_tracker.location_tracker
+                    - entity: binary_sensor.opelmokka
+                  view_layout:
+                    grid-area: map
+                  card_mod:
+                    style: |
+                      ha-card {
+                        background: transparent;
+                        border: transparent;
+                      }
+            card_mod:
+              class: soft-ui
+              style: |
+                ha-card {
+                  --primary-text-color: rgb(var(--my-grey));   
+                }
+            view_layout:
+              grid-area: map
+        view_layout:
+          grid-area: map
+      - type: vertical-stack
+        cards:
+          - type: custom:button-card
+            name: tesla
+            template: titre
+          - type: custom:button-card
+            template: frame
+            padding-bottom: 1px
+            custom_fields:
+              buttons:
+                card:
+                  type: picture-elements
+                  variables:
+                    - battery_level: states['sensor.mokka_battery_round'].state
+                  elements:
+                    - type: state-label
+                      entity: sensor.battery
+                      style:
+                        top: 4%
+                        left: 12%
+                        font-size: 15px
+                        color: rgba(var(--my-grey))
+                        letter-spacing: 0.2em
+                    - type: state-label
+                      entity: sensor.tesla_odometer_round
+                      style:
+                        top: 4%
+                        left: 80%
+                        font-size: 15px
+                        color: rgba(var(--my-grey))
+                        letter-spacing: 0.2em
+                  image: /local/images/tesla3.png
+                  card_mod:
+                    style: |
+                      ha-card {
+                        background: transparent;
+                        border: transparent;
+                      }
+            card_mod:
+              class: soft-ui
+              style: |
+                ha-card {
+                  --primary-text-color: rgb(var(--my-grey));   
+                }
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: light
+                entity: switch.mokka_clim
+                icon: mdi:air-conditioner
+                name: clim
+                tap_action:
+                  action: call-service
+                  service: climate.turn_on
+                  data: {}
+                  target:
+                    entity_id: climate.hvac_climate_system
+              - type: custom:button-card
+                template: light
+                entity: lock.doors
+                icon: mdi:car-door-lock
+                name: portes
+                tap_action:
+                  action: call-service
+                  service: lock.unlock
+                  data: {}
+                  target:
+                    entity_id: lock.doors
+        view_layout:
+          grid-area: tesla
+      - type: vertical-stack
+        cards:
+          - type: custom:button-card
+            template: titre
+            name: imprimante 3d
+          - type: custom:button-card
+            template: frame
+            padding-bottom: 1px
+            custom_fields:
+              buttons:
+                card:
+                  type: grid
+                  columns: 1
+                  cards:
+                    - square: true
+                      columns: 1
+                      type: grid
+                      cards:
+                        - type: vertical-stack
+                          cards:
+                            - type: custom:mushroom-chips-card
+                              chips:
+                                - type: template
+                                  icon_color: >-
+                                    {% set state =
+                                    states('binary_sensor.salleserveuroctoprint_connected')
+                                    %}
+
+                                    {% if  state  == 'on' %}
+
+                                    cyan
+
+                                    {%else%}
+
+                                    red
+
+                                    {% endif %}
+                                  icon: mdi:lan
+                                - type: entity
+                                  entity: >-
+                                    sensor.salleserveuroctoprint_print_estimated_time
+                                  icon: mdi:timer-outline
+                                - type: entity
+                                  entity: sensor.salleserveuroctoprint_print_time
+                                - type: entity
+                                  entity: sensor.salleserveuroctoprint_print_time_left
+                              alignment: center
+                            - type: grid
+                              columns: 4
+                              square: false
+                              cards:
+                                - type: custom:button-card
+                                  template: button_single
+                                  icon: mdi:cancel
+                                  styles:
+                                    icon:
+                                      - color: rgb(var(--my-blue))
+                                  name: cancel
+                                  state_display: press
+                                  entity: button.octoprint_cancel_print
+                                  tap_action:
+                                    action: call-service
+                                    service: button.press
+                                    data: {}
+                                    target:
+                                      entity_id: button.octoprint_cancel_print
+                                - type: custom:button-card
+                                  template: light
+                                  entity: switch.salleserveuroctoprint_pause_print
+                                  icon: mdi:pause
+                                  name: pause
+                                - type: custom:button-card
+                                  template: button_single
+                                  icon: mdi:alert-octagon
+                                  styles:
+                                    icon:
+                                      - color: rgb(var(--my-red))
+                                  name: stop
+                                  state_display: press
+                                  entity: button.octoprint_emergency_stop
+                                  tap_action:
+                                    action: call-service
+                                    service: button.press
+                                    data: {}
+                                    target:
+                                      entity_id: button.octoprint_emergency_stop
+                                - type: custom:button-card
+                                  template: light
+                                  entity: switch.salleserveurimprimante3d
+                                  icon: mdi:power
+                                  name: power
+                            - type: grid
+                              columns: 2
+                              square: false
+                              cards:
+                                - type: custom:mini-graph-card
+                                  icon: mdi:tray-full
+                                  hours_to_show: 0.5
+                                  points_per_hour: 360
+                                  smoothing: true
+                                  upper_bound: 70
+                                  lower_bound: 10
+                                  entities:
+                                    - entity: >-
+                                        sensor.salleserveuroctoprint_bed_temperature
+                                      name: Plateau
+                                      color: rgb(17, 218, 198)
+                                    - entity: sensor.salleserveuroctoprint_bed_target
+                                      name: cible
+                                      color: '#e0b400'
+                                - type: custom:mini-graph-card
+                                  hours_to_show: 0.5
+                                  points_per_hour: 360
+                                  smoothing: true
+                                  upper_bound: 230
+                                  lower_bound: 10
+                                  entities:
+                                    - entity: >-
+                                        sensor.salleserveuroctoprint_tool_0_temperature
+                                      name: Extrudeur
+                                      color: rgb(17, 218, 198)
+                                    - entity: >-
+                                        sensor.salleserveuroctoprint_tool_0_target
+                                      name: cible
+                                      color: '#e0b400'
+                            - show_state: false
+                              show_name: false
+                              camera_view: auto
+                              type: picture-entity
+                              entity: camera.cameraoctoprint
+                              card_mod:
+                                style: |
+                                  ha-card {
+                                    transform: rotate(180deg);   
+                                  }
+                      view_layout:
+                        grid-area: Col1
+            card_mod:
+              class: soft-ui
+              style: |
+                ha-card {
+                  --primary-text-color: rgb(var(--my-grey));   
+                }
+                    
+        view_layout:
+          grid-area: imprimante
+      - type: vertical-stack
+        cards:
+          - type: custom:button-card
+            template: titre
+            name: plex
+          - type: custom:plex-meets-homeassistant
+            protocol: http
+            sort: addedAt:desc
+            playTrailer: true
+            showExtras: true
+            showSearch: true
+            ip: 10.10.0.2
+            token: xDx3hzCAmYfw7H1sgxCK
+            port: '32400'
+            entity:
+              - androidtv | media_player.shield
+            libraryName: Films
+            maxCount: ''
+            maxRows: '2'
+            useHorizontalScroll: 'No'
+            useShuffle: 'No'
+            displayTitleMain: 'No'
+            displaySubtitleMain: 'Yes'
+            minWidth: ''
+            minEpisodeWidth: ''
+            minExpandedWidth: ''
+            fontSize1: ''
+            fontSize2: ''
+            fontSize3: ''
+            fontSize4: ''
+            minExpandedHeight: ''
+            title: ''
+            runBefore: ''
+            runAfter: ''
             card_mod:
               style: |
                 ha-card {
-                  background-color: transparent;
+                  background: transparent;
                   border: transparent;
-          - square: false
-            type: grid
+                }
+          - type: vertical-stack
             cards:
-              - type: custom:mushroom-template-card
-                primary: home
-                secondary: ''
-                icon: mdi:home
-                layout: vertical
-                icon_color: green
+              - type: custom:button-card
+                template: titre
+                name: batteries
+              - type: custom:button-card
+                template: frame
+                padding-bottom: 1px
+                custom_fields:
+                  buttons:
+                    card:
+                      type: custom:auto-entities
+                      card:
+                        type: entities
+                        show_icon: false
+                        card_mod:
+                          style: |
+                            ha-card {
+                              background: transparent;
+                              border: transparent;
+                            }
+                      filter:
+                        include:
+                          - attributes:
+                              device_class: battery
+                            state: <30
+                            domain: sensor
+                        exclude:
+                          - device: /iPhone/
+                      sort:
+                        exclude: []
+                        method: state
+                        numeric: true
+                        reverse: true
+                      show_empty: false
+                      card_mod:
+                        style: |
+                          ha-card {
+                            background: transparent;
+                            border: transparent;
+                          }
                 card_mod:
                   class: soft-ui
                   style: |
                     ha-card {
                       --primary-text-color: rgb(var(--my-grey));   
                     }
-              - type: custom:mushroom-template-card
-                primary: cctv
-                secondary: ''
-                icon: mdi:cctv
-                layout: vertical
-                icon_color: purple
+        view_layout:
+          grid-area: batt
+  - theme: Soft UI
+    title: test2
+    path: test2
+    type: sidebar
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:button-card
+            template: titre
+            name: droides
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: frame
+                padding-bottom: 1px
+                custom_fields:
+                  buttons:
+                    card:
+                      type: horizontal-stack
+                      cards:
+                        - square: false
+                          type: grid
+                          cards:
+                            - type: custom:vacuum-card
+                              entity: vacuum.roborock_s7
+                              show_toolbar: false
+                            - type: horizontal-stack
+                              cards:
+                                - type: custom:button-card
+                                  icon: phu:roborock
+                                  entity: input_boolean.cleaningaspire
+                                  name: aspire
+                                  size: 35%
+                                  show_state: true
+                                  tap_action:
+                                    haptic: heavy
+                                    action: call-service
+                                    service: script.turn_on
+                                    data: {}
+                                    target:
+                                      entity_id: script.alfredaspire
+                                  styles:
+                                    icon:
+                                      - color: rgb(75,75,75,0.8)
+                                    card:
+                                      - width: 120px
+                                      - height: 120px
+                                      - margin: auto
+                                      - border-style: none
+                                      - background-color: null
+                                      - box-shadow: >-
+                                          rgba(50, 50, 93, 0.25) 0px 13px 27px
+                                          -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px
+                                          -8px
+                                    grid:
+                                      - grid-template-areas: '"i" "n" "s"'
+                                      - grid-template-columns: 1fr
+                                      - grid-template-rows: 1fr min-content min-content
+                                    img_cell:
+                                      - align-self: start
+                                      - text-align: start
+                                      - justify-content: start
+                                      - padding-left: 15px
+                                    name:
+                                      - justify-self: start
+                                      - padding-left: 12px
+                                      - font-weight: bold
+                                      - text-transform: lowercase
+                                      - letter-spacing: 0.2em
+                                      - font-size: 17px
+                                      - padding-bottom: 2px
+                                      - color: rgb(75,75,75,0.8)
+                                    state:
+                                      - justify-self: start
+                                      - padding-left: 12px
+                                      - font-weight: bold
+                                      - font-size: 12px
+                                      - opacity: 0.6
+                                      - padding-bottom: 5px
+                                      - opacity: 0.6
+                                  state:
+                                    - value: 'on'
+                                      tap_action:
+                                        haptic: heavy
+                                        action: call-service
+                                        service: vacuum.return_to_base
+                                        data: {}
+                                        target:
+                                          entity_id: vacuum.roborock_s7
+                                      styles:
+                                        icon:
+                                          - color: rgb(251, 161, 0)
+                                          - animation: rotating 2s ease infinite
+                                        card:
+                                          - background-color: rgba(251, 161, 0,0.2)
+                                          - box-shadow: >-
+                                              rgba(50, 50, 93, 0.05) 0px 30px 60px
+                                              -12px inset, rgba(0, 0, 0, 0.3) 0px 18px
+                                              36px -18px inset
+                                  card_mod:
+                                    class: soft-ui
+                                    style: |
+                                      ha-card {
+                                        --primary-text-color: rgb(var(--my-grey));   
+                                      }
+                                - type: custom:button-card
+                                  icon: phu:roborock
+                                  entity: input_boolean.cleaningmop
+                                  name: custom
+                                  size: 35%
+                                  show_state: true
+                                  tap_action:
+                                    haptic: heavy
+                                    action: call-service
+                                    service: script.turn_on
+                                    data: {}
+                                    target:
+                                      entity_id: script.alfredmop
+                                  styles:
+                                    icon:
+                                      - color: rgb(75,75,75,0.8)
+                                    card:
+                                      - width: 120px
+                                      - height: 120px
+                                      - margin: auto
+                                      - border-style: none
+                                      - background-color: null
+                                      - box-shadow: >-
+                                          rgba(50, 50, 93, 0.25) 0px 13px 27px
+                                          -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px
+                                          -8px
+                                    grid:
+                                      - grid-template-areas: '"i" "n" "s"'
+                                      - grid-template-columns: 1fr
+                                      - grid-template-rows: 1fr min-content min-content
+                                    img_cell:
+                                      - align-self: start
+                                      - text-align: start
+                                      - justify-content: start
+                                      - padding-left: 15px
+                                    name:
+                                      - justify-self: start
+                                      - padding-left: 12px
+                                      - font-weight: bold
+                                      - text-transform: lowercase
+                                      - letter-spacing: 0.2em
+                                      - font-size: 17px
+                                      - padding-bottom: 2px
+                                      - color: rgb(75,75,75,0.8)
+                                    state:
+                                      - justify-self: start
+                                      - padding-left: 12px
+                                      - font-weight: bold
+                                      - font-size: 12px
+                                      - opacity: 0.6
+                                      - padding-bottom: 5px
+                                      - opacity: 0.6
+                                  state:
+                                    - value: 'on'
+                                      tap_action:
+                                        haptic: heavy
+                                        action: call-service
+                                        service: vacuum.return_to_base
+                                        data: {}
+                                        target:
+                                          entity_id: vacuum.roborock_s7
+                                      styles:
+                                        icon:
+                                          - color: rgb(251, 161, 0)
+                                          - animation: rotating 2s ease infinite
+                                        card:
+                                          - background-color: rgba(251, 161, 0,0.2)
+                                          - box-shadow: >-
+                                              rgba(50, 50, 93, 0.05) 0px 30px 60px
+                                              -12px inset, rgba(0, 0, 0, 0.3) 0px 18px
+                                              36px -18px inset
+                                  card_mod:
+                                    class: soft-ui
+                                    style: |
+                                      ha-card {
+                                        --primary-text-color: rgb(var(--my-grey));   
+                                      }
+                          columns: 1
+                        - type: conditional
+                          conditions:
+                            - entity: vacuum.roborock_s7
+                              state: docked
+                          card:
+                            type: custom:xiaomi-vacuum-map-card
+                            map_source:
+                              camera: camera.roborock_s7_map
+                              crop:
+                                left: 230
+                                right: 230
+                                top: 250
+                                bottom: 180
+                            calibration_source:
+                              camera: true
+                            entity: vacuum.roborock_s7
+                            vacuum_platform: default
+                card_mod:
+                  style: |
+                    ha-card {
+
+                      --map-card-zoomer-background: var(--primary-background-color);
+                    }
+                styles:
+                  icon:
+                    - color: rgb(75,75,75,0.8)
+                  card:
+                    - border: none
+                    - box-shadow: >-
+                        rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                        0.3) 0px 8px 16px -8px
+              - type: custom:button-card
+                template: frame
+                padding-bottom: 1px
+                custom_fields:
+                  buttons:
+                    card:
+                      type: horizontal-stack
+                      cards:
+                        - type: horizontal-stack
+                          cards:
+                            - square: false
+                              type: grid
+                              cards:
+                                - type: custom:vacuum-card
+                                  entity: vacuum.nestor
+                                  show_toolbar: false
+                                - type: horizontal-stack
+                                  cards:
+                                    - type: custom:button-card
+                                      icon: mdi:robot-vacuum-variant
+                                      entity: vacuum.nestor
+                                      name: aspire
+                                      size: 35%
+                                      show_state: true
+                                      tap_action:
+                                        haptic: heavy
+                                        action: call-service
+                                        service: vacuum.start
+                                        data: {}
+                                        target:
+                                          entity_id: vacuum.nestor
+                                      styles:
+                                        icon:
+                                          - color: rgb(75,75,75,0.8)
+                                        card:
+                                          - width: 120px
+                                          - height: 120px
+                                          - margin: auto
+                                          - border-style: none
+                                          - background-color: null
+                                          - box-shadow: >-
+                                              rgba(50, 50, 93, 0.25) 0px 13px 27px
+                                              -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px
+                                              -8px
+                                        grid:
+                                          - grid-template-areas: '"i" "n" "s"'
+                                          - grid-template-columns: 1fr
+                                          - grid-template-rows: 1fr min-content min-content
+                                        img_cell:
+                                          - align-self: start
+                                          - text-align: start
+                                          - justify-content: start
+                                          - padding-left: 15px
+                                        name:
+                                          - justify-self: start
+                                          - padding-left: 12px
+                                          - font-weight: bold
+                                          - text-transform: lowercase
+                                          - letter-spacing: 0.2em
+                                          - font-size: 17px
+                                          - padding-bottom: 2px
+                                          - color: rgb(75,75,75,0.8)
+                                        state:
+                                          - justify-self: start
+                                          - padding-left: 12px
+                                          - font-weight: bold
+                                          - font-size: 12px
+                                          - opacity: 0.6
+                                          - padding-bottom: 5px
+                                          - opacity: 0.6
+                                      state:
+                                        - value: cleaning
+                                          tap_action:
+                                            haptic: heavy
+                                            action: call-service
+                                            service: vacuum.return_to_base
+                                            data: {}
+                                            target:
+                                              entity_id: vacuum.roborock_s7
+                                          styles:
+                                            icon:
+                                              - color: rgb(251, 161, 0)
+                                              - animation: rotating 2s ease infinite
+                                            card:
+                                              - background-color: rgba(251, 161, 0,0.2)
+                                              - box-shadow: >-
+                                                  rgba(50, 50, 93, 0.05) 0px 30px 60px
+                                                  -12px inset, rgba(0, 0, 0, 0.3) 0px 18px
+                                                  36px -18px inset
+                                      card_mod:
+                                        class: soft-ui
+                                        style: |
+                                          ha-card {
+                                            --primary-text-color: rgb(var(--my-grey));   
+                                          }
+                              columns: 1
+                            - type: conditional
+                              conditions:
+                                - entity: vacuum.nestor
+                                  state_not: docked
+                              card:
+                                type: custom:frigate-card
+                                cameras:
+                                  - camera_entity: camera.nestor_cleaning_map
+                                dimensions:
+                                  max_height: r00px
+                                menu:
+                                  style: none
+                styles:
+                  icon:
+                    - color: rgb(75,75,75,0.8)
+                  card:
+                    - border: none
+                    - box-shadow: >-
+                        rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0,
+                        0.3) 0px 8px 16px -8px
+      - type: vertical-stack
+        cards:
+          - type: custom:button-card
+            template: titre
+            name: droides
+          - type: custom:layout-card
+            layout_type: custom:grid-layout
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: custom:vacuum-card
+                    entity: vacuum.roborock_s7
+                    show_toolbar: false
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:button-card
+                        icon: phu:roborock
+                        entity: input_boolean.cleaningaspire
+                        name: aspire
+                        size: 35%
+                        show_state: true
+                        tap_action:
+                          haptic: heavy
+                          action: call-service
+                          service: script.turn_on
+                          data: {}
+                          target:
+                            entity_id: script.alfredaspire
+                        styles:
+                          icon:
+                            - color: rgb(75,75,75,0.8)
+                          card:
+                            - width: 120px
+                            - height: 120px
+                            - margin: auto
+                            - border-style: none
+                            - background-color: null
+                            - box-shadow: >-
+                                rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+                                rgba(0, 0, 0, 0.3) 0px 8px 16px -8px
+                          grid:
+                            - grid-template-areas: '"i" "n" "s"'
+                            - grid-template-columns: 1fr
+                            - grid-template-rows: 1fr min-content min-content
+                          img_cell:
+                            - align-self: start
+                            - text-align: start
+                            - justify-content: start
+                            - padding-left: 15px
+                          name:
+                            - justify-self: start
+                            - padding-left: 12px
+                            - font-weight: bold
+                            - text-transform: lowercase
+                            - letter-spacing: 0.2em
+                            - font-size: 17px
+                            - padding-bottom: 2px
+                            - color: rgb(75,75,75,0.8)
+                          state:
+                            - justify-self: start
+                            - padding-left: 12px
+                            - font-weight: bold
+                            - font-size: 12px
+                            - opacity: 0.6
+                            - padding-bottom: 5px
+                            - opacity: 0.6
+                        state:
+                          - value: 'on'
+                            tap_action:
+                              haptic: heavy
+                              action: call-service
+                              service: vacuum.return_to_base
+                              data: {}
+                              target:
+                                entity_id: vacuum.roborock_s7
+                            styles:
+                              icon:
+                                - color: rgb(251, 161, 0)
+                                - animation: rotating 2s ease infinite
+                              card:
+                                - background-color: rgba(251, 161, 0,0.2)
+                                - box-shadow: >-
+                                    rgba(50, 50, 93, 0.05) 0px 30px 60px -12px
+                                    inset, rgba(0, 0, 0, 0.3) 0px 18px 36px
+                                    -18px inset
+                        card_mod:
+                          class: soft-ui
+                          style: |
+                            ha-card {
+                              --primary-text-color: rgb(var(--my-grey));   
+                            }
+                      - type: custom:button-card
+                        icon: phu:roborock
+                        entity: input_boolean.cleaningmop
+                        name: custom
+                        size: 35%
+                        show_state: true
+                        tap_action:
+                          haptic: heavy
+                          action: call-service
+                          service: script.turn_on
+                          data: {}
+                          target:
+                            entity_id: script.alfredmop
+                        styles:
+                          icon:
+                            - color: rgb(75,75,75,0.8)
+                          card:
+                            - width: 120px
+                            - height: 120px
+                            - margin: auto
+                            - border-style: none
+                            - background-color: null
+                            - box-shadow: >-
+                                rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+                                rgba(0, 0, 0, 0.3) 0px 8px 16px -8px
+                          grid:
+                            - grid-template-areas: '"i" "n" "s"'
+                            - grid-template-columns: 1fr
+                            - grid-template-rows: 1fr min-content min-content
+                          img_cell:
+                            - align-self: start
+                            - text-align: start
+                            - justify-content: start
+                            - padding-left: 15px
+                          name:
+                            - justify-self: start
+                            - padding-left: 12px
+                            - font-weight: bold
+                            - text-transform: lowercase
+                            - letter-spacing: 0.2em
+                            - font-size: 17px
+                            - padding-bottom: 2px
+                            - color: rgb(75,75,75,0.8)
+                          state:
+                            - justify-self: start
+                            - padding-left: 12px
+                            - font-weight: bold
+                            - font-size: 12px
+                            - opacity: 0.6
+                            - padding-bottom: 5px
+                            - opacity: 0.6
+                        state:
+                          - value: 'on'
+                            tap_action:
+                              haptic: heavy
+                              action: call-service
+                              service: vacuum.return_to_base
+                              data: {}
+                              target:
+                                entity_id: vacuum.roborock_s7
+                            styles:
+                              icon:
+                                - color: rgb(251, 161, 0)
+                                - animation: rotating 2s ease infinite
+                              card:
+                                - background-color: rgba(251, 161, 0,0.2)
+                                - box-shadow: >-
+                                    rgba(50, 50, 93, 0.05) 0px 30px 60px -12px
+                                    inset, rgba(0, 0, 0, 0.3) 0px 18px 36px
+                                    -18px inset
+                        card_mod:
+                          class: soft-ui
+                          style: |
+                            ha-card {
+                              --primary-text-color: rgb(var(--my-grey));   
+                            }
+                view_layout:
+                  grid-area: alfred
+              - type: conditional
+                conditions:
+                  - entity: vacuum.roborock_s7
+                    state: docked
+                card:
+                  type: custom:xiaomi-vacuum-map-card
+                  map_source:
+                    camera: camera.roborock_s7_map
+                  calibration_source:
+                    camera: true
+                  entity: vacuum.roborock_s7
+                  vacuum_platform: humbertogontijo/homeassistant-roborock
+                  card_mod:
+                    class: soft-ui
+                    style: |
+                      ha-card {
+                        border: transparent;
+                        background: transparent;
+                      }
                 card_mod:
                   class: soft-ui
                   style: |
                     ha-card {
                       --primary-text-color: rgb(var(--my-grey));   
                     }
-              - type: custom:mushroom-template-card
-                primary: volets
-                secondary: ''
-                icon: mdi:window-shutter
-                layout: vertical
-                icon_color: blue
+              - type: vertical-stack
+                cards:
+                  - type: custom:vacuum-card
+                    entity: vacuum.nestor
+                    show_toolbar: false
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:button-card
+                        icon: mdi:robot-vacuum-variant
+                        entity: vacuum.nestor
+                        name: aspire
+                        size: 35%
+                        show_state: true
+                        tap_action:
+                          haptic: heavy
+                          action: call-service
+                          service: vacuum.start
+                          data: {}
+                          target:
+                            entity_id: vacuum.nestor
+                        styles:
+                          icon:
+                            - color: rgb(75,75,75,0.8)
+                          card:
+                            - width: 120px
+                            - height: 120px
+                            - margin: auto
+                            - border-style: none
+                            - background-color: null
+                            - box-shadow: >-
+                                rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+                                rgba(0, 0, 0, 0.3) 0px 8px 16px -8px
+                          grid:
+                            - grid-template-areas: '"i" "n" "s"'
+                            - grid-template-columns: 1fr
+                            - grid-template-rows: 1fr min-content min-content
+                          img_cell:
+                            - align-self: start
+                            - text-align: start
+                            - justify-content: start
+                            - padding-left: 15px
+                          name:
+                            - justify-self: start
+                            - padding-left: 12px
+                            - font-weight: bold
+                            - text-transform: lowercase
+                            - letter-spacing: 0.2em
+                            - font-size: 17px
+                            - padding-bottom: 2px
+                            - color: rgb(75,75,75,0.8)
+                          state:
+                            - justify-self: start
+                            - padding-left: 12px
+                            - font-weight: bold
+                            - font-size: 12px
+                            - opacity: 0.6
+                            - padding-bottom: 5px
+                            - opacity: 0.6
+                        state:
+                          - value: cleaning
+                            tap_action:
+                              haptic: heavy
+                              action: call-service
+                              service: vacuum.return_to_base
+                              data: {}
+                              target:
+                                entity_id: vacuum.roborock_s7
+                            styles:
+                              icon:
+                                - color: rgb(251, 161, 0)
+                                - animation: rotating 2s ease infinite
+                              card:
+                                - background-color: rgba(251, 161, 0,0.2)
+                                - box-shadow: >-
+                                    rgba(50, 50, 93, 0.05) 0px 30px 60px -12px
+                                    inset, rgba(0, 0, 0, 0.3) 0px 18px 36px
+                                    -18px inset
+                        card_mod:
+                          class: soft-ui
+                          style: |
+                            ha-card {
+                              --primary-text-color: rgb(var(--my-grey));   
+                            }
+                view_layout:
+                  grid-area: nestor
+              - type: conditional
+                conditions:
+                  - entity: vacuum.nestor
+                    state: docked
+                card:
+                  show_state: true
+                  show_name: true
+                  camera_view: live
+                  type: picture-entity
+                  entity: vacuum.nestor
+                  camera_image: camera.nestor_cleaning_map
                 card_mod:
                   class: soft-ui
                   style: |
                     ha-card {
                       --primary-text-color: rgb(var(--my-grey));   
                     }
-              - type: custom:mushroom-template-card
-                primary: audio
-                secondary: ''
-                icon: mdi:music
-                layout: vertical
-                icon_color: orange
-                card_mod:
-                  class: soft-ui
-                  style: |
-                    ha-card {
-                      --primary-text-color: rgb(var(--my-grey));   
-                    }              
-              - type: custom:mushroom-template-card
-                primary: consos
-                secondary: ''
-                icon: mdi:chart-areaspline
-                layout: vertical
-                icon_color: red
-                card_mod:
-                  class: soft-ui
-                  style: |
-                    ha-card {
-                      --primary-text-color: rgb(var(--my-grey));   
-                    }             
-            columns: 5
-            view_layout:
-              grid-area: menu
-          - type: markdown
-            content: Notifs ici!
-            view_layout:
-              grid-area: notifs
-          - square: false
-            type: grid
-            cards:
-              - type: custom:mushroom-template-card
-                primary: portail
-                secondary: ''
-                icon: mdi:gate
-                layout: vertical
-                icon_color: green
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: transparent;
-                      border: transparent;
-              - type: custom:mushroom-template-card
-                primary: ouvrants
-                secondary: ''
-                icon: mdi:window-closed
-                layout: vertical
-                icon_color: green
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: transparent;
-                      border: transparent;
-              - type: custom:mushroom-template-card
-                primary: Puissance
-                secondary: ''
-                icon: mdi:lightning-bolt
-                layout: vertical
-                icon_color: purple
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: transparent;
-                      border: transparent;
-              - type: custom:mushroom-template-card
-                primary: eau
-                secondary: ''
-                icon: mdi:water
-                layout: vertical
-                icon_color: blue
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: transparent;
-                      border: transparent;
-            columns: 2
-            view_layout:
-              grid-area: grille
-          - square: false
-            type: grid
-            cards:
-              - type: custom:mushroom-template-card
-                primary: portail
-                secondary: ''
-                icon: mdi:gate
-                layout: vertical
-                icon_color: green
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: transparent;
-                      border: transparent;
-              - type: custom:mushroom-template-card
-                primary: ouvrants
-                secondary: ''
-                icon: mdi:window-closed
-                layout: vertical
-                icon_color: green
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: transparent;
-                      border: transparent;
-            columns: 2
-            view_layout:
-              grid-area: jokerd
-          - square: false
-            type: grid
-            cards:
-              - type: custom:mushroom-template-card
-                primary: portail
-                secondary: ''
-                icon: mdi:gate
-                layout: vertical
-                icon_color: green
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: transparent;
-                      border: transparent;
-              - type: custom:mushroom-template-card
-                primary: ouvrants
-                secondary: ''
-                icon: mdi:window-closed
-                layout: vertical
-                icon_color: green
-                card_mod:
-                  style: |
-                    ha-card {
-                      background-color: transparent;
-                      border: transparent;
-            columns: 2
-            view_layout:
-              grid-area: jokerg
+            layout:
+              grid-template-columns: 250px 300px 250px 300px
+              grid-template-rows: 400px 200px
+              grid-auto-flow: row
+              grid-template-areas: |
+                "alfred  map nestor map2"
+                ". map . map2"
