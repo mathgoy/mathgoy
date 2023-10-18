@@ -5,8 +5,8 @@ background: var(--lovelace-background)
 kiosk_mode:
   non_admin_settings:
     kiosk: true
-button_card_templates:
-  titre:
+button_card_templates: #these are our templates
+  titre: #this is my template for section titles, it is very simple, I wont comment it all
     styles:
       card:
         - height: 50px
@@ -29,38 +29,37 @@ button_card_templates:
         ha-card {
           --primary-text-color: rgb(var(--my-grey));   
         }
-  light:
-    size: 35%
-    show_state: true
+  light: #these is my main template for on/off buttons
+    size: 35% #icon size
+    show_state: true #we want to show the state
     tap_action:
-      haptic: heavy
-      action: toggle
+      haptic: heavy #heavy haptic feedback when clicking on it
+      action: toggle #clicking on it will toggle the wsitch
     styles:
       icon:
-        - color: rgb(var(--my-grey),0.8)
+        - color: rgb(var(--my-grey),0.8) #icon color (my-grey is defined in the theme file)
       card:
-        - width: 120px
-        - height: 120px
+        - width: 120px #button width
+        - height: 120px #button height
         - margin: auto
       grid:
-        - grid-template-areas: '"i" "n" "s"'
+        - grid-template-areas: '"i" "n" "s"' #layout grid for the various items of the button: Image, Name and State
         - grid-template-columns: 1fr
         - grid-template-rows: 1fr min-content min-content
-      img_cell:
+      img_cell: #Simply the alignment of the icon
         - align-self: start
         - text-align: start
         - justify-content: start
         - padding-left: 15px
-      name:
-        - justify-self: start
-        - padding-left: 12px
-        - font-weight: bold
-        - text-transform: lowercase
-        - letter-spacing: 0.2em
-        - font-size: 17px
-        - text-transform: lowercase
-        - padding-bottom: 2px
-      state:
+      name: #name format
+        - justify-self: start #we start from the left
+        - padding-left: 12px #we leave a 12px padding from the ledt
+        - font-weight: bold #bold font
+        - text-transform: lowercase #I like lower case!
+        - letter-spacing: 0.2em #I also like increasing the spacing between the letters
+        - font-size: 17px #font size
+        - padding-bottom: 2px #small padding fromn the bottom
+      state: #Formatting the state
         - justify-self: start
         - padding-left: 12px
         - font-weight: bold
@@ -70,19 +69,19 @@ button_card_templates:
         - opacity: 0.6
         - padding-bottom: 5px
         - opacity: 0.6
-    state:
-      - value: 'on'
+    state: #state defined formatting
+      - value: 'on' #when state is ON
         styles:
           icon:
-            - color: rgb(var(--my-orange))
+            - color: rgb(var(--my-orange)) #The icon will turn orange
           card:
-            - background-color: rgba(var(--my-orange),0.2)
-            - box-shadow: var(--my-box-shadow)
-    card_mod:
-      class: soft-ui
+            - background-color: rgba(var(--my-orange),0.2) #background color will rurn orange as well
+            - box-shadow: var(--my-box-shadow) #shadow will be an inlay shadow (defined in the theme file)
+    card_mod: #default card style
+      class: soft-ui #use the card style defined in the theme yaml file
       style: |
         ha-card {
-          --primary-text-color: rgb(var(--my-grey));   
+          --primary-text-color: rgb(var(--my-grey));    
         }
   sensor:
     size: 40%
