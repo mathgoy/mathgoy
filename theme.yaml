@@ -1,11 +1,6 @@
 Soft UI:
-#  card-mod-theme: Soft UI
-#  card-mod-card: |
-#    ha-card {
-#      margin: 20px;
-#      border-radius: 15px;
-#    }
-  card-mod-theme: Soft UI # Change to your theme name
+
+  card-mod-theme: Soft UI 
   card-mod-card: |
     ha-card.soft-ui {
       border-style: none
@@ -29,17 +24,18 @@ Soft UI:
 
   modes:
     dark:
-
+      sidebar-shadow: "inset 0px 8px 20px rgba(30, 196, 229, 0.2)"
       primary-color: rgb(138, 180, 248)
       primary-background-color: rgb(30, 30, 30)
       secondary-background-color: rgb(32, 33, 36)
+      primary-text-color: rgb(var(--my-grey2))
       accent-color: var(--primary-color)
-#      ha-card-box-shadow: "-8px -8px 20px #2c2c2c, 8px 8px 20px #191919"
       soft-ui-pressed: "inset -40px -40px 50px #2c2c2c, inset 40px 40px 50px #191919"
       my-red: "230, 57, 70"
       my-white: "253, 253, 253"
       my-cyan: "168, 218, 220"
-      my-blue: "69, 123, 157"
+      my-blue: "0,206,209"
+      my-blue-hex: "#457B9D"
       my-purple: "162, 114, 175"
       my-green: "68, 175, 105"
       my-orange: "251, 161, 0"
@@ -55,6 +51,7 @@ Soft UI:
 
 
     light:
+      sidebar-shadow: "inset 0px 8px 20px rgba(17, 17, 26, 0.2)"
       primary-color: rgb(var(--my-blue))
       light-primary-color: rgb(var(--my-blue))
       primary-background-color: "#F3F5F7"
@@ -74,6 +71,24 @@ Soft UI:
       my-card-shadow: "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px"
       my-header: "rgba(225,225,225,0.85)"
       my-footer: "rgba(225,225,225,0.85)"
+      
+
+      ha-card-border-width: 0
+      energy-grid-consumption-color-0:  rgba(var(--my-blue),0.3)
+      energy-grid-consumption-color-1:  rgba(var(--my-blue),0.7)
+      energy-grid-consumption-color-2:  rgba(var(--my-grey),0.3)
+      energy-grid-consumption-color-3:  rgba(var(--my-grey),0.7)
+      energy-grid-consumption-color-4:  rgba(var(--my-red),0.3)
+      energy-grid-consumption-color-5:  rgba(var(--my-red),0.7) 
+      #energy-battery-in-color
+      #energy-battery-out-color
+      energy-gas-color: rgba(var(--my-green),0.3)
+      #energy-grid-return-color
+      #energy-non-fossil-color
+      #energy-solar-color
+      energy-water-color: rgba(var(--my-cyan),0.9)
+
+
       #browser_mod.popup
       dialog-backdrop-filter: blur(1em) brightness(0.75)
       popup-background-color: var(--primary-background-color)
