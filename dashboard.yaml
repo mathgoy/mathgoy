@@ -1,4 +1,4 @@
-ressources:
+resources:
   - url: /hacsfiles/flex-horseshoe-card/flex-horseshoe-card.js
     type: module
 background: var(--lovelace-background)
